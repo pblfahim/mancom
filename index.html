@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pubali Bank PLC. - MANCOM Portal Blank Template">
+  <title>MANCOM Portal - Blank Template</title>
+
+  <!-- Local CSS Resources (Zero CDN Dependency) -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       TOP NAVIGATION BAR
+       ====================================================================== -->
+  <header class="main-navbar">
+    <div class="brand-section">
+      <button class="btn text-white d-lg-none p-0 me-2" id="btnMobileMenu" aria-label="Toggle Navigation">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+      <a href="index.html" class="d-flex align-items-center text-decoration-none">
+        <img src="assets/images/pubali-bank-header-logo.svg"
+          onerror="this.onerror=null; this.src='assets/images/pubali-bank-logo-white.svg';" alt="Pubali Bank PLC."
+          class="brand-logo-img">
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Theme Switcher (Dark / Light) -->
+      <button class="nav-icon-btn" id="themeToggleBtn" title="Toggle Theme (Light/Dark)" aria-label="Toggle Theme">
+        <i class="bi bi-sun"></i>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button class="nav-icon-btn" id="fullscreenToggleBtn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+        <i class="bi bi-fullscreen"></i>
+      </button>
+
+      <!-- Messages / Circulars Notification Button -->
+      <button class="nav-icon-btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas"
+        title="Notifications & Circulars" aria-label="Notifications">
+        <i class="bi bi-chat-left-text"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+          <span class="visually-hidden">New alerts</span>
+        </span>
+      </button>
+
+      <!-- User Profile Dropdown Pill -->
+      <div class="dropdown">
+        <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="user-avatar-nav">
+          <div class="user-meta-nav">
+            <span class="user-name">Md. Fahim</span>
+            <span class="user-role">HRD</span>
+          </div>
+          <i class="bi bi-chevron-down dropdown-caret"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+          <li class="dropdown-header">
+            <h6 class="mb-0 text-dark fw-bold">Md. Fahim</h6>
+            <small class="text-muted">Senior Officer (Human Resources)</small>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2 text-success"></i> My Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
+              Permissions</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       APP MAIN CONTAINER (SIDEBAR + MAIN CONTENT)
+       ====================================================================== -->
+  <div class="portal-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="portal-sidebar" id="portalSidebar">
+      <!-- Profile Card -->
+      <div class="sidebar-user-card">
+        <div class="sidebar-avatar-wrapper">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="sidebar-avatar-img">
+          <span class="status-indicator-dot" title="Active"></span>
+        </div>
+        <h3 class="sidebar-user-name">Md. Fahim</h3>
+        <p class="sidebar-user-role">Senior Officer (Comp.)</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="sidebar-search-container">
+        <input type="text" class="sidebar-search-input" id="sidebarSearchInput" placeholder="Search Here">
+        <i class="bi bi-search sidebar-search-icon"></i>
+      </div>
+
+      <!-- Sidebar Navigation Menu -->
+      <ul class="sidebar-nav-list" id="sidebarNavList">
+        <li class="sidebar-nav-item">
+          <a href="#dashboard" class="sidebar-nav-link">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#kpi" class="sidebar-nav-link">
+            <i class="bi bi-speedometer2"></i>
+            <span>KPI</span>
+          </a>
+        </li>
+        <!-- ACTIVE MANCOM PILL -->
+        <li class="sidebar-nav-item">
+          <a href="index.html" class="sidebar-nav-link active-mancom">
+            <i class="bi bi-grid-fill"></i>
+            <span>MANCOM</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#attendance" class="sidebar-nav-link">
+            <i class="bi bi-person-badge"></i>
+            <span>Attendance</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#leave" class="sidebar-nav-link">
+            <i class="bi bi-calendar-check"></i>
+            <span>Leave</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#mentor" class="sidebar-nav-link">
+            <i class="bi bi-person-video3"></i>
+            <span>Mentor</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#recent-activities" class="sidebar-nav-link">
+            <i class="bi bi-activity"></i>
+            <span>Recent Activities</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#useful-links" class="sidebar-nav-link">
+            <i class="bi bi-link-45deg"></i>
+            <span>Useful Links</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#latest-circular" class="sidebar-nav-link">
+            <i class="bi bi-bell"></i>
+            <span>Latest Circular</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#meeting-reminders" class="sidebar-nav-link">
+            <i class="bi bi-calendar-event"></i>
+            <span>Meeting Reminders</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="portal-main-content">
+
+      <!-- PAGE SUBHEADER & BREADCRUMBS -->
+      <section class="page-subheader">
+        <div class="breadcrumb-nav-row">
+          <a href="index.html" class="home-icon-link" title="Home">
+            <i class="bi bi-house-door"></i>
+          </a>
+          <button class="btn btn-create-schedule" data-bs-toggle="modal" data-bs-target="#createScheduleModal">
+            <i class="bi bi-calendar-plus text-success"></i>
+            Create Schedule
+          </button>
+          <button class="btn-tab-documents active">
+            <i class="bi bi-file-earmark-text me-1"></i>
+            Documents
+          </button>
+        </div>
+
+        <div class="portal-title-block">
+          <h1>MANCOM Portal</h1>
+          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md.Fahim (Senior Officer, Human Resources Division)</p>
+        </div>
+      </section>
+
+      <!-- BLANK CONTENT AREA -->
+      <div class="card border-0 shadow-sm p-4 text-center rounded-3" style="background-color: var(--bg-surface); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+        <div class="text-muted">
+          <i class="bi bi-layout-text-window-reverse fs-1 text-secondary opacity-50 mb-3 d-block"></i>
+          <h5 class="fw-semibold text-body">Blank Template Ready</h5>
+          <p class="small text-secondary mb-0">Add your page-specific modules or views here.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       CREATE SCHEDULE MODAL
+       ====================================================================== -->
+  <div class="modal fade" id="createScheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-success text-white" style="background-color: var(--pubali-green) !important;">
+          <h5 class="modal-title" id="scheduleModalLabel"><i class="bi bi-calendar-event me-2"></i>Create MANCOM Meeting
+            Schedule</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="scheduleForm">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Meeting Subject / Session Title <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control"
+                  placeholder="e.g. 15th MANCOM Meeting: Annual Performance & Digital Transformation Review" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Meeting Date <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" value="2026-10-20" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">Start Time <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" value="10:30" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">End Time <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" value="12:30" required>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Venue / Location</label>
+                <input type="text" class="form-control" value="Board Room, 14th Floor, Head Office, Pubali Bank PLC.">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Proposed Agenda Summary</label>
+                <textarea class="form-control" rows="3"
+                  placeholder="1. Confirmation of 14th MANCOM minutes&#10;2. Credit review and non-performing loan strategy&#10;3. HR promotion and compensation policies&#10;4. Miscellaneous agenda"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer px-0 pb-0 mt-4">
+              <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success rounded-pill px-4"
+                style="background-color: var(--pubali-green-active);"
+                onclick="bootstrap.Modal.getInstance(document.getElementById('createScheduleModal')).hide(); alert('Meeting schedule created successfully and invitations dispatched!');">
+                <i class="bi bi-check-circle me-1"></i> Confirm & Notify Members
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       NOTIFICATIONS & CIRCULARS OFFCANVAS
+       ====================================================================== -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationOffcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasLabel"><i class="bi bi-bell text-success me-2"></i>Bank Circulars
+        & Alerts</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="list-group list-group-flush">
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold text-success">14th MANCOM Minutes Published</h6>
+            <small class="text-muted">1 hour ago</small>
+          </div>
+          <p class="mb-1 small text-secondary">The signed copy of the 14th MANCOM meeting is now available in the
+            Document Repository.</p>
+          <small class="text-muted"><i class="bi bi-shield-lock me-1"></i> Strictly Confidential</small>
+        </div>
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <small class="text-muted">Yesterday</small>
+          </div>
+          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+            branches.</p>
+          <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
+        </div>
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">Core Banking Maintenance</h6>
+            <small class="text-muted">3 days ago</small>
+          </div>
+          <p class="mb-1 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
+            AM.</p>
+          <small class="text-muted"><i class="bi bi-hdd-network me-1"></i> IT Division</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       TOAST NOTIFICATION COMPONENT
+       ====================================================================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
+    <div id="portalToast" class="toast align-items-center shadow-lg border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="bi bi-shield-check me-2"></i>
+        <strong class="me-auto">Pubali Bank Portal</strong>
+        <small class="text-white-50">Just now</small>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body bg-body text-body" id="toastMessage">
+        Action completed successfully.
+      </div>
+    </div>
+  </div>
+
+  <!-- Local JavaScript Bundle (Zero CDN Dependency) -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>

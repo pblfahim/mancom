@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Pubali Bank PLC. - Management Committee (MANCOM) Portal for Document Management and PDF Uploading">
+  <title>MANCOM Portal - Pubali Bank PLC</title>
+
+  <!-- Local CSS Resources (Zero CDN Dependency) -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       TOP NAVIGATION BAR
+       ====================================================================== -->
+  <header class="main-navbar">
+    <div class="brand-section">
+      <button class="btn text-white d-lg-none p-0 me-2" id="btnMobileMenu" aria-label="Toggle Navigation">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+      <a href="#" class="d-flex align-items-center text-decoration-none">
+        <img src="assets/images/pubali-bank-header-logo.svg"
+          onerror="this.onerror=null; this.src='assets/images/pubali-bank-logo-white.svg';" alt="Pubali Bank PLC."
+          class="brand-logo-img">
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <!-- Theme Switcher (Dark / Light) -->
+      <button class="nav-icon-btn" id="themeToggleBtn" title="Toggle Theme (Light/Dark)" aria-label="Toggle Theme">
+        <i class="bi bi-sun"></i>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button class="nav-icon-btn" id="fullscreenToggleBtn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+        <i class="bi bi-fullscreen"></i>
+      </button>
+
+      <!-- Messages / Circulars Notification Button -->
+      <button class="nav-icon-btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas"
+        title="Notifications & Circulars" aria-label="Notifications">
+        <i class="bi bi-chat-left-text"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+          <span class="visually-hidden">New alerts</span>
+        </span>
+      </button>
+
+      <!-- User Profile Dropdown Pill -->
+      <div class="dropdown">
+        <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="user-avatar-nav">
+          <div class="user-meta-nav">
+            <span class="user-name">Md. Fahim</span>
+            <span class="user-role">HRD</span>
+          </div>
+          <i class="bi bi-chevron-down dropdown-caret"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+          <li class="dropdown-header">
+            <h6 class="mb-0 text-dark fw-bold">Md. Fahim</h6>
+            <small class="text-muted">Senior Officer (Human Resources)</small>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2 text-success"></i> My Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
+              Permissions</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       APP MAIN CONTAINER (SIDEBAR + MAIN CONTENT)
+       ====================================================================== -->
+  <div class="portal-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="portal-sidebar" id="portalSidebar">
+      <!-- Profile Card -->
+      <div class="sidebar-user-card">
+        <div class="sidebar-avatar-wrapper">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="sidebar-avatar-img">
+          <span class="status-indicator-dot" title="Active"></span>
+        </div>
+        <h3 class="sidebar-user-name">Md. Fahim</h3>
+        <p class="sidebar-user-role">Senior Officer (Comp.)</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="sidebar-search-container">
+        <input type="text" class="sidebar-search-input" id="sidebarSearchInput" placeholder="Search Here">
+        <i class="bi bi-search sidebar-search-icon"></i>
+      </div>
+
+      <!-- Sidebar Navigation Menu -->
+      <ul class="sidebar-nav-list" id="sidebarNavList">
+        <li class="sidebar-nav-item">
+          <a href="#dashboard" class="sidebar-nav-link">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#kpi" class="sidebar-nav-link">
+            <i class="bi bi-speedometer2"></i>
+            <span>KPI</span>
+          </a>
+        </li>
+        <!-- ACTIVE MANCOM PILL -->
+        <li class="sidebar-nav-item">
+          <a href="#mancom" class="sidebar-nav-link active-mancom">
+            <i class="bi bi-grid-fill"></i>
+            <span>MANCOM</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#attendance" class="sidebar-nav-link">
+            <i class="bi bi-person-badge"></i>
+            <span>Attendance</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#leave" class="sidebar-nav-link">
+            <i class="bi bi-calendar-check"></i>
+            <span>Leave</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#mentor" class="sidebar-nav-link">
+            <i class="bi bi-person-video3"></i>
+            <span>Mentor</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#recent-activities" class="sidebar-nav-link">
+            <i class="bi bi-activity"></i>
+            <span>Recent Activities</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#useful-links" class="sidebar-nav-link">
+            <i class="bi bi-link-45deg"></i>
+            <span>Useful Links</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#latest-circular" class="sidebar-nav-link">
+            <i class="bi bi-bell"></i>
+            <span>Latest Circular</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#meeting-reminders" class="sidebar-nav-link">
+            <i class="bi bi-calendar-event"></i>
+            <span>Meeting Reminders</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="portal-main-content">
+
+      <!-- PAGE SUBHEADER & BREADCRUMBS -->
+      <section class="page-subheader">
+        <div class="breadcrumb-nav-row">
+          <a href="#" class="home-icon-link" title="Home">
+            <i class="bi bi-house-door"></i>
+          </a>
+          <button class="btn btn-create-schedule" data-bs-toggle="modal" data-bs-target="#createScheduleModal">
+            <i class="bi bi-calendar-plus text-success"></i>
+            Create Schedule
+          </button>
+          <button class="btn-tab-documents active">
+            <i class="bi bi-file-earmark-text me-1"></i>
+            Documents
+          </button>
+        </div>
+
+        <div class="portal-title-block">
+          <h1>MANCOM Portal</h1>
+          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md.Fahim (Senior Officer, Human Resources Division)</p>
+        </div>
+      </section>
+
+      <!-- QUICK METRICS OVERVIEW -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon-box green">
+            <i class="bi bi-file-earmark-pdf-fill"></i>
+          </div>
+          <div class="metric-info">
+            <h4 id="statTotalDocs">4</h4>
+            <p>MANCOM Documents</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box blue">
+            <i class="bi bi-calendar-check"></i>
+          </div>
+          <div class="metric-info">
+            <h4>Session #14</h4>
+            <p>Current Committee Session</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box red">
+            <i class="bi bi-shield-lock-fill"></i>
+          </div>
+          <div class="metric-info">
+            <h4 id="statConfidentialDocs">2</h4>
+            <p>Strictly Confidential</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box amber">
+            <i class="bi bi-check2-circle"></i>
+          </div>
+          <div class="metric-info">
+            <h4>256-Bit</h4>
+            <p>Vault Encryption Active</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF UPLOAD VAULT PANEL -->
+      <section class="card-upload-vault" id="uploadSection">
+        <div class="card-upload-header">
+          <h2>
+            <i class="bi bi-cloud-arrow-up text-success"></i>
+            Upload MANCOM Meeting Paper / PDF Document
+          </h2>
+          <span class="badge-vault-secure">
+            <i class="bi bi-shield-check"></i>
+            Bank Security Vault AES-256
+          </span>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div class="dropzone-area" id="dropzone" tabindex="0" role="button" aria-label="Dropzone for PDF file upload">
+          <div class="dropzone-icon-circle">
+            <i class="bi bi-file-earmark-pdf"></i>
+          </div>
+          <div class="dropzone-title">Drag and drop your MANCOM PDF file here, or Browse Files</div>
+          <div class="dropzone-subtitle">
+            Supported file type: <strong>.pdf</strong> (Maximum size: 50 MB) • Meeting Minutes, Agendas, Policies &
+            Memos
+          </div>
+          <button type="button" class="dropzone-btn">
+            <i class="bi bi-folder2-open me-1"></i> Browse Computer
+          </button>
+          <input type="file" id="pdfFileInput" accept="application/pdf,.pdf" style="display:none;"
+            aria-label="Upload PDF file">
+        </div>
+
+        <!-- Selected File Preview Strip (Dynamic) -->
+        <div class="selected-file-card" id="selectedFileCard">
+          <div class="selected-file-info">
+            <i class="bi bi-file-earmark-pdf-fill file-type-icon"></i>
+            <div class="file-name-meta">
+              <h5 id="selectedFileName">filename.pdf</h5>
+              <p id="selectedFileSize">0.0 MB</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" id="btnRemoveFile">
+              <i class="bi bi-x-circle me-1"></i> Remove File
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Upload Progress Bar -->
+        <div class="upload-progress-wrapper" id="uploadProgress">
+          <div class="progress-custom">
+            <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-custom" id="progressBar"
+              style="width: 0%"></div>
+          </div>
+          <div class="progress-status-meta">
+            <span id="progressText">Encrypting and uploading file...</span>
+            <span id="progressPercent" class="fw-bold text-success">0%</span>
+          </div>
+        </div>
+
+        <!-- Metadata Form -->
+        <form id="uploadForm" class="upload-form-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="docTitleInput" class="form-label form-label-custom">Document Title <span
+                  class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-custom" id="docTitleInput"
+                placeholder="e.g. MANCOM 14th Session Minutes (Signed Copy)" required>
+            </div>
+
+            <div class="col-md-3">
+              <label for="docSessionInput" class="form-label form-label-custom">Meeting Session <span
+                  class="text-danger">*</span></label>
+              <select class="form-select form-select-custom" id="docSessionInput" required>
+                <option value="Session #14 / 2026" selected>Session #14 / 2026</option>
+                <option value="Session #15 / 2026">Session #15 (Upcoming)</option>
+                <option value="Session #13 / 2026">Session #13 / 2026</option>
+                <option value="Extraordinary Session / 2026">Extraordinary Session / 2026</option>
+              </select>
+            </div>
+
+            <div class="col-md-3">
+              <label for="docCategoryInput" class="form-label form-label-custom">Category <span
+                  class="text-danger">*</span></label>
+              <select class="form-select form-select-custom" id="docCategoryInput" required>
+                <option value="Meeting Minutes" selected>Meeting Minutes</option>
+                <option value="Meeting Agenda">Meeting Agenda</option>
+                <option value="Working Paper">Working Paper</option>
+                <option value="Policy Memo">Policy Memo</option>
+                <option value="Financial Report">Financial Report</option>
+                <option value="Audit Compliance">Audit Compliance</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="docClassificationInput" class="form-label form-label-custom">Security Classification <span
+                  class="text-danger">*</span></label>
+              <select class="form-select form-select-custom" id="docClassificationInput" required>
+                <option value="strictly-confidential" selected>Strictly Confidential (Committee Only)</option>
+                <option value="restricted">Restricted (Division Heads)</option>
+                <option value="internal">Internal Use (Pubali Bank PLC)</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="docDivisionInput" class="form-label form-label-custom">Originating Division <span
+                  class="text-danger">*</span></label>
+              <select class="form-select form-select-custom" id="docDivisionInput" required>
+                <option value="Human Resources Division" selected>Human Resources Division (HRD)</option>
+                <option value="Information Technology Division">Information Technology Division (ITD)</option>
+                <option value="Credit Division">Credit Division</option>
+                <option value="Finance & Accounts Division">Finance & Accounts Division</option>
+                <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
+                <option value="Managing Director's Secretariat">Managing Director's Secretariat</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="docTagsInput" class="form-label form-label-custom">Tags / Reference Keywords</label>
+              <input type="text" class="form-control form-control-custom" id="docTagsInput"
+                placeholder="e.g. #minutes, #hrd, #policy">
+            </div>
+
+            <div class="col-12 text-end pt-2">
+              <button type="reset" class="btn btn-light border px-4 py-2 me-2 rounded-pill small">Clear Form</button>
+              <button type="submit" class="btn btn-success px-4 py-2 rounded-pill shadow-sm" id="btnSubmitUpload"
+                style="background-color: var(--pubali-green-active); border-color: var(--pubali-green-active);">
+                <i class="bi bi-cloud-arrow-up me-1"></i> Upload PDF to Secure Archive
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- MANCOM DOCUMENTS ARCHIVE TABLE -->
+      <section class="card-documents-library">
+        <div class="library-controls-header">
+          <div class="library-title">
+            <h3><i class="bi bi-folder2 me-2 text-success"></i>MANCOM Document Repository</h3>
+            <p>Access, preview, and download official Management Committee signed papers and memos</p>
+          </div>
+
+          <div class="library-filter-tools">
+            <!-- Search -->
+            <div class="library-search-box">
+              <input type="text" id="librarySearch" class="library-search-input" placeholder="Search documents...">
+              <i class="bi bi-search"></i>
+            </div>
+
+            <!-- Category Filter -->
+            <select class="form-select form-select-sm" id="categoryFilter" style="width: 160px; border-radius: 20px;">
+              <option value="all" selected>All Categories</option>
+              <option value="Meeting Minutes">Meeting Minutes</option>
+              <option value="Policy Memo">Policy Memo</option>
+              <option value="Working Paper">Working Paper</option>
+              <option value="Financial Report">Financial Report</option>
+            </select>
+
+            <!-- Classification Filter -->
+            <select class="form-select form-select-sm" id="classificationFilter"
+              style="width: 180px; border-radius: 20px;">
+              <option value="all" selected>All Classifications</option>
+              <option value="strictly-confidential">Strictly Confidential</option>
+              <option value="restricted">Restricted</option>
+              <option value="internal">Internal Use</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table class="table table-documents align-middle">
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="selectAllCheckbox">
+                  </div>
+                </th>
+                <th>Document Name & Details</th>
+                <th>Category</th>
+                <th>Classification</th>
+                <th>Uploaded By</th>
+                <th>Date & Size</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="documentsTableBody">
+              <!-- Dynamically rendered via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       INTERACTIVE PDF VIEWER MODAL
+       ====================================================================== -->
+  <div class="modal fade modal-pdf-viewer" id="pdfViewerModal" tabindex="-1" aria-labelledby="pdfModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-pdf-header">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+            <div>
+              <h5 class="modal-title mb-0 fw-bold" id="pdfModalTitle">Document Preview</h5>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span id="pdfModalBadge" class="badge-classification strictly-confidential">Confidential</span>
+                <small class="text-muted">Pubali Bank PLC • Secure Document Stream</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-2">
+            <!-- Toolbar -->
+            <div class="pdf-toolbar">
+              <button class="pdf-toolbar-btn" id="btnZoomOut" title="Zoom Out"><i class="bi bi-zoom-out"></i></button>
+              <button class="pdf-toolbar-btn" id="btnZoomIn" title="Zoom In"><i class="bi bi-zoom-in"></i></button>
+              <button class="pdf-toolbar-btn" id="btnPrintDoc" title="Print Document"><i
+                  class="bi bi-printer"></i></button>
+              <button class="pdf-toolbar-btn text-success" id="btnModalDownload" title="Download Local PDF"><i
+                  class="bi bi-download"></i></button>
+            </div>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div class="modal-body p-0">
+          <div class="pdf-frame-container">
+            <iframe id="pdfViewerFrame" class="pdf-iframe" src="" title="PDF Viewer"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       CREATE SCHEDULE MODAL
+       ====================================================================== -->
+  <div class="modal fade" id="createScheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-success text-white" style="background-color: var(--pubali-green) !important;">
+          <h5 class="modal-title" id="scheduleModalLabel"><i class="bi bi-calendar-event me-2"></i>Create MANCOM Meeting
+            Schedule</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="scheduleForm">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Meeting Subject / Session Title <span
+                    class="text-danger">*</span></label>
+                <input type="text" class="form-control"
+                  placeholder="e.g. 15th MANCOM Meeting: Annual Performance & Digital Transformation Review" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Meeting Date <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" value="2026-10-20" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">Start Time <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" value="10:30" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">End Time <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" value="12:30" required>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Venue / Location</label>
+                <input type="text" class="form-control" value="Board Room, 14th Floor, Head Office, Pubali Bank PLC.">
+              </div>
+              <div class="col-md-12">
+                <label class="form-label fw-semibold">Proposed Agenda Summary</label>
+                <textarea class="form-control" rows="3"
+                  placeholder="1. Confirmation of 14th MANCOM minutes&#10;2. Credit review and non-performing loan strategy&#10;3. HR promotion and compensation policies&#10;4. Miscellaneous agenda"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer px-0 pb-0 mt-4">
+              <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success rounded-pill px-4"
+                style="background-color: var(--pubali-green-active);"
+                onclick="bootstrap.Modal.getInstance(document.getElementById('createScheduleModal')).hide(); alert('Meeting schedule created successfully and invitations dispatched!');">
+                <i class="bi bi-check-circle me-1"></i> Confirm & Notify Members
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       NOTIFICATIONS & CIRCULARS OFFCANVAS
+       ====================================================================== -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationOffcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasLabel"><i class="bi bi-bell text-success me-2"></i>Bank Circulars
+        & Alerts</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="list-group list-group-flush">
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold text-success">14th MANCOM Minutes Published</h6>
+            <small class="text-muted">1 hour ago</small>
+          </div>
+          <p class="mb-1 small text-secondary">The signed copy of the 14th MANCOM meeting is now available in the
+            Document Repository.</p>
+          <small class="text-muted"><i class="bi bi-shield-lock me-1"></i> Strictly Confidential</small>
+        </div>
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <small class="text-muted">Yesterday</small>
+          </div>
+          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+            branches.</p>
+          <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
+        </div>
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">Core Banking Maintenance</h6>
+            <small class="text-muted">3 days ago</small>
+          </div>
+          <p class="mb-1 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
+            AM.</p>
+          <small class="text-muted"><i class="bi bi-hdd-network me-1"></i> IT Division</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       TOAST NOTIFICATION COMPONENT
+       ====================================================================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
+    <div id="portalToast" class="toast align-items-center shadow-lg border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <i class="bi bi-shield-check me-2"></i>
+        <strong class="me-auto">Pubali Bank Portal</strong>
+        <small class="text-white-50">Just now</small>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body bg-body text-body" id="toastMessage">
+        Action completed successfully.
+      </div>
+    </div>
+  </div>
+
+  <!-- Local JavaScript Bundle (Zero CDN Dependency) -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>
