@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <!-- Character encoding and responsive viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pubali Bank PLC. - MANCOM Committee Meeting Schedule Creation Page">
+  <title>Create Schedule - MANCOM Portal | Pubali Bank PLC</title>
+
+  <!-- ======================================================================
+       LOCAL STYLESHEET RESOURCES (Fully Offline / Zero Remote CDN Dependency)
+       ====================================================================== -->
+  <!-- Local Bootstrap 5.3.3 CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!-- Local Bootstrap Icons 1.11.3 CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+  <!-- Local Custom Portal Design System & Layout Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       TOP NAVIGATION BAR
+       Forest green brand header (#2a633a) with official Pubali Bank PLC logo
+       and quick user controls (theme toggle, fullscreen, notifications, profile)
+       ====================================================================== -->
+  <header class="main-navbar">
+    <div class="brand-section">
+      <!-- Mobile sidebar toggle button (visible on smaller screens) -->
+      <button class="btn text-white d-lg-none p-0 me-2" id="btnMobileMenu" aria-label="Toggle Navigation">
+        <i class="bi bi-list fs-3"></i>
+      </button>
+
+      <!-- Pubali Bank PLC Official Brand Logo -->
+      <a href="index.html" class="d-flex align-items-center text-decoration-none">
+        <img src="assets/images/pubali-bank-header-logo.svg"
+          onerror="this.onerror=null; this.src='assets/images/pubali-bank-logo-white.svg';" alt="Pubali Bank PLC."
+          class="brand-logo-img">
+      </a>
+    </div>
+
+    <!-- Header Actions (Right Side) -->
+    <div class="nav-actions">
+      <!-- Dark / Light Theme Toggle Button -->
+      <button class="nav-icon-btn" id="themeToggleBtn" title="Toggle Theme (Light/Dark)" aria-label="Toggle Theme">
+        <i class="bi bi-sun"></i>
+      </button>
+
+      <!-- Native Fullscreen Mode Toggle Button -->
+      <button class="nav-icon-btn" id="fullscreenToggleBtn" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+        <i class="bi bi-fullscreen"></i>
+      </button>
+
+      <!-- Circulars & Alerts Notification Offcanvas Trigger -->
+      <button class="nav-icon-btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas"
+        title="Notifications & Circulars" aria-label="Notifications">
+        <i class="bi bi-chat-left-text"></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+          <span class="visually-hidden">New alerts</span>
+        </span>
+      </button>
+
+      <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
+      <div class="dropdown">
+        <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="user-avatar-nav">
+          <div class="user-meta-nav">
+            <span class="user-name">Md. Fahim</span>
+            <span class="user-role">HRD</span>
+          </div>
+          <i class="bi bi-chevron-down dropdown-caret"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
+          <li class="dropdown-header">
+            <h6 class="mb-0 text-dark fw-bold">Md. Fahim</h6>
+            <small class="text-muted">Senior Officer (Human Resources)</small>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2 text-success"></i> My Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
+              Permissions</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       PORTAL MAIN CONTAINER
+       Sidebar (left) + Main Content Canvas (right)
+       ====================================================================== -->
+  <div class="portal-container">
+
+    <!-- ====================================================================
+         LEFT SIDEBAR NAVIGATION
+         User badge, quick search filter, and 10 main intranet menu links
+         ==================================================================== -->
+    <aside class="portal-sidebar" id="portalSidebar">
+      <!-- User Profile Card -->
+      <div class="sidebar-user-card">
+        <div class="sidebar-avatar-wrapper">
+          <img src="assets/images/avatar.png" alt="Md. Fahim" class="sidebar-avatar-img">
+          <span class="status-indicator-dot" title="Active"></span>
+        </div>
+        <h3 class="sidebar-user-name">Md. Fahim</h3>
+        <p class="sidebar-user-role">Senior Officer (Comp.)</p>
+      </div>
+
+      <!-- Live Search Box for filtering sidebar navigation items -->
+      <div class="sidebar-search-container">
+        <input type="text" class="sidebar-search-input" id="sidebarSearchInput" placeholder="Search Here">
+        <i class="bi bi-search sidebar-search-icon"></i>
+      </div>
+
+      <!-- Navigation Menu Item List -->
+      <ul class="sidebar-nav-list" id="sidebarNavList">
+        <li class="sidebar-nav-item">
+          <a href="#dashboard" class="sidebar-nav-link">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#kpi" class="sidebar-nav-link">
+            <i class="bi bi-speedometer2"></i>
+            <span>KPI</span>
+          </a>
+        </li>
+        <!-- MANCOM Menu Pill (Active state with solid brand green) -->
+        <li class="sidebar-nav-item">
+          <a href="index.html" class="sidebar-nav-link active-mancom">
+            <i class="bi bi-grid-fill"></i>
+            <span>MANCOM</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#attendance" class="sidebar-nav-link">
+            <i class="bi bi-person-badge"></i>
+            <span>Attendance</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#leave" class="sidebar-nav-link">
+            <i class="bi bi-calendar-check"></i>
+            <span>Leave</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#mentor" class="sidebar-nav-link">
+            <i class="bi bi-person-video3"></i>
+            <span>Mentor</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#recent-activities" class="sidebar-nav-link">
+            <i class="bi bi-activity"></i>
+            <span>Recent Activities</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#useful-links" class="sidebar-nav-link">
+            <i class="bi bi-link-45deg"></i>
+            <span>Useful Links</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#latest-circular" class="sidebar-nav-link">
+            <i class="bi bi-bell"></i>
+            <span>Latest Circular</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="#meeting-reminders" class="sidebar-nav-link">
+            <i class="bi bi-calendar-event"></i>
+            <span>Meeting Reminders</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- ====================================================================
+         MAIN CONTENT AREA
+         Houses the page subheader, breadcrumb row, and the Create Schedule form
+         ==================================================================== -->
+    <main class="portal-main-content">
+
+      <!-- ==================================================================
+           PAGE SUBHEADER & BREADCRUMBS
+           Includes Home icon link, active "Create Schedule" button,
+           "Documents" button, and portal title with division subtitle
+           ================================================================== -->
+      <section class="page-subheader">
+        <div class="breadcrumb-nav-row">
+          <!-- Home Navigation Link -->
+          <a href="index.html" class="home-icon-link" title="Home">
+            <i class="bi bi-house-door"></i>
+          </a>
+
+          <!-- Create Schedule Button (Active / Highlighted on this page) -->
+          <a href="create-schedule.html" class="btn btn-create-schedule"
+            style="border-color: var(--pubali-green-active); color: var(--pubali-green-active); font-weight: 600;">
+            <i class="bi bi-calendar-plus text-success"></i>
+            Create Schedule
+          </a>
+
+          <!-- Documents Tab (Links back to Documents Archive) -->
+          <a href="documents.html" class="btn-tab-documents text-decoration-none">
+            <i class="bi bi-file-earmark-text me-1"></i>
+            Documents
+          </a>
+
+          <!-- Feedback Submission Button -->
+          <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
+            <i class="bi bi-chat-square-quote me-1"></i>
+            Feedback Submission
+          </a>
+        </div>
+
+        <!-- Portal Header Title and Subtitle Block -->
+        <div class="portal-title-block">
+          <h1>MANCOM Portal</h1>
+          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md.Fahim (Senior Officer, Human Resources Division)</p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CREATE SCHEDULE CARD & FORM
+           Pixel-perfect design matching user-provided screenshot:
+           - 4 input fields: Meeting Subject, Date, Time, Location
+           - Large document upload box (PDF, DOCX, PPTX; max 5MB)
+           - Centered Clear Form and Submit action buttons
+           ================================================================== -->
+      <section class="schedule-card">
+        <form id="scheduleMeetingForm" novalidate>
+
+          <!-- Top Row: 4 Column Input Fields -->
+          <div class="row g-4 mb-4">
+
+            <!-- Column 1: Meeting Subject -->
+            <div class="col-lg-3 col-md-6">
+              <label for="meetingSubject" class="schedule-label">
+                Meeting Subject <span class="required-star">*</span>
+              </label>
+              <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject"
+                value="9th Meeting of Mancom Committee" required placeholder="Enter meeting subject">
+            </div>
+
+            <!-- Column 2: Date with Green Calendar Icon -->
+            <div class="col-lg-3 col-md-6">
+              <label for="meetingDate" class="schedule-label">
+                Date <span class="required-star">*</span>
+              </label>
+              <div class="schedule-input-wrapper">
+                <input type="text" class="schedule-input" id="meetingDate" name="meetingDate" value="23 October 2026"
+                  required placeholder="DD Month YYYY">
+                <span class="schedule-input-icon calendar-icon" title="Select Date">
+                  <i class="bi bi-calendar4-week"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Column 3: Time with Clock Icon -->
+            <div class="col-lg-3 col-md-6">
+              <label for="meetingTime" class="schedule-label">
+                Time <span class="required-star">*</span>
+              </label>
+              <div class="schedule-input-wrapper">
+                <input type="text" class="schedule-input" id="meetingTime" name="meetingTime" value="11.00 AM" required
+                  placeholder="HH.MM AM/PM">
+                <span class="schedule-input-icon" title="Select Time">
+                  <i class="bi bi-clock-history"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Column 4: Location with Refresh/History Icon -->
+            <div class="col-lg-3 col-md-6">
+              <label for="meetingLocation" class="schedule-label">
+                Location <span class="required-star">*</span>
+              </label>
+              <div class="schedule-input-wrapper">
+                <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation"
+                  value="Credit Conference Room" required placeholder="Enter conference room / venue"
+                  list="locationSuggestions">
+                <span class="schedule-input-icon" title="Location Suggestions">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </span>
+              </div>
+              <!-- Datalist for fast location selection -->
+              <datalist id="locationSuggestions">
+                <option value="Credit Conference Room">
+                <option value="Board Room, 14th Floor (Head Office)">
+                <option value="Executive Committee Hall">
+                <option value="HRD Conference Hall (6th Floor)">
+                <option value="Virtual MS Teams / Zoom">
+              </datalist>
+            </div>
+
+          </div>
+
+          <!-- Second Row: Large Document Upload Box -->
+          <div class="mb-4">
+            <label class="schedule-label">
+              Upload document (PDF, DOCX or PPTX; maximum 5 MB) <span class="required-star">*</span>
+            </label>
+
+            <!-- Drag & Drop Zone -->
+            <div class="dropzone-area" id="dropzone" tabindex="0" role="button"
+              aria-label="Dropzone for PDF file upload">
+              <div class="dropzone-icon-circle">
+                <i class="bi bi-file-earmark-pdf"></i>
+              </div>
+              <div class="dropzone-title">Drag and drop your MANCOM PDF file here, or Browse Files</div>
+              <div class="dropzone-subtitle">
+                Supported file type: <strong>.pdf</strong> (Maximum size: 50 MB) • Meeting Minutes, Agendas, Policies &
+                Memos
+              </div>
+              <button type="button" class="dropzone-btn">
+                <i class="bi bi-folder2-open me-1"></i> Browse Computer
+              </button>
+              <input type="file" id="pdfFileInput" accept="application/pdf,.pdf" style="display:none;"
+                aria-label="Upload PDF file">
+            </div>
+
+            <!-- Upload help hint -->
+            <div class="form-text mt-1 text-muted" style="font-size: 11px;">
+              Accepted formats: <strong>.pdf, .docx, .pptx</strong>. Maximum allowable document size: <strong>5
+                MB</strong>.
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons: Clear Form & Submit (Centered matching screenshot) -->
+          <div class="schedule-action-buttons">
+            <!-- Clear Form button (White with border) -->
+            <button type="button" class="btn btn-schedule-clear" id="btnScheduleClear">
+              Clear Form
+            </button>
+
+            <!-- Submit button (Signature Pubali Bank Green) -->
+            <button type="submit" class="btn btn-schedule-submit" id="btnScheduleSubmit">
+              Submit
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ======================================================================
+       NOTIFICATIONS & CIRCULARS OFFCANVAS
+       Displays recent bank notices and committee activity
+       ====================================================================== -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationOffcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasLabel"><i class="bi bi-bell text-success me-2"></i>Bank Circulars
+        & Alerts</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="list-group list-group-flush">
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold text-success">9th MANCOM Meeting Scheduled</h6>
+            <small class="text-muted">Just now</small>
+          </div>
+          <p class="mb-1 small text-secondary">Credit Conference Room has been reserved for 23 October 2026, 11:00 AM.
+          </p>
+          <small class="text-muted"><i class="bi bi-geo-alt me-1"></i> Credit Conference Room</small>
+        </div>
+        <div class="list-group-item p-3">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <small class="text-muted">Yesterday</small>
+          </div>
+          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+            branches.</p>
+          <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       TOAST FEEDBACK COMPONENT
+       Provides toast feedback upon form submission, validation, or reset
+       ====================================================================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
+    <div id="scheduleToast" class="toast align-items-center shadow-lg border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header bg-success text-white" id="toastHeader">
+        <i class="bi bi-check-circle-fill me-2" id="toastIcon"></i>
+        <strong class="me-auto" id="toastTitle">Pubali Bank Portal</strong>
+        <small class="text-white-50">Just now</small>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body bg-body text-body" id="toastBody">
+        Schedule action completed successfully.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       LOCAL JAVASCRIPT BUNDLE & INTERACTIVE CONTROLLERS
+       Zero CDN Dependency: All libraries loaded from local assets
+       ====================================================================== -->
+  <!-- Local Bootstrap 5.3.3 JS Bundle (Includes Popper.js) -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <!-- Main Application Controller -->
+  <script src="assets/js/app.js"></script>
+
+  <!-- ======================================================================
+       SCHEDULE FORM CONTROLLER SCRIPT
+       Validates required inputs, handles file selection & constraints (<= 5MB),
+       implements drag-and-drop, and provides interactive user feedback
+       ====================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // DOM Elements for the schedule form
+      const form = document.getElementById('scheduleMeetingForm');
+      const subjectInput = document.getElementById('meetingSubject');
+      const dateInput = document.getElementById('meetingDate');
+      const timeInput = document.getElementById('meetingTime');
+      const locationInput = document.getElementById('meetingLocation');
+      const uploadBox = document.getElementById('scheduleUploadBox');
+      const fileInput = document.getElementById('scheduleFileInput');
+      const btnChooseFile = document.getElementById('btnChooseFile');
+      const chosenFileText = document.getElementById('chosenFileText');
+      const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+      const selectedFilePreview = document.getElementById('selectedFilePreview');
+      const previewFileName = document.getElementById('previewFileName');
+      const previewFileSize = document.getElementById('previewFileSize');
+      const btnRemoveDoc = document.getElementById('btnRemoveDoc');
+      const btnClear = document.getElementById('btnScheduleClear');
+      const btnSubmit = document.getElementById('btnScheduleSubmit');
+
+      // Toast instance
+      const toastEl = document.getElementById('scheduleToast');
+      const toast = toastEl ? new bootstrap.Toast(toastEl) : null;
+      const toastHeader = document.getElementById('toastHeader');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastBody = document.getElementById('toastBody');
+      const toastIcon = document.getElementById('toastIcon');
+
+      let currentFile = null;
+
+      /**
+       * Shows a styled toast notification
+       * @param {string} title - Header title text
+       * @param {string} message - Body message content
+       * @param {boolean} isSuccess - True for green success, false for red danger
+       */
+      function notify(title, message, isSuccess = true) {
+        if (!toast) return;
+        toastTitle.textContent = title;
+        toastBody.textContent = message;
+        if (isSuccess) {
+          toastHeader.className = 'toast-header bg-success text-white';
+          toastIcon.className = 'bi bi-check-circle-fill me-2';
+        } else {
+          toastHeader.className = 'toast-header bg-danger text-white';
+          toastIcon.className = 'bi bi-exclamation-triangle-fill me-2';
+        }
+        toast.show();
+      }
+
+      /**
+       * Formats byte size into human readable string
+       */
+      function formatSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+      }
+
+      /**
+       * Handles selected file validation and display
+       * Allowed formats: .pdf, .docx, .pptx
+       * Maximum size: 5 MB (5,242,880 bytes)
+       */
+      function processFile(file) {
+        if (!file) return;
+
+        // Check file extension
+        const allowedExtensions = ['.pdf', '.docx', '.pptx'];
+        const fileName = file.name.toLowerCase();
+        const hasValidExt = allowedExtensions.some(ext => fileName.endsWith(ext));
+
+        if (!hasValidExt) {
+          notify('Invalid File Format', 'Please upload a valid document in PDF, DOCX, or PPTX format.', false);
+          return;
+        }
+
+        // Check file size (5MB maximum)
+        const maxBytes = 5 * 1024 * 1024;
+        if (file.size > maxBytes) {
+          notify('File Too Large', `The selected file size (${formatSize(file.size)}) exceeds the allowable 5 MB limit.`, false);
+          return;
+        }
+
+        // File is valid
+        currentFile = file;
+        previewFileName.textContent = file.name;
+        previewFileSize.textContent = formatSize(file.size);
+        chosenFileText.textContent = file.name;
+
+        // Display preview badge inside the upload box
+        uploadPlaceholder.style.display = 'none';
+        selectedFilePreview.style.display = 'flex';
+
+        notify('Document Attached', `"${file.name}" (${formatSize(file.size)}) ready for schedule submission.`, true);
+      }
+
+      /**
+       * Resets attached document back to empty state
+       */
+      function resetAttachedFile() {
+        currentFile = null;
+        fileInput.value = '';
+        chosenFileText.textContent = 'No file chosen';
+        uploadPlaceholder.style.display = 'flex';
+        selectedFilePreview.style.display = 'none';
+      }
+
+      // Trigger file selector when clicking the upload box or button
+      uploadBox.addEventListener('click', (e) => {
+        // Do not trigger file dialog if clicking remove button
+        if (e.target.closest('#btnRemoveDoc')) return;
+        fileInput.click();
+      });
+
+      btnChooseFile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+      });
+
+      // Handle native input change
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          processFile(e.target.files[0]);
+        }
+      });
+
+      // Remove attached document button
+      btnRemoveDoc.addEventListener('click', (e) => {
+        e.stopPropagation();
+        resetAttachedFile();
+      });
+
+      // Drag and Drop support on the upload box
+      ['dragenter', 'dragover'].forEach(name => {
+        uploadBox.addEventListener(name, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadBox.classList.add('drag-over');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(name => {
+        uploadBox.addEventListener(name, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadBox.classList.remove('drag-over');
+        });
+      });
+
+      uploadBox.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0) {
+          processFile(files[0]);
+        }
+      });
+
+      // Clear Form button action
+      btnClear.addEventListener('click', () => {
+        form.reset();
+        resetAttachedFile();
+        subjectInput.value = '';
+        dateInput.value = '';
+        timeInput.value = '';
+        locationInput.value = '';
+        notify('Form Cleared', 'All schedule inputs and attachments have been reset.', true);
+      });
+
+      // Form Submission action
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const subject = subjectInput.value.trim();
+        const date = dateInput.value.trim();
+        const time = timeInput.value.trim();
+        const location = locationInput.value.trim();
+
+        // Validate required fields
+        if (!subject) {
+          notify('Missing Field', 'Please enter a Meeting Subject.', false);
+          subjectInput.focus();
+          return;
+        }
+
+        if (!date) {
+          notify('Missing Field', 'Please specify the Meeting Date.', false);
+          dateInput.focus();
+          return;
+        }
+
+        if (!time) {
+          notify('Missing Field', 'Please specify the Meeting Time.', false);
+          timeInput.focus();
+          return;
+        }
+
+        if (!location) {
+          notify('Missing Field', 'Please specify the Meeting Location.', false);
+          locationInput.focus();
+          return;
+        }
+
+        if (!currentFile) {
+          notify('Missing Document', 'Please attach a meeting paper or agenda document (PDF, DOCX, or PPTX; max 5MB).', false);
+          uploadBox.focus();
+          return;
+        }
+
+        // Disable button during simulated submission
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Scheduling...';
+
+        setTimeout(() => {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = 'Submit';
+          notify('Schedule Created!', `Successfully scheduled "${subject}" on ${date} at ${time} (${location}). Invitations sent to MANCOM committee members.`, true);
+        }, 800);
+      });
+    });
+  </script>
+</body>
+
+</html>

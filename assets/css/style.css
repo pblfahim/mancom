@@ -1091,3 +1091,440 @@ body {
     align-items: flex-start;
   }
 }
+
+/* ==========================================================================
+   CREATE SCHEDULE PAGE & FORM STYLES
+   Pixel-perfect replication of the MANCOM Schedule Creation form
+   ========================================================================== */
+
+/* Outer form container card */
+.schedule-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px 36px 36px 36px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+}
+
+/* Schedule form label styling with red required asterisk */
+.schedule-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.schedule-label .required-star {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* Input field wrapper for placing icons on the right side */
+.schedule-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Base input field styling */
+.schedule-input {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  padding: 8px 38px 8px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.schedule-input:focus {
+  border-color: var(--pubali-green-active);
+  box-shadow: 0 0 0 3px var(--pubali-green-subtle);
+  outline: none;
+}
+
+/* Icon positioned on the right of input fields */
+.schedule-input-icon {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  font-size: 16px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Green calendar icon specific class matching screenshot */
+.schedule-input-icon.calendar-icon {
+  color: #16a34a;
+}
+
+/* Large document upload box (PDF, DOCX or PPTX; maximum 5 MB) */
+.schedule-upload-box {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: var(--bg-surface);
+  min-height: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-speed) ease;
+}
+
+.schedule-upload-box:hover,
+.schedule-upload-box.drag-over {
+  border-color: var(--pubali-green-active);
+  background-color: var(--pubali-green-subtle);
+}
+
+/* File input styling inside upload box */
+.schedule-file-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Selected file preview strip */
+.schedule-selected-preview {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 520px;
+  padding: 10px 16px;
+  background-color: var(--bg-surface-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+/* Button action container at the bottom */
+.schedule-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+/* Clear Form button */
+.btn-schedule-clear {
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 24px;
+  min-width: 110px;
+  transition: all var(--transition-speed) ease;
+}
+
+.btn-schedule-clear:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+/* Submit button with Pubali brand green */
+.btn-schedule-submit {
+  background-color: #006a4e;
+  color: #ffffff;
+  border: 1px solid #006a4e;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 40px;
+  min-width: 130px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-speed) ease;
+}
+
+.btn-schedule-submit:hover {
+  background-color: #00563f;
+  border-color: #00563f;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0, 106, 78, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Dark theme overrides for Create Schedule */
+[data-bs-theme="dark"] .schedule-input {
+  border-color: #334155;
+  background-color: #1e293b;
+}
+
+[data-bs-theme="dark"] .schedule-upload-box {
+  border-color: #334155;
+  background-color: #1e293b;
+}
+
+[data-bs-theme="dark"] .btn-schedule-clear {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+/* ==========================================================================
+   BOOTSTRAP 5 DATATABLES STYLING (Pubali Bank PLC Theme)
+   Custom overrides for DataTables search, length, pagination, and sorting
+   ========================================================================== */
+
+.dataTables_wrapper {
+  padding: 16px 20px;
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  padding: 4px 28px 4px 12px;
+  font-size: 13px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  font-size: 13px;
+  background-color: var(--bg-surface-secondary);
+  color: var(--text-primary);
+  outline: none;
+  margin-left: 8px;
+  transition: all var(--transition-speed);
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: var(--pubali-green-active);
+  background-color: var(--bg-surface);
+  box-shadow: 0 0 0 3px var(--pubali-green-subtle);
+}
+
+.dataTables_wrapper .dataTables_info {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding-top: 14px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  padding-top: 10px;
+}
+
+.dataTables_wrapper .pagination .page-item .page-link {
+  font-size: 13px;
+  border-radius: 6px;
+  margin: 0 2px;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-speed);
+}
+
+.dataTables_wrapper .pagination .page-item.active .page-link {
+  background-color: var(--pubali-green-active) !important;
+  border-color: var(--pubali-green-active) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 122, 77, 0.25);
+}
+
+.dataTables_wrapper .pagination .page-item:not(.active) .page-link:hover {
+  background-color: var(--pubali-green-subtle);
+  color: var(--pubali-green);
+  border-color: var(--pubali-green-active);
+}
+
+/* Sorting arrow accents */
+table.dataTable thead > tr > th.dt-orderable-asc:hover,
+table.dataTable thead > tr > th.dt-orderable-desc:hover {
+  background-color: var(--bg-surface-secondary);
+}
+
+/* Dark mode overrides for DataTables */
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_length select,
+[data-bs-theme="dark"] .dataTables_wrapper .dataTables_filter input {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-bs-theme="dark"] .dataTables_wrapper .pagination .page-item .page-link {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   FEEDBACK SUBMISSION PAGE & FORM STYLES
+   Pixel-perfect replication of the MANCOM Feedback Submission Form:
+   - Meeting Subject & Division 2-column layout
+   - Agenda / Reference full-width input
+   - 5MB Document upload dropzone
+   - Comments textarea (2,000 char limit)
+   - Centered Submit Feedback (green) & Clear Form (light) action buttons
+   ========================================================================== */
+
+/* Outer form container card */
+.feedback-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px 36px 36px 36px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+}
+
+/* Form field labels with red required indicator */
+.feedback-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.feedback-label .required-star {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* Input field styling */
+.feedback-input {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.feedback-input:focus {
+  border-color: var(--pubali-green-active);
+  box-shadow: 0 0 0 3px var(--pubali-green-subtle);
+  outline: none;
+}
+
+/* Micro-copy helper text below inputs (e.g. HRD register note) */
+.feedback-help-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+/* Comments textarea */
+.feedback-textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  padding: 12px 14px;
+  font-size: 14px;
+  min-height: 115px;
+  resize: vertical;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.feedback-textarea:focus {
+  border-color: var(--pubali-green-active);
+  box-shadow: 0 0 0 3px var(--pubali-green-subtle);
+  outline: none;
+}
+
+/* Action buttons container (centered at bottom) */
+.feedback-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+/* Submit Feedback button (Pubali Bank Deep Green) */
+.btn-submit-feedback {
+  background-color: #006a4e; /* Signature Pubali Bank Deep Green */
+  color: #ffffff;
+  border: 1px solid #006a4e;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 32px;
+  min-width: 150px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-speed) ease;
+}
+
+.btn-submit-feedback:hover {
+  background-color: #00563f;
+  border-color: #00563f;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(0, 106, 78, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Clear Form button (Light grey button matching screenshot) */
+.btn-clear-feedback {
+  background-color: #edf2f7;
+  color: #374151;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 24px;
+  min-width: 110px;
+  transition: all var(--transition-speed) ease;
+}
+
+.btn-clear-feedback:hover {
+  background-color: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #111827;
+}
+
+/* Dark mode overrides for Feedback form */
+[data-bs-theme="dark"] .feedback-input,
+[data-bs-theme="dark"] .feedback-textarea {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+[data-bs-theme="dark"] .btn-clear-feedback {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+
+
