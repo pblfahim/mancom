@@ -12,6 +12,7 @@
   font-display: swap;
   src: url('../fonts/inter-400.woff2') format('woff2');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -19,6 +20,7 @@
   font-display: swap;
   src: url('../fonts/inter-500.woff2') format('woff2');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -26,6 +28,7 @@
   font-display: swap;
   src: url('../fonts/inter-600.woff2') format('woff2');
 }
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -50,7 +53,7 @@
   --bg-sidebar: #ffffff;
   --border-color: #eaedf2;
   --border-subtle: #f1f4f8;
-  
+
   /* Text Colors */
   --text-primary: #1e293b;
   --text-secondary: #64748b;
@@ -85,7 +88,7 @@
   --bg-sidebar: #131c31;
   --border-color: #243048;
   --border-subtle: #1e293b;
-  
+
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
@@ -140,7 +143,7 @@ body {
   height: 44px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
 }
 
 .brand-fallback-text {
@@ -256,10 +259,28 @@ body {
 }
 
 .breadcrumb-nav-row {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 28px;
+  margin: -24px -28px 24px -28px;
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  /* position: sticky; */
+  top: 70px;
+  z-index: 1020;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] .breadcrumb-nav-row {
+  background-color: var(--bg-surface);
+}
+
+.breadcrumb-nav-row .home-icon-link,
+.breadcrumb-nav-row .btn-create-schedule,
+.breadcrumb-nav-row .btn-tab-documents {
+  flex-shrink: 0;
 }
 
 .home-icon-link {
@@ -341,7 +362,7 @@ body {
    ========================================================================== */
 .portal-container {
   display: flex;
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 70px);
 }
 
 /* Sidebar Styling */
@@ -1074,21 +1095,43 @@ body {
   .portal-main-content {
     padding: 16px;
   }
+
+  .breadcrumb-nav-row {
+    margin: -16px -16px 20px -16px;
+    padding: 10px 16px;
+  }
 }
 
 @media (max-width: 575.98px) {
   .main-navbar {
     padding: 0 14px;
   }
+
+  .breadcrumb-nav-row {
+    margin: -16px -16px 16px -16px;
+    padding: 8px 14px;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
   .brand-logo-img {
     height: 36px;
   }
+
   .user-meta-nav {
     display: none;
   }
+
   .library-controls-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .schedule-card form,
+  .feedback-card form {
+    padding: 20px 16px 24px 16px;
   }
 }
 
@@ -1102,9 +1145,13 @@ body {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px 36px 36px 36px;
   box-shadow: var(--shadow-sm);
   margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.schedule-card form {
+  padding: 30px 36px 36px 36px;
 }
 
 /* Schedule form label styling with red required asterisk */
@@ -1359,8 +1406,8 @@ body {
 }
 
 /* Sorting arrow accents */
-table.dataTable thead > tr > th.dt-orderable-asc:hover,
-table.dataTable thead > tr > th.dt-orderable-desc:hover {
+table.dataTable thead>tr>th.dt-orderable-asc:hover,
+table.dataTable thead>tr>th.dt-orderable-desc:hover {
   background-color: var(--bg-surface-secondary);
 }
 
@@ -1393,9 +1440,13 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px 36px 36px 36px;
   box-shadow: var(--shadow-sm);
   margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.feedback-card form {
+  padding: 30px 36px 36px 36px;
 }
 
 /* Form field labels with red required indicator */
@@ -1473,7 +1524,8 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
 
 /* Submit Feedback button (Pubali Bank Deep Green) */
 .btn-submit-feedback {
-  background-color: #006a4e; /* Signature Pubali Bank Deep Green */
+  background-color: #006a4e;
+  /* Signature Pubali Bank Deep Green */
   color: #ffffff;
   border: 1px solid #006a4e;
   border-radius: 6px;
@@ -1525,6 +1577,3 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
   border-color: #334155;
   color: #f1f5f9;
 }
-
-
-

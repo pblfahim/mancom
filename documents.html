@@ -198,42 +198,32 @@
     <main class="portal-main-content">
 
       <!-- ==================================================================
-           PAGE SUBHEADER & BREADCRUMBS
-           Includes Home icon link, "Create Schedule" button,
-           active "Documents" tab, and portal title with division subtitle
+           SUB NAVIGATION / BREADCRUMB ROW (TOP OF MAIN CONTENT)
            ================================================================== -->
-      <section class="page-subheader">
-        <div class="breadcrumb-nav-row">
-          <!-- Home Navigation Link -->
-          <a href="index.html" class="home-icon-link" title="Home">
-            <i class="bi bi-house-door"></i>
-          </a>
+      <div class="breadcrumb-nav-row">
+        <!-- Home Navigation Link -->
+        <a href="index.html" class="home-icon-link" title="Home">
+          <i class="bi bi-house-door"></i>
+        </a>
 
-          <!-- Create Schedule Button (Links to create-schedule.html) -->
-          <a href="create-schedule.html" class="btn btn-create-schedule text-decoration-none">
-            <i class="bi bi-calendar-plus text-success"></i>
-            Create Schedule
-          </a>
+        <!-- Create Schedule Button (Links to create-schedule.html) -->
+        <a href="create-schedule.html" class="btn btn-create-schedule text-decoration-none">
+          <i class="bi bi-calendar-plus text-success"></i>
+          Create Schedule
+        </a>
 
-          <!-- Documents Tab (Active state on this page) -->
-          <a href="documents.html" class="btn-tab-documents text-decoration-none active" style="font-weight: 600;">
-            <i class="bi bi-file-earmark-text me-1"></i>
-            Documents
-          </a>
+        <!-- Documents Tab (Active state on this page) -->
+        <a href="documents.html" class="btn-tab-documents text-decoration-none active" style="font-weight: 600;">
+          <i class="bi bi-file-earmark-text me-1"></i>
+          Documents
+        </a>
 
-          <!-- Feedback Submission Button -->
-          <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
-            <i class="bi bi-chat-square-quote me-1"></i>
-            Feedback Submission
-          </a>
-        </div>
-
-        <!-- Portal Header Title and Subtitle Block -->
-        <div class="portal-title-block">
-          <h1>MANCOM Portal</h1>
-          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md.Fahim (Senior Officer, Human Resources Division)</p>
-        </div>
-      </section>
+        <!-- Feedback Submission Button -->
+        <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
+          <i class="bi bi-chat-square-quote me-1"></i>
+          Feedback Submission
+        </a>
+      </div>
 
       <!-- ==================================================================
            MANCOM DOCUMENTS ARCHIVE & REPOSITORY TABLE WITH BOOTSTRAP DATATABLE
@@ -251,25 +241,16 @@
             <p>Access, preview, and download official Management Committee signed papers and memos</p>
           </div>
 
-          <!-- Secondary Filter Tools: Category & Classification Dropdowns -->
+          <!-- Secondary Filter Tools: Division Dropdown -->
           <div class="library-filter-tools">
-            <!-- Category Filter Dropdown -->
-            <select class="form-select form-select-sm" id="categoryFilter" style="width: 170px; border-radius: 20px;">
-              <option value="" selected>All Categories</option>
-              <option value="Meeting Minutes">Meeting Minutes</option>
-              <option value="Policy Memo">Policy Memo</option>
-              <option value="Working Paper">Working Paper</option>
-              <option value="Financial Report">Financial Report</option>
-              <option value="Audit Compliance">Audit Compliance</option>
-            </select>
-
-            <!-- Classification Filter Dropdown -->
-            <select class="form-select form-select-sm" id="classificationFilter"
-              style="width: 190px; border-radius: 20px;">
-              <option value="" selected>All Classifications</option>
-              <option value="Strictly Confidential">Strictly Confidential</option>
-              <option value="Restricted">Restricted</option>
-              <option value="Internal Use">Internal Use</option>
+            <!-- Division Filter Dropdown -->
+            <select class="form-select form-select-sm" id="divisionFilter" style="width: 220px; border-radius: 20px;">
+              <option value="" selected>All Divisions</option>
+              <option value="Human Resources Division">Human Resources Division</option>
+              <option value="Credit Division">Credit Division</option>
+              <option value="Information Technology Division">Information Technology Division</option>
+              <option value="Finance & Accounts Division">Finance & Accounts Division</option>
+              <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
             </select>
           </div>
         </div>
@@ -284,12 +265,11 @@
                     <input class="form-check-input" type="checkbox" id="selectAllCheckbox" aria-label="Select all rows">
                   </div>
                 </th>
-                <th>Document Name & Details</th>
-                <th>Category</th>
-                <th>Classification</th>
+                <th>Agenda / Reference</th>
+                <th>Division</th>
                 <th>Uploaded By</th>
                 <th>Date & Size</th>
-                <th class="no-sort text-end" style="width: 140px;">Actions</th>
+                <th class="no-sort text-end" style="width: 100px;">Actions</th>
               </tr>
             </thead>
             <!-- Preloaded MANCOM Document Records -->
@@ -309,18 +289,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-001')">MANCOM 14th Session Minutes (Signed Copy)</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Human Resources Division
+                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Ref: DOC-2026-001
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Meeting Minutes</span>
-                </td>
-                <td>
-                  <span class="badge-classification strictly-confidential">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Strictly Confidential
-                  </span>
+                  <span class="badge-category">Human Resources Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -339,12 +314,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-001')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-001')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-001')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -365,18 +334,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Pubali Bank PLC Credit Policy Amendments 2026</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Credit Division
+                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Ref: DOC-2026-002
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Policy Memo</span>
-                </td>
-                <td>
-                  <span class="badge-classification internal">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Internal Use
-                  </span>
+                  <span class="badge-category">Credit Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -395,12 +359,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-002')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-002')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -421,18 +379,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-003')">IT Core Banking Infrastructure Upgrade & Cloud Security</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Information Technology Division
+                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Ref: DOC-2026-003
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Working Paper</span>
-                </td>
-                <td>
-                  <span class="badge-classification restricted">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Restricted
-                  </span>
+                  <span class="badge-category">Information Technology Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -451,12 +404,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-003')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-003')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-003')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -477,18 +424,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-004')">Q3 Financial Performance & Profitability Appraisal</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Finance & Accounts Division
+                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Ref: DOC-2026-004
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Financial Report</span>
-                </td>
-                <td>
-                  <span class="badge-classification strictly-confidential">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Strictly Confidential
-                  </span>
+                  <span class="badge-category">Finance & Accounts Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -507,12 +449,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-004')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-004')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-004')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -533,18 +469,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-001')">Human Resources Promotion & Annual Appraisal Review</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Human Resources Division
+                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Ref: DOC-2026-005
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Meeting Minutes</span>
-                </td>
-                <td>
-                  <span class="badge-classification strictly-confidential">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Strictly Confidential
-                  </span>
+                  <span class="badge-category">Human Resources Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -563,12 +494,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-001')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-001')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-005')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -589,18 +514,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Anti-Money Laundering (AML) Compliance & Risk Audit Report</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Internal Audit & Risk Division
+                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Ref: DOC-2026-006
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Audit Compliance</span>
-                </td>
-                <td>
-                  <span class="badge-classification restricted">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Restricted
-                  </span>
+                  <span class="badge-category">Internal Audit & Risk Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -619,12 +539,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-002')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-006')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -645,18 +559,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-003')">Digital Banking & Pubali App Modernization Roadmap 2027</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Information Technology Division
+                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Ref: DOC-2026-007
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Working Paper</span>
-                </td>
-                <td>
-                  <span class="badge-classification internal">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Internal Use
-                  </span>
+                  <span class="badge-category">Information Technology Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -675,12 +584,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-003')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-003')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-007')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -701,18 +604,13 @@
                     <div>
                       <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Non-Performing Loans (NPL) Recovery Strategic Action Plan</span>
                       <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Credit Division
+                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Ref: DOC-2026-008
                       </div>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span class="badge-category">Policy Memo</span>
-                </td>
-                <td>
-                  <span class="badge-classification strictly-confidential">
-                    <i class="bi bi-shield-lock-fill me-1"></i>Strictly Confidential
-                  </span>
+                  <span class="badge-category">Credit Division</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center gap-2">
@@ -731,12 +629,6 @@
                     </button>
                     <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
                       <i class="bi bi-download"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Share with Members" onclick="window.shareDocument('DOC-2026-002')">
-                      <i class="bi bi-share"></i>
-                    </button>
-                    <button class="btn-action-icon delete" title="Delete" onclick="window.deleteDocument('DOC-2026-008')">
-                      <i class="bi bi-trash"></i>
                     </button>
                   </div>
                 </td>
@@ -885,10 +777,10 @@
           [5, 10, 25, 50, 'All']
         ],
         // Default sort by Date column descending
-        order: [[5, 'desc']],
-        // Disable sorting on checkbox column (0) and actions column (6)
+        order: [[4, 'desc']],
+        // Disable sorting on checkbox column (0) and actions column (5)
         columnDefs: [
-          { orderable: false, targets: [0, 6] }
+          { orderable: false, targets: [0, 5] }
         ],
         language: {
           search: "",
@@ -908,16 +800,10 @@
         autoWidth: false
       });
 
-      // Connect Category dropdown filter to DataTable column 2 (Category)
-      $('#categoryFilter').on('change', function () {
+      // Connect Division dropdown filter to DataTable column 2 (Division)
+      $('#divisionFilter').on('change', function () {
         const val = $.fn.dataTable.util.escapeRegex($(this).val());
         table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
-      });
-
-      // Connect Classification dropdown filter to DataTable column 3 (Classification)
-      $('#classificationFilter').on('change', function () {
-        const val = $(this).val();
-        table.column(3).search(val ? val : '', false, false).draw();
       });
 
       // Select All Checkbox Handler

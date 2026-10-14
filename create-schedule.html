@@ -195,43 +195,33 @@
     <main class="portal-main-content">
 
       <!-- ==================================================================
-           PAGE SUBHEADER & BREADCRUMBS
-           Includes Home icon link, active "Create Schedule" button,
-           "Documents" button, and portal title with division subtitle
+           SUB NAVIGATION / BREADCRUMB ROW (TOP OF MAIN CONTENT)
            ================================================================== -->
-      <section class="page-subheader">
-        <div class="breadcrumb-nav-row">
-          <!-- Home Navigation Link -->
-          <a href="index.html" class="home-icon-link" title="Home">
-            <i class="bi bi-house-door"></i>
-          </a>
+      <div class="breadcrumb-nav-row">
+        <!-- Home Navigation Link -->
+        <a href="index.html" class="home-icon-link" title="Home">
+          <i class="bi bi-house-door"></i>
+        </a>
 
-          <!-- Create Schedule Button (Active / Highlighted on this page) -->
-          <a href="create-schedule.html" class="btn btn-create-schedule"
-            style="border-color: var(--pubali-green-active); color: var(--pubali-green-active); font-weight: 600;">
-            <i class="bi bi-calendar-plus text-success"></i>
-            Create Schedule
-          </a>
+        <!-- Create Schedule Button (Active / Highlighted on this page) -->
+        <a href="create-schedule.html" class="btn btn-create-schedule"
+          style="border-color: var(--pubali-green-active); color: var(--pubali-green-active); font-weight: 600;">
+          <i class="bi bi-calendar-plus text-success"></i>
+          Create Schedule
+        </a>
 
-          <!-- Documents Tab (Links back to Documents Archive) -->
-          <a href="documents.html" class="btn-tab-documents text-decoration-none">
-            <i class="bi bi-file-earmark-text me-1"></i>
-            Documents
-          </a>
+        <!-- Documents Tab (Links back to Documents Archive) -->
+        <a href="documents.html" class="btn-tab-documents text-decoration-none">
+          <i class="bi bi-file-earmark-text me-1"></i>
+          Documents
+        </a>
 
-          <!-- Feedback Submission Button -->
-          <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
-            <i class="bi bi-chat-square-quote me-1"></i>
-            Feedback Submission
-          </a>
-        </div>
-
-        <!-- Portal Header Title and Subtitle Block -->
-        <div class="portal-title-block">
-          <h1>MANCOM Portal</h1>
-          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md.Fahim (Senior Officer, Human Resources Division)</p>
-        </div>
-      </section>
+        <!-- Feedback Submission Button -->
+        <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
+          <i class="bi bi-chat-square-quote me-1"></i>
+          Feedback Submission
+        </a>
+      </div>
 
       <!-- ==================================================================
            CREATE SCHEDULE CARD & FORM
@@ -241,6 +231,19 @@
            - Centered Clear Form and Submit action buttons
            ================================================================== -->
       <section class="schedule-card">
+        <!-- Controls Header: Meaningful Title and Status Badge -->
+        <div class="library-controls-header">
+          <div class="library-title">
+            <h3><i class="bi bi-calendar-event me-2 text-success"></i>MANCOM Meeting Schedule Creation</h3>
+            <p>Schedule a new Management Committee session, designate location, and upload supporting working papers</p>
+          </div>
+          <div class="library-filter-tools">
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+              <i class="bi bi-calendar-plus me-1"></i>New Schedule Entry
+            </span>
+          </div>
+        </div>
+
         <form id="scheduleMeetingForm" novalidate>
 
           <!-- Top Row: 4 Column Input Fields -->
