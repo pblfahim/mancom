@@ -38,6 +38,10 @@
 }
 
 :root {
+  /* Layout Dimensions */
+  --sidebar-width: 250px;
+  --navbar-height: 70px;
+
   /* Pubali Brand Greens */
   --pubali-green: #2a633a;
   --pubali-green-dark: #1e4b2b;
@@ -121,8 +125,8 @@ body {
    ========================================================================== */
 .main-navbar {
   background-color: var(--pubali-green);
-  height: 70px;
-  padding: 0 24px;
+  height: var(--navbar-height, 70px);
+  padding: 0 24px 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,13 +138,20 @@ body {
 }
 
 .brand-section {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
+  height: 100%;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   gap: 12px;
+  box-sizing: border-box;
 }
 
 .brand-logo-img {
-  height: 44px;
+  height: auto;
+  max-width: 180px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
@@ -367,13 +378,15 @@ body {
 
 /* Sidebar Styling */
 .portal-sidebar {
-  width: 250px;
-  min-width: 250px;
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
   background-color: var(--bg-sidebar);
   border-right: 1px solid var(--border-color);
   padding: 24px 16px 36px 16px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   transition: all var(--transition-speed) ease;
 }
 
@@ -1079,6 +1092,17 @@ body {
    RESPONSIVE DESIGN
    ========================================================================== */
 @media (max-width: 991.98px) {
+  .main-navbar {
+    padding: 0 16px;
+  }
+
+  .brand-section {
+    width: auto;
+    min-width: auto;
+    max-width: none;
+    padding: 0;
+  }
+
   .portal-sidebar {
     position: fixed;
     top: 70px;
