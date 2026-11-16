@@ -64,6 +64,40 @@
         </span>
       </button>
 
+      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
+      <div class="dropdown">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Switch User Role (HRD Secretariat / Division User)">
+          <i class="bi bi-person-gear"></i>
+          <span class="role-badge-text fw-semibold" id="navRoleBadge">Division User</span>
+          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu" aria-labelledby="roleSwitcherBtn">
+          <li class="dropdown-header pb-1">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role Mode</small>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd" onclick="window.switchRole('hrd', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD User</span>
+                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule & Documents</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd" style="display: none;"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division active-role" onclick="window.switchRole('division', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division / Branch User</span>
+                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission (Only)</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-primary ms-2 check-division"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,6 +121,14 @@
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
           </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class="dropdown-header">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
+          </li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -200,27 +242,26 @@
            ================================================================== -->
       <div class="breadcrumb-nav-row">
         <!-- Home Navigation Link -->
-        <a href="index.html" class="home-icon-link" title="Home">
+        <a href="index.html" class="home-icon-link" title="Home" aria-label="Home">
           <i class="bi bi-house-door"></i>
         </a>
 
         <!-- Create Schedule Button -->
-        <a href="create-schedule.html" class="btn btn-create-schedule text-decoration-none">
-          <i class="bi bi-calendar-plus text-success"></i>
-          Create Schedule
+        <a href="create-schedule.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-calendar-plus"></i>
+          <span>Create Schedule</span>
         </a>
 
         <!-- Documents Tab -->
-        <a href="documents.html" class="btn-tab-documents text-decoration-none">
-          <i class="bi bi-file-earmark-text me-1"></i>
-          Documents
+        <a href="documents.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-file-earmark-text"></i>
+          <span>Documents</span>
         </a>
 
         <!-- Feedback Submission Tab (Active on this page) -->
-        <a href="FeedbackSubmission.html" class="btn btn-create-schedule text-decoration-none"
-          style="border-color: var(--pubali-green-active); color: var(--pubali-green-active); font-weight: 600;">
-          <i class="bi bi-chat-square-quote text-success"></i>
-          Feedback Submission
+        <a href="FeedbackSubmission.html" class="subnav-item active text-decoration-none">
+          <i class="bi bi-chat-square-quote"></i>
+          <span>Feedback Submission</span>
         </a>
       </div>
 
@@ -241,7 +282,8 @@
             <p>Submit divisional observations, remarks, and signed working papers for active committee meetings</p>
           </div>
           <div class="library-filter-tools">
-            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+            <span
+              class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
               <i class="bi bi-shield-check me-1"></i>Official Submission
             </span>
           </div>
@@ -251,37 +293,52 @@
 
           <!-- Row 1: Meeting Subject & Division (2 Columns) -->
           <div class="row g-4 mb-4">
-            
-            <!-- Column 1: Meeting Subject -->
+
+            <!-- Column 1: Meeting Subject (Auto-fetched from create-schedule page) -->
             <div class="col-md-6">
-              <label for="feedbackMeetingSubject" class="feedback-label">
-                Meeting Subject <span class="required-star">*</span>
-              </label>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label for="feedbackMeetingSubject" class="feedback-label mb-0">
+                  Meeting Subject <span class="required-star">*</span>
+                </label>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill" style="font-size: 10.5px;">
+                  <i class="bi bi-arrow-repeat me-1"></i>Auto-fetched from Schedule
+                </span>
+              </div>
               <input type="text" class="feedback-input" id="feedbackMeetingSubject" name="meetingSubject"
-                value="9th Meeting of Mancom Committee" required placeholder="Enter meeting subject">
-              <!-- Helper text matching screenshot -->
-              <p class="feedback-help-text">
-                HRD adds active meetings in the Meeting_Register sheet.
+                value="" required placeholder="Enter Meeting Subject (or await HRD schedule)" list="meetingSubjectSuggestions">
+              <!-- Meeting suggestions list auto-populated from schedule -->
+              <datalist id="meetingSubjectSuggestions">
+              </datalist>
+              <!-- Helper text matching requirements -->
+              <p class="feedback-help-text mt-1">
+                <i class="bi bi-info-circle me-1 text-success"></i>Auto-synchronized with active session from Create Schedule (HRD Meeting Register).
               </p>
             </div>
 
-            <!-- Column 2: Division -->
+            <!-- Column 2: Division (Auto-selected according to profile) -->
             <div class="col-md-6">
-              <label for="feedbackDivision" class="feedback-label">
-                Division <span class="required-star">*</span>
-              </label>
-              <input type="text" class="feedback-input" id="feedbackDivision" name="division"
-                value="Recovery Division" required placeholder="Enter division name" list="divisionSuggestions">
-              <!-- Division suggestions datalist -->
-              <datalist id="divisionSuggestions">
-                <option value="Recovery Division">
-                <option value="Credit Division">
-                <option value="Human Resources Division (HRD)">
-                <option value="Information Technology Division (ITD)">
-                <option value="Finance & Accounts Division">
-                <option value="Internal Audit & Risk Division">
-                <option value="Law & Recovery Division">
-              </datalist>
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label for="feedbackDivision" class="feedback-label mb-0">
+                  Division / Branch <span class="required-star">*</span>
+                </label>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill" style="font-size: 10.5px;">
+                  <i class="bi bi-person-check me-1"></i>Auto-selected from Profile
+                </span>
+              </div>
+              <select class="feedback-input form-select" id="feedbackDivision" name="division" required>
+                <option value="Credit Division" selected>Credit Division</option>
+                <option value="Corporate Principal Branch">Corporate Principal Branch</option>
+                <option value="Dhaka Regional Branch Operations">Dhaka Regional Branch Operations</option>
+                <option value="Human Resources Division (HRD)">Human Resources Division (HRD)</option>
+                <option value="Recovery Division">Recovery Division</option>
+                <option value="Information Technology Division (ITD)">Information Technology Division (ITD)</option>
+                <option value="Finance & Accounts Division">Finance & Accounts Division</option>
+                <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
+                <option value="Law & Recovery Division">Law & Recovery Division</option>
+              </select>
+              <p class="feedback-help-text mt-1">
+                <i class="bi bi-shield-check me-1 text-success"></i>Division / Branch authorization mapped to logged-in user profile.
+              </p>
             </div>
 
           </div>
@@ -292,45 +349,91 @@
               Agenda / Reference <span class="required-star">*</span>
             </label>
             <input type="text" class="feedback-input" id="feedbackAgendaRef" name="agendaReference"
+              value=""
               placeholder="e.g., Agenda 02 — Position of Classified Loan & Advances of the bank & recovery" required>
           </div>
 
-          <!-- Row 3: Large Document Upload Box (PDF, DOCX or PPTX; maximum 5 MB) -->
-          <div class="mb-4">
-            <label class="feedback-label">
-              Upload document (PDF, DOCX or PPTX; maximum 5 MB) <span class="required-star">*</span>
-            </label>
+          <!-- Row 3: Dynamic preview matching FeedbackSubmission upload (Auto-loaded from Create Schedule) -->
+          <div class="mb-4" id="scheduledAgendaPreviewSection" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="feedback-label mb-0">
+                <i class="bi bi-file-earmark-pdf text-danger me-1"></i>Official MANCOM Agenda Document
+              </label>
+              <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill"
+                style="font-size: 10.5px;" id="agendaFileOriginBadge">
+                <i class="bi bi-calendar-check me-1"></i>Loaded from Create Schedule
+              </span>
+            </div>
 
-            <!-- Box Container with Drag & Drop and Click Support -->
-            <div class="schedule-upload-box" id="feedbackUploadBox" tabindex="0" role="button" aria-label="Upload document area">
-              
-              <!-- Standard / Centered File Input Row -->
-              <div class="schedule-file-input-row" id="feedbackUploadPlaceholder">
-                <button type="button" class="btn btn-sm btn-light border px-3 py-1 fw-medium" id="btnChooseFeedbackFile"
-                  style="background-color: #efefef; color: #1f2937; border-color: #767676 !important; border-radius: 4px;">
-                  Choose File
-                </button>
-                <span class="text-secondary small ms-1" id="chosenFeedbackFileText">No file chosen</span>
-              </div>
-
-              <!-- Selected File Preview Badge (Shown after selecting a file) -->
-              <div class="schedule-selected-preview" id="feedbackSelectedPreview">
-                <div class="d-flex align-items-center gap-2 text-truncate">
-                  <i class="bi bi-file-earmark-check-fill text-success fs-5"></i>
-                  <div class="text-start text-truncate">
-                    <span class="fw-semibold text-dark d-block text-truncate small" id="previewFeedbackFileName">filename.pdf</span>
-                    <span class="text-muted" style="font-size: 11px;" id="previewFeedbackFileSize">0.0 MB</span>
+            <!-- Selected File Preview Strip (Dynamic preview matching FeedbackSubmission upload) -->
+            <div class="selected-file-card" id="feedbackSelectedFileCard" style="display: flex; margin: 0 0 16px 0;">
+              <div class="selected-file-info d-flex align-items-center gap-3">
+                <i class="bi bi-file-earmark-pdf-fill file-type-icon fs-2 text-danger"></i>
+                <div class="file-details">
+                  <span class="file-name fw-semibold text-dark d-block" id="feedbackFileName" style="cursor: pointer;"
+                    title="Click to preview document">MANCOM-Agenda-Paper.pdf</span>
+                  <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="file-meta text-muted small" id="feedbackFileMeta">3.8 MB • Ready</span>
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                      style="font-size: 10px;">
+                      <i class="bi bi-check-circle-fill me-1"></i>Scheduled Agenda Paper
+                    </span>
                   </div>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-danger border-0 rounded-circle p-1" id="btnRemoveFeedbackDoc" title="Remove attached document">
-                  <i class="bi bi-x-circle-fill"></i>
+              </div>
+              <div class="file-actions d-flex align-items-center gap-2">
+                <!-- Preview Document Button -->
+                <button type="button"
+                  class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1 px-3 py-1 fw-semibold"
+                  id="btnPreviewAgendaModal" title="Preview Attached Agenda in Full Viewer">
+                  <i class="bi bi-eye-fill"></i>
+                  <span>Preview</span>
+                </button>
+                <!-- Quick Inline Preview Toggle -->
+                <button type="button"
+                  class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 px-2 py-1"
+                  id="btnToggleInlinePreview" title="Toggle Quick Inline View" data-bs-toggle="collapse"
+                  data-bs-target="#inlineAgendaPreviewCollapse">
+                  <i class="bi bi-layout-sidebar-inset"></i>
+                  <span class="d-none d-sm-inline">Quick View</span>
                 </button>
               </div>
+            </div>
 
-              <!-- Hidden Native File Input accepting PDF, DOCX, and PPTX up to 5MB -->
-              <input type="file" id="feedbackFileInput" name="feedbackDocument"
-                accept=".pdf,.docx,.pptx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                style="display:none;" aria-label="Upload document">
+            <!-- Inline Collapsible Preview Box -->
+            <div class="collapse mb-3" id="inlineAgendaPreviewCollapse">
+              <div class="card card-body p-2 border bg-light shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-2 px-2 pt-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+                    <span class="fw-semibold small text-dark" id="inlinePreviewTitle">MANCOM Agenda Document
+                      Preview</span>
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                      style="font-size: 10px;">
+                      Live Document Stream
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center gap-1">
+                    <button type="button" class="btn btn-sm btn-outline-success px-2 py-0" id="btnExpandInlineToModal"
+                      title="Open Full Screen Modal Viewer">
+                      <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                    <button type="button" class="btn-close ms-2" data-bs-toggle="collapse"
+                      data-bs-target="#inlineAgendaPreviewCollapse" aria-label="Close Preview"
+                      style="font-size: 10px;"></button>
+                  </div>
+                </div>
+                <div class="rounded border overflow-hidden" style="height: 380px; background-color: #525659;">
+                  <iframe id="inlineAgendaPreviewFrame" style="width: 100%; height: 100%; border: 0;"
+                    src="" title="Agenda Document Inline Preview"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-text mt-1 text-muted" style="font-size: 11px;">
+              <i class="bi bi-info-circle me-1 text-success"></i>This official MANCOM agenda working paper was uploaded by the HRD Secretariat during meeting scheduling.
             </div>
           </div>
 
@@ -372,7 +475,8 @@
        ====================================================================== -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationOffcanvas" aria-labelledby="offcanvasLabel">
     <div class="offcanvas-header border-bottom">
-      <h5 class="offcanvas-title fw-bold" id="offcanvasLabel"><i class="bi bi-bell text-success me-2"></i>Bank Circulars & Alerts</h5>
+      <h5 class="offcanvas-title fw-bold" id="offcanvasLabel"><i class="bi bi-bell text-success me-2"></i>Bank Circulars
+        & Alerts</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
@@ -380,9 +484,9 @@
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
             <h6 class="mb-1 fw-bold text-success">Feedback Channel Active</h6>
-            <small class="text-muted">Just now</small>
+            <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">Recovery Division feedback channel opened for the 9th MANCOM meeting.</p>
+          <p class="mb-1 small text-secondary">Divisional feedback channels are active for scheduled committee sessions.</p>
           <small class="text-muted"><i class="bi bi-chat-left-quote me-1"></i> MANCOM Secretariat</small>
         </div>
         <div class="list-group-item p-3">
@@ -390,7 +494,8 @@
             <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
             <small class="text-muted">Yesterday</small>
           </div>
-          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional branches.</p>
+          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+            branches.</p>
           <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
         </div>
       </div>
@@ -402,7 +507,8 @@
        Provides toast feedback upon feedback submission, validation, or reset
        ====================================================================== -->
   <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
-    <div id="feedbackToast" class="toast align-items-center shadow-lg border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="feedbackToast" class="toast align-items-center shadow-lg border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
       <div class="toast-header bg-success text-white" id="toastHeader">
         <i class="bi bi-check-circle-fill me-2" id="toastIcon"></i>
         <strong class="me-auto" id="toastTitle">Pubali Bank Portal</strong>
@@ -411,6 +517,51 @@
       </div>
       <div class="toast-body bg-body text-body" id="toastBody">
         Feedback submitted successfully.
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       INTERACTIVE PDF VIEWER MODAL
+       Allows full in-browser previewing, zooming, printing, and downloading
+       of MANCOM committee agenda papers uploaded in Create Schedule
+       ====================================================================== -->
+  <div class="modal fade modal-pdf-viewer" id="pdfViewerModal" tabindex="-1" aria-labelledby="pdfModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-pdf-header">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+            <div>
+              <h5 class="modal-title mb-0 fw-bold" id="pdfModalTitle">Document Preview</h5>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span id="pdfModalBadge" class="badge-classification strictly-confidential">Confidential</span>
+                <small class="text-muted">Pubali Bank PLC • Secure Document Stream</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- PDF Toolbar: Zoom Out, Zoom In, Print, Download, Close -->
+          <div class="d-flex align-items-center gap-2">
+            <div class="pdf-toolbar">
+              <button class="pdf-toolbar-btn" id="btnZoomOut" title="Zoom Out"><i class="bi bi-zoom-out"></i></button>
+              <button class="pdf-toolbar-btn" id="btnZoomIn" title="Zoom In"><i class="bi bi-zoom-in"></i></button>
+              <button class="pdf-toolbar-btn" id="btnPrintDoc" title="Print Document"><i
+                  class="bi bi-printer"></i></button>
+              <button class="pdf-toolbar-btn text-success" id="btnModalDownload" title="Download Local PDF"><i
+                  class="bi bi-download"></i></button>
+            </div>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <!-- PDF Frame Viewer Container -->
+        <div class="modal-body p-0">
+          <div class="pdf-frame-container">
+            <iframe id="pdfViewerFrame" class="pdf-iframe" src="" title="PDF Viewer"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -426,8 +577,12 @@
 
   <!-- ======================================================================
        FEEDBACK SUBMISSION CONTROLLER SCRIPT
-       Validates required inputs, handles file selection & constraints (<= 5MB),
-       implements drag-and-drop, tracks character count, and provides user feedback
+       - Auto-fills Meeting Subject from create-schedule page
+       - Auto-selects Division according to logged-in user profile
+       - Automatically shows "Dynamic preview matching FeedbackSubmission upload"
+         when a meeting schedule has an uploaded MANCOM Agenda
+       - Provides Fullscreen Modal & Inline Preview for the scheduled agenda
+       - Handles form submission, clear/reset, and character limits
        ====================================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -438,17 +593,19 @@
       const agendaRefInput = document.getElementById('feedbackAgendaRef');
       const commentsTextarea = document.getElementById('feedbackComments');
       const charCountLabel = document.getElementById('charCountLabel');
-      const uploadBox = document.getElementById('feedbackUploadBox');
-      const fileInput = document.getElementById('feedbackFileInput');
-      const btnChooseFile = document.getElementById('btnChooseFeedbackFile');
-      const chosenFileText = document.getElementById('chosenFeedbackFileText');
-      const uploadPlaceholder = document.getElementById('feedbackUploadPlaceholder');
-      const selectedPreview = document.getElementById('feedbackSelectedPreview');
-      const previewFileName = document.getElementById('previewFeedbackFileName');
-      const previewFileSize = document.getElementById('previewFeedbackFileSize');
-      const btnRemoveDoc = document.getElementById('btnRemoveFeedbackDoc');
       const btnClear = document.getElementById('btnClearFeedback');
       const btnSubmit = document.getElementById('btnSubmitFeedback');
+
+      // Scheduled Agenda Preview Elements
+      const scheduledAgendaPreviewSection = document.getElementById('scheduledAgendaPreviewSection');
+      const feedbackSelectedFileCard = document.getElementById('feedbackSelectedFileCard');
+      const fileNameEl = document.getElementById('feedbackFileName');
+      const fileMetaEl = document.getElementById('feedbackFileMeta');
+      const inlineAgendaPreviewCollapse = document.getElementById('inlineAgendaPreviewCollapse');
+      const inlineAgendaPreviewFrame = document.getElementById('inlineAgendaPreviewFrame');
+      const inlinePreviewTitle = document.getElementById('inlinePreviewTitle');
+      const btnPreviewAgendaModal = document.getElementById('btnPreviewAgendaModal');
+      const btnExpandInlineToModal = document.getElementById('btnExpandInlineToModal');
 
       // Toast instance
       const toastEl = document.getElementById('feedbackToast');
@@ -458,13 +615,10 @@
       const toastBody = document.getElementById('toastBody');
       const toastIcon = document.getElementById('toastIcon');
 
-      let currentAttachedFile = null;
+      let activeAgenda = null;
 
       /**
        * Shows a styled toast notification
-       * @param {string} title - Header title text
-       * @param {string} message - Body message content
-       * @param {boolean} isSuccess - True for green success, false for red danger
        */
       function notify(title, message, isSuccess = true) {
         if (!toast) return;
@@ -481,22 +635,290 @@
       }
 
       /**
-       * Formats byte size into human readable string
+       * Auto-selects Division according to logged-in user profile
        */
-      function formatSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+      function autoSelectDivisionByProfile() {
+        if (!divisionInput) return;
+
+        const navRole = document.querySelector('.user-role')?.textContent?.trim() || '';
+        const sidebarRole = document.querySelector('.sidebar-user-role')?.textContent?.trim() || '';
+        const combinedRole = (navRole + ' ' + sidebarRole).toLowerCase();
+
+        let targetDivision = 'Credit Division';
+        if (combinedRole.includes('hrd') || combinedRole.includes('human resources')) {
+          targetDivision = 'Human Resources Division (HRD)';
+        } else if (combinedRole.includes('branch') || combinedRole.includes('credit')) {
+          targetDivision = 'Credit Division';
+        } else if (combinedRole.includes('recovery')) {
+          targetDivision = 'Recovery Division';
+        } else if (combinedRole.includes('it') || combinedRole.includes('technology')) {
+          targetDivision = 'Information Technology Division (ITD)';
+        } else if (combinedRole.includes('finance') || combinedRole.includes('accounts')) {
+          targetDivision = 'Finance & Accounts Division';
+        } else if (combinedRole.includes('audit') || combinedRole.includes('risk')) {
+          targetDivision = 'Internal Audit & Risk Division';
+        }
+
+        divisionInput.value = targetDivision;
       }
+
+      /**
+       * Displays the dynamic preview matching the agenda uploaded in Create Schedule
+       */
+      function displayUploadedAgendaFile(agenda) {
+        if (!agenda) {
+          activeAgenda = null;
+          if (scheduledAgendaPreviewSection) scheduledAgendaPreviewSection.style.display = 'none';
+          return;
+        }
+
+        activeAgenda = agenda;
+        if (scheduledAgendaPreviewSection) scheduledAgendaPreviewSection.style.display = 'block';
+
+        if (fileNameEl) fileNameEl.textContent = agenda.fileName || 'MANCOM-Agenda-Paper.pdf';
+        if (fileMetaEl) fileMetaEl.textContent = (agenda.fileSize || '3.8 MB') + ' • Ready';
+        if (inlineAgendaPreviewFrame) {
+          inlineAgendaPreviewFrame.src = agenda.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+        }
+        if (inlinePreviewTitle) {
+          inlinePreviewTitle.textContent = (agenda.fileName || 'MANCOM Agenda Document') + ' (' + (agenda.subject || 'MANCOM Meeting') + ')';
+        }
+      }
+
+      /**
+       * Opens interactive PDF preview modal for attached scheduled agenda paper
+       */
+      function openAgendaPreviewModal() {
+        if (!activeAgenda) return;
+        const modalEl = document.getElementById('pdfViewerModal');
+        if (!modalEl) return;
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        const titleEl = document.getElementById('pdfModalTitle');
+        const badgeEl = document.getElementById('pdfModalBadge');
+        const frameEl = document.getElementById('pdfViewerFrame');
+        const downloadBtn = document.getElementById('btnModalDownload');
+
+        const currentSubject = meetingSubjectInput.value.trim() || activeAgenda.subject || 'MANCOM Committee Meeting';
+        const currentName = activeAgenda.fileName || 'MANCOM-Agenda-Paper.pdf';
+        const currentUrl = activeAgenda.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+
+        if (titleEl) titleEl.textContent = currentSubject + ' - ' + currentName;
+        if (badgeEl) {
+          badgeEl.className = 'badge-classification internal';
+          badgeEl.innerHTML = '<i class="bi bi-file-earmark-pdf-fill me-1"></i>Scheduled Agenda Paper';
+        }
+        if (frameEl) {
+          frameEl.src = currentUrl;
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            const link = document.createElement('a');
+            link.href = currentUrl;
+            link.download = currentName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+        }
+
+        modal.show();
+      }
+
+      if (btnPreviewAgendaModal) {
+        btnPreviewAgendaModal.addEventListener('click', openAgendaPreviewModal);
+      }
+      if (btnExpandInlineToModal) {
+        btnExpandInlineToModal.addEventListener('click', openAgendaPreviewModal);
+      }
+      if (fileNameEl) {
+        fileNameEl.addEventListener('click', openAgendaPreviewModal);
+      }
+
+      // PDF Modal Zoom & Print Toolbar Controls
+      const btnZoomIn = document.getElementById('btnZoomIn');
+      const btnZoomOut = document.getElementById('btnZoomOut');
+      const btnPrintDoc = document.getElementById('btnPrintDoc');
+      let currentZoom = 100;
+      if (btnZoomIn) {
+        btnZoomIn.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && currentZoom < 180) {
+            currentZoom += 15;
+            frame.style.transform = 'scale(' + (currentZoom / 100) + ')';
+            frame.style.transformOrigin = 'top center';
+          }
+        });
+      }
+      if (btnZoomOut) {
+        btnZoomOut.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && currentZoom > 70) {
+            currentZoom -= 15;
+            frame.style.transform = 'scale(' + (currentZoom / 100) + ')';
+            frame.style.transformOrigin = 'top center';
+          }
+        });
+      }
+      if (btnPrintDoc) {
+        btnPrintDoc.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && frame.contentWindow) {
+            try {
+              frame.contentWindow.print();
+            } catch (e) {
+              window.print();
+            }
+          }
+        });
+      }
+
+      /**
+       * Auto-fills Meeting Subject from create-schedule page / storage
+       * and automatically displays the uploaded MANCOM Agenda preview if available
+       */
+      function autoFillFromSchedule() {
+        // 1. Check URL query param first (e.g. ?meeting=...)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMeeting = urlParams.get('meeting') || urlParams.get('subject');
+
+        // 2. Check stored records in localStorage
+        let scheduledRecords = [];
+        try {
+          const storedRecords = localStorage.getItem('mancom_meetings_records');
+          if (storedRecords) {
+            scheduledRecords = JSON.parse(storedRecords);
+          }
+        } catch (e) {}
+
+        // Populate suggestion datalist if element exists
+        const datalist = document.getElementById('meetingSubjectSuggestions');
+        if (datalist && scheduledRecords.length > 0) {
+          datalist.innerHTML = scheduledRecords.map(m => '<option value="' + m.subject.replace(/"/g, '&quot;') + '"></option>').join('');
+        }
+
+        // 3. Check latest schedule or uploaded agenda
+        let latestSchedule = null;
+        try {
+          const stored = localStorage.getItem('mancom_latest_schedule');
+          if (stored) {
+            latestSchedule = JSON.parse(stored);
+          }
+        } catch (e) {}
+
+        let uploadedAgenda = null;
+        try {
+          const stored = localStorage.getItem('mancom_uploaded_agenda_file');
+          if (stored) {
+            uploadedAgenda = JSON.parse(stored);
+          }
+        } catch (e) {}
+
+        const activeSubject = urlMeeting ||
+                              localStorage.getItem('mancom_latest_meeting_subject') ||
+                              localStorage.getItem('mancom_active_meeting_subject') ||
+                              (latestSchedule && latestSchedule.subject);
+
+        let agendaToDisplay = null;
+
+        if (activeSubject && activeSubject.trim()) {
+          const trimmed = activeSubject.trim();
+          meetingSubjectInput.value = trimmed;
+
+          // Find matching meeting record to get its uploaded agenda file
+          const matched = scheduledRecords.find(m => m.subject.toLowerCase() === trimmed.toLowerCase());
+          if (matched && matched.fileName) {
+            agendaToDisplay = {
+              fileName: matched.fileName,
+              fileSize: matched.fileSize || '3.8 MB',
+              fileUrl: matched.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+              subject: matched.subject
+            };
+          } else if (latestSchedule && latestSchedule.fileName) {
+            agendaToDisplay = {
+              fileName: latestSchedule.fileName,
+              fileSize: latestSchedule.fileSize || '3.8 MB',
+              fileUrl: latestSchedule.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+              subject: trimmed
+            };
+          } else if (uploadedAgenda && uploadedAgenda.fileName) {
+            agendaToDisplay = uploadedAgenda;
+          }
+        } else if (latestSchedule && latestSchedule.subject) {
+          meetingSubjectInput.value = latestSchedule.subject;
+          if (latestSchedule.fileName) {
+            agendaToDisplay = {
+              fileName: latestSchedule.fileName,
+              fileSize: latestSchedule.fileSize || '3.8 MB',
+              fileUrl: latestSchedule.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+              subject: latestSchedule.subject
+            };
+          }
+        } else if (scheduledRecords.length > 0 && scheduledRecords[0].subject) {
+          meetingSubjectInput.value = scheduledRecords[0].subject;
+          if (scheduledRecords[0].fileName) {
+            agendaToDisplay = {
+              fileName: scheduledRecords[0].fileName,
+              fileSize: scheduledRecords[0].fileSize || '3.8 MB',
+              fileUrl: scheduledRecords[0].fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+              subject: scheduledRecords[0].subject
+            };
+          }
+        } else {
+          meetingSubjectInput.value = '';
+          agendaToDisplay = null;
+        }
+
+        // Auto-select Division based on profile
+        autoSelectDivisionByProfile();
+
+        // Show Dynamic preview matching FeedbackSubmission upload automatically if agenda exists
+        displayUploadedAgendaFile(agendaToDisplay);
+      }
+
+      // Initial auto-fill execution
+      autoFillFromSchedule();
+
+      // Listen for manual meeting subject input change
+      meetingSubjectInput.addEventListener('input', () => {
+        const val = meetingSubjectInput.value.trim().toLowerCase();
+        let scheduledRecords = [];
+        try {
+          const stored = localStorage.getItem('mancom_meetings_records');
+          if (stored) scheduledRecords = JSON.parse(stored);
+        } catch (e) {}
+
+        const matched = scheduledRecords.find(m => m.subject.toLowerCase() === val);
+        if (matched && matched.fileName) {
+          displayUploadedAgendaFile({
+            fileName: matched.fileName,
+            fileSize: matched.fileSize || '3.8 MB',
+            fileUrl: matched.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            subject: matched.subject
+          });
+        } else if (!val) {
+          displayUploadedAgendaFile(null);
+        }
+      });
+
+      // Cross-tab/window storage synchronization with Create Schedule
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'mancom_latest_meeting_subject' ||
+            e.key === 'mancom_active_meeting_subject' ||
+            e.key === 'mancom_latest_schedule' ||
+            e.key === 'mancom_uploaded_agenda_file' ||
+            e.key === 'mancom_meetings_records') {
+          autoFillFromSchedule();
+        }
+      });
 
       /**
        * Live character count listener for the comments textarea (max 2,000)
        */
       commentsTextarea.addEventListener('input', () => {
         const len = commentsTextarea.value.length;
-        charCountLabel.textContent = `${len.toLocaleString()} / 2,000 characters`;
+        charCountLabel.textContent = len.toLocaleString() + ' / 2,000 characters';
         if (len >= 2000) {
           charCountLabel.classList.add('text-danger');
         } else {
@@ -504,111 +926,14 @@
         }
       });
 
-      /**
-       * Validates and displays selected document
-       * Allowed formats: .pdf, .docx, .pptx
-       * Maximum size: 5 MB (5,242,880 bytes)
-       */
-      function processFile(file) {
-        if (!file) return;
-
-        // Check file extension
-        const allowedExtensions = ['.pdf', '.docx', '.pptx'];
-        const fileName = file.name.toLowerCase();
-        const hasValidExt = allowedExtensions.some(ext => fileName.endsWith(ext));
-
-        if (!hasValidExt) {
-          notify('Invalid File Format', 'Please upload a valid document in PDF, DOCX, or PPTX format.', false);
-          return;
-        }
-
-        // Check file size (5MB maximum)
-        const maxBytes = 5 * 1024 * 1024;
-        if (file.size > maxBytes) {
-          notify('File Too Large', `The selected file (${formatSize(file.size)}) exceeds the maximum allowed 5 MB limit.`, false);
-          return;
-        }
-
-        // Valid file
-        currentAttachedFile = file;
-        previewFileName.textContent = file.name;
-        previewFileSize.textContent = formatSize(file.size);
-        chosenFeedbackFileText.textContent = file.name;
-
-        // Show preview badge
-        uploadPlaceholder.style.display = 'none';
-        selectedPreview.style.display = 'flex';
-
-        notify('File Attached', `"${file.name}" (${formatSize(file.size)}) attached successfully.`, true);
-      }
-
-      /**
-       * Resets attached document back to empty state
-       */
-      function resetAttachedFile() {
-        currentAttachedFile = null;
-        fileInput.value = '';
-        chosenFeedbackFileText.textContent = 'No file chosen';
-        uploadPlaceholder.style.display = 'flex';
-        selectedPreview.style.display = 'none';
-      }
-
-      // Trigger file selector on click
-      uploadBox.addEventListener('click', (e) => {
-        if (e.target.closest('#btnRemoveFeedbackDoc')) return;
-        fileInput.click();
-      });
-
-      btnChooseFile.addEventListener('click', (e) => {
-        e.stopPropagation();
-        fileInput.click();
-      });
-
-      fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-          processFile(e.target.files[0]);
-        }
-      });
-
-      btnRemoveDoc.addEventListener('click', (e) => {
-        e.stopPropagation();
-        resetAttachedFile();
-      });
-
-      // Drag and Drop support
-      ['dragenter', 'dragover'].forEach(name => {
-        uploadBox.addEventListener(name, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          uploadBox.classList.add('drag-over');
-        });
-      });
-
-      ['dragleave', 'drop'].forEach(name => {
-        uploadBox.addEventListener(name, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          uploadBox.classList.remove('drag-over');
-        });
-      });
-
-      uploadBox.addEventListener('drop', (e) => {
-        const files = e.dataTransfer.files;
-        if (files && files.length > 0) {
-          processFile(files[0]);
-        }
-      });
-
       // Clear Form button action
       btnClear.addEventListener('click', () => {
         form.reset();
-        resetAttachedFile();
-        meetingSubjectInput.value = '9th Meeting of Mancom Committee';
-        divisionInput.value = 'Recovery Division';
+        autoFillFromSchedule();
         agendaRefInput.value = '';
         commentsTextarea.value = '';
         charCountLabel.textContent = '0 / 2,000 characters';
-        notify('Form Reset', 'All input fields and attachments have been cleared.', true);
+        notify('Form Reset', 'Meeting subject, division, and scheduled agenda paper restored.', true);
       });
 
       // Form Submit action
@@ -618,6 +943,7 @@
         const subject = meetingSubjectInput.value.trim();
         const division = divisionInput.value.trim();
         const agenda = agendaRefInput.value.trim();
+        const comments = commentsTextarea.value.trim();
 
         // Validation
         if (!subject) {
@@ -638,20 +964,35 @@
           return;
         }
 
-        if (!currentAttachedFile) {
-          notify('Missing Document', 'Please attach your feedback paper (PDF, DOCX, or PPTX; maximum 5 MB).', false);
-          uploadBox.focus();
-          return;
-        }
-
         // Disable submit button during processing
         btnSubmit.disabled = true;
         btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting Feedback...';
 
         setTimeout(() => {
+          // Store feedback submission in localStorage
+          try {
+            const submissions = JSON.parse(localStorage.getItem('mancom_feedback_submissions') || '[]');
+            submissions.unshift({
+              id: 'FB-' + Date.now(),
+              subject: subject,
+              division: division,
+              agenda: agenda,
+              comments: comments,
+              agendaFileName: activeAgenda ? activeAgenda.fileName : null,
+              submittedAt: new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
+            });
+            localStorage.setItem('mancom_feedback_submissions', JSON.stringify(submissions));
+          } catch (err) {}
+
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = 'Submit Feedback';
-          notify('Feedback Submitted!', `Feedback for "${subject}" from ${division} has been submitted to HRD successfully.`, true);
+          const attachedNote = activeAgenda ? ' (for Agenda: ' + activeAgenda.fileName + ')' : '';
+          notify('Feedback Submitted!', 'Feedback for "' + subject + '"' + attachedNote + ' from ' + division + ' has been submitted successfully to MANCOM HRD Secretariat.', true);
+
+          // Reset agenda and comments fields
+          agendaRefInput.value = '';
+          commentsTextarea.value = '';
+          charCountLabel.textContent = '0 / 2,000 characters';
         }, 800);
       });
     });

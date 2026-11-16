@@ -52,6 +52,40 @@
         </span>
       </button>
 
+      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
+      <div class="dropdown">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Switch User Role (HRD Secretariat / Division User)">
+          <i class="bi bi-person-gear"></i>
+          <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
+          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu" aria-labelledby="roleSwitcherBtn">
+          <li class="dropdown-header pb-1">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role Mode</small>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd" onclick="window.switchRole('hrd', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD User</span>
+                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule & Documents</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division" onclick="window.switchRole('division', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division / Branch User</span>
+                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission (Only)</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- User Profile Dropdown Pill -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,8 +98,8 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userDropdown">
           <li class="dropdown-header">
-            <h6 class="mb-0 text-dark fw-bold">Md. Fahim</h6>
-            <small class="text-muted">Senior Officer (Human Resources)</small>
+            <h6 class="mb-0 text-dark fw-bold user-name">Md. Fahim</h6>
+            <small class="text-muted user-title">Senior Officer (HRD)</small>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -74,6 +108,20 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><h6 class="dropdown-header text-uppercase fs-xs fw-bold text-muted">Active Role Mode</h6></li>
+          <li>
+            <a class="dropdown-item" href="javascript:void(0)" onclick="window.switchRole('hrd', true)">
+              <i class="bi bi-shield-lock me-2 text-success"></i> HRD User (Create Schedule & Documents)
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="javascript:void(0)" onclick="window.switchRole('division', true)">
+              <i class="bi bi-person-workspace me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)
+            </a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -176,22 +224,31 @@
     <!-- MAIN CONTENT AREA -->
     <main class="portal-main-content">
 
-      <!-- BREADCRUMB / SUB-NAV ROW (TOP OF MAIN CONTENT) -->
+      <!-- ==================================================================
+           SUB NAVIGATION / BREADCRUMB ROW (TOP OF MAIN CONTENT)
+           ================================================================== -->
       <div class="breadcrumb-nav-row">
-        <a href="index.html" class="home-icon-link" title="Home">
+        <!-- Home Navigation Link -->
+        <a href="index.html" class="home-icon-link" title="Home" aria-label="Home">
           <i class="bi bi-house-door"></i>
         </a>
-        <a href="create-schedule.html" class="btn btn-create-schedule text-decoration-none">
-          <i class="bi bi-calendar-plus text-success"></i>
-          Create Schedule
+
+        <!-- Create Schedule Button (HRD Only) -->
+        <a href="create-schedule.html" class="subnav-item subnav-hrd-only text-decoration-none">
+          <i class="bi bi-calendar-plus"></i>
+          <span>Create Schedule</span>
         </a>
-        <a href="all.html" class="btn-tab-documents text-decoration-none active">
-          <i class="bi bi-file-earmark-text me-1"></i>
-          Documents
+
+        <!-- Documents Tab (Active on this page - HRD Only) -->
+        <a href="documents.html" class="subnav-item active subnav-hrd-only text-decoration-none">
+          <i class="bi bi-file-earmark-text"></i>
+          <span>Documents</span>
         </a>
-        <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
-          <i class="bi bi-chat-square-quote me-1"></i>
-          Feedback Submission
+
+        <!-- Feedback Submission Tab (Division Only) -->
+        <a href="FeedbackSubmission.html" class="subnav-item subnav-division-only text-decoration-none">
+          <i class="bi bi-chat-square-quote"></i>
+          <span>Feedback Submission</span>
         </a>
       </div>
 
@@ -202,7 +259,7 @@
             <i class="bi bi-file-earmark-pdf-fill"></i>
           </div>
           <div class="metric-info">
-            <h4 id="statTotalDocs">4</h4>
+            <h4 id="statTotalDocs">0</h4>
             <p>MANCOM Documents</p>
           </div>
         </div>
@@ -211,7 +268,7 @@
             <i class="bi bi-calendar-check"></i>
           </div>
           <div class="metric-info">
-            <h4>Session #14</h4>
+            <h4>No Active Session</h4>
             <p>Current Committee Session</p>
           </div>
         </div>
@@ -220,7 +277,7 @@
             <i class="bi bi-shield-lock-fill"></i>
           </div>
           <div class="metric-info">
-            <h4 id="statConfidentialDocs">2</h4>
+            <h4 id="statConfidentialDocs">0</h4>
             <p>Strictly Confidential</p>
           </div>
         </div>

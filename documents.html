@@ -66,6 +66,40 @@
         </span>
       </button>
 
+      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
+      <div class="dropdown">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Switch User Role (HRD Secretariat / Division User)">
+          <i class="bi bi-person-gear"></i>
+          <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
+          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu" aria-labelledby="roleSwitcherBtn">
+          <li class="dropdown-header pb-1">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role Mode</small>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd" onclick="window.switchRole('hrd', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD User</span>
+                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule & Documents</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division" onclick="window.switchRole('division', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division / Branch User</span>
+                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission (Only)</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,6 +123,14 @@
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
           </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class="dropdown-header">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
+          </li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -202,26 +244,26 @@
            ================================================================== -->
       <div class="breadcrumb-nav-row">
         <!-- Home Navigation Link -->
-        <a href="index.html" class="home-icon-link" title="Home">
+        <a href="index.html" class="home-icon-link" title="Home" aria-label="Home">
           <i class="bi bi-house-door"></i>
         </a>
 
-        <!-- Create Schedule Button (Links to create-schedule.html) -->
-        <a href="create-schedule.html" class="btn btn-create-schedule text-decoration-none">
-          <i class="bi bi-calendar-plus text-success"></i>
-          Create Schedule
+        <!-- Create Schedule Button -->
+        <a href="create-schedule.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-calendar-plus"></i>
+          <span>Create Schedule</span>
         </a>
 
-        <!-- Documents Tab (Active state on this page) -->
-        <a href="documents.html" class="btn-tab-documents text-decoration-none active" style="font-weight: 600;">
-          <i class="bi bi-file-earmark-text me-1"></i>
-          Documents
+        <!-- Documents Tab (Active on this page) -->
+        <a href="documents.html" class="subnav-item active text-decoration-none">
+          <i class="bi bi-file-earmark-text"></i>
+          <span>Documents</span>
         </a>
 
-        <!-- Feedback Submission Button -->
-        <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
-          <i class="bi bi-chat-square-quote me-1"></i>
-          Feedback Submission
+        <!-- Feedback Submission Tab -->
+        <a href="FeedbackSubmission.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-chat-square-quote"></i>
+          <span>Feedback Submission</span>
         </a>
       </div>
 
@@ -241,17 +283,68 @@
             <p>Access, preview, and download official Management Committee signed papers and memos</p>
           </div>
 
-          <!-- Secondary Filter Tools: Division Dropdown -->
+          <!-- Secondary Filter Tools / Status Badge -->
           <div class="library-filter-tools">
-            <!-- Division Filter Dropdown -->
-            <select class="form-select form-select-sm" id="divisionFilter" style="width: 220px; border-radius: 20px;">
-              <option value="" selected>All Divisions</option>
-              <option value="Human Resources Division">Human Resources Division</option>
-              <option value="Credit Division">Credit Division</option>
-              <option value="Information Technology Division">Information Technology Division</option>
-              <option value="Finance & Accounts Division">Finance & Accounts Division</option>
-              <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
-            </select>
+            <span
+              class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+              <i class="bi bi-folder-check me-1"></i>Official Repository
+            </span>
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             DOCUMENT REPOSITORY FILTERS
+             Filter by Meeting Subject, Division, and Agenda / Reference
+             ================================================================== -->
+        <div class="repository-filter-card">
+          <div class="row g-3 align-items-end">
+            <!-- Filter 1: Meeting Subject -->
+            <div class="col-lg-4 col-md-6">
+              <label for="filterMeetingSubject" class="form-label text-secondary mb-1">
+                <i class="bi bi-calendar-event me-1 text-success"></i>Meeting Subject
+              </label>
+              <select class="form-select form-select-sm filter-select" id="filterMeetingSubject">
+                <option value="" selected>All Meeting Subjects</option>
+              </select>
+            </div>
+
+            <!-- Filter 2: Division -->
+            <div class="col-lg-4 col-md-6">
+              <label for="filterDivision" class="form-label text-secondary mb-1">
+                <i class="bi bi-building me-1 text-success"></i>Division
+              </label>
+              <select class="form-select form-select-sm filter-select" id="filterDivision">
+                <option value="" selected>All Divisions</option>
+                <option value="Human Resources Division">Human Resources Division</option>
+                <option value="Credit Division">Credit Division</option>
+                <option value="Information Technology Division">Information Technology Division</option>
+                <option value="Finance & Accounts Division">Finance & Accounts Division</option>
+                <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
+                <option value="Recovery Division">Recovery Division</option>
+              </select>
+            </div>
+
+            <!-- Filter 3: Agenda / Reference -->
+            <div class="col-lg-3 col-md-8">
+              <label for="filterAgenda" class="form-label text-secondary mb-1">
+                <i class="bi bi-file-earmark-text me-1 text-success"></i>Agenda / Reference
+              </label>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text">
+                  <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control filter-input" id="filterAgenda"
+                  placeholder="Filter by Agenda or Ref...">
+              </div>
+            </div>
+
+            <!-- Reset Filters Button -->
+            <div class="col-lg-1 col-md-4 text-md-end">
+              <button type="button" class="btn btn-reset-filters btn-sm w-100" id="btnResetFilters"
+                title="Reset all filters">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+              </button>
+            </div>
           </div>
         </div>
 
@@ -260,380 +353,15 @@
           <table id="documentsTable" class="table table-striped table-hover align-middle table-documents w-100">
             <thead>
               <tr>
-                <th style="width: 40px;" class="no-sort text-center">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="selectAllCheckbox" aria-label="Select all rows">
-                  </div>
-                </th>
+                <th>Meeting Subject</th>
                 <th>Agenda / Reference</th>
                 <th>Division</th>
-                <th>Uploaded By</th>
-                <th>Date & Size</th>
+                <th>Submitted by/ at</th>
                 <th class="no-sort text-end" style="width: 100px;">Actions</th>
               </tr>
             </thead>
-            <!-- Preloaded MANCOM Document Records -->
-            <tbody id="documentsTableBody">
-              <!-- Row 1: Session 14 Minutes -->
-              <tr data-id="DOC-2026-001">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-001">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-001')">MANCOM 14th Session Minutes (Signed Copy)</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Ref: DOC-2026-001
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Human Resources Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">12 Oct 2026, 04:30 PM</div>
-                  <div class="small fw-semibold text-secondary">3.8 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-001')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-001')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 2: Credit Policy -->
-              <tr data-id="DOC-2026-002">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-002">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Pubali Bank PLC Credit Policy Amendments 2026</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #14 / 2026</span> • Ref: DOC-2026-002
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Credit Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">10 Oct 2026, 11:15 AM</div>
-                  <div class="small fw-semibold text-secondary">5.2 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-002')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 3: IT Security Paper -->
-              <tr data-id="DOC-2026-003">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-003">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-003')">IT Core Banking Infrastructure Upgrade & Cloud Security</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Ref: DOC-2026-003
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Information Technology Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">02 Oct 2026, 02:45 PM</div>
-                  <div class="small fw-semibold text-secondary">2.1 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-003')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-003')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 4: Q3 Financial Appraisal -->
-              <tr data-id="DOC-2026-004">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-004">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-004')">Q3 Financial Performance & Profitability Appraisal</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #13 / 2026</span> • Ref: DOC-2026-004
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Finance & Accounts Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">28 Sep 2026, 09:20 AM</div>
-                  <div class="small fw-semibold text-secondary">8.4 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-004')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-004')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 5: HR Compensation Review -->
-              <tr data-id="DOC-2026-005">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-005">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-001')">Human Resources Promotion & Annual Appraisal Review</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Ref: DOC-2026-005
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Human Resources Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">22 Sep 2026, 03:10 PM</div>
-                  <div class="small fw-semibold text-secondary">1.9 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-001')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-001')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 6: AML Compliance Report -->
-              <tr data-id="DOC-2026-006">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-006">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Anti-Money Laundering (AML) Compliance & Risk Audit Report</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #12 / 2026</span> • Ref: DOC-2026-006
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Internal Audit & Risk Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">15 Sep 2026, 10:00 AM</div>
-                  <div class="small fw-semibold text-secondary">4.5 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-002')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 7: Digital Banking Roadmap -->
-              <tr data-id="DOC-2026-007">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-007">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-003')">Digital Banking & Pubali App Modernization Roadmap 2027</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Ref: DOC-2026-007
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Information Technology Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">08 Sep 2026, 12:30 PM</div>
-                  <div class="small fw-semibold text-secondary">6.7 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-003')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-003')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Row 8: NPL Strategy -->
-              <tr data-id="DOC-2026-008">
-                <td class="text-center">
-                  <div class="form-check">
-                    <input class="form-check-input row-select" type="checkbox" value="DOC-2026-008">
-                  </div>
-                </td>
-                <td>
-                  <div class="doc-name-cell">
-                    <div class="doc-icon-badge">
-                      <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-                    <div>
-                      <span class="doc-title-text" onclick="window.viewDocument('DOC-2026-002')">Non-Performing Loans (NPL) Recovery Strategic Action Plan</span>
-                      <div class="doc-session-sub">
-                        <span class="fw-medium text-dark-emphasis">Session #11 / 2026</span> • Ref: DOC-2026-008
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge-category">Credit Division</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <img src="assets/images/avatar.png" alt="Md. Fahim" class="rounded-circle" width="24" height="24">
-                    <span class="small fw-medium">Md. Fahim</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="small text-muted">01 Sep 2026, 04:15 PM</div>
-                  <div class="small fw-semibold text-secondary">3.2 MB</div>
-                </td>
-                <td class="text-end">
-                  <div class="d-inline-flex gap-1">
-                    <button class="btn-action-icon" title="Preview Document" onclick="window.viewDocument('DOC-2026-002')">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn-action-icon" title="Download Local PDF" onclick="window.downloadDocument('DOC-2026-002')">
-                      <i class="bi bi-download"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            <!-- MANCOM Document Records (Reset - Empty by default) -->
+            <tbody id="documentsTableBody"></tbody>
           </table>
         </div>
       </section>
@@ -700,12 +428,11 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">14th MANCOM Minutes Published</h6>
-            <small class="text-muted">1 hour ago</small>
+            <h6 class="mb-1 fw-bold text-success">MANCOM Document Repository</h6>
+            <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">The signed copy of the 14th MANCOM meeting is now available in the
-            Document Repository.</p>
-          <small class="text-muted"><i class="bi bi-shield-lock me-1"></i> Strictly Confidential</small>
+          <p class="mb-1 small text-secondary">Access, preview, and download official Management Committee signed papers and memos.</p>
+          <small class="text-muted"><i class="bi bi-folder-check me-1"></i> Document Repository</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
@@ -776,11 +503,11 @@
           [5, 10, 25, 50, -1],
           [5, 10, 25, 50, 'All']
         ],
-        // Default sort by Date column descending
-        order: [[4, 'desc']],
-        // Disable sorting on checkbox column (0) and actions column (5)
+        // Default sort by Submitted by/ at column descending (Column 3)
+        order: [[3, 'desc']],
+        // Disable sorting on Actions column (Column 4)
         columnDefs: [
-          { orderable: false, targets: [0, 5] }
+          { orderable: false, targets: [4] }
         ],
         language: {
           search: "",
@@ -788,6 +515,8 @@
           lengthMenu: "Show _MENU_ entries",
           info: "Showing _START_ to _END_ of _TOTAL_ documents",
           infoEmpty: "Showing 0 to 0 of 0 documents",
+          emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-folder-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM documents found in repository</p><small>Documents uploaded or submitted across committee meetings will appear here.</small></div>',
+          zeroRecords: "No matching documents found",
           infoFiltered: "(filtered from _MAX_ total entries)",
           paginate: {
             first: '<i class="bi bi-chevron-double-left"></i>',
@@ -800,16 +529,43 @@
         autoWidth: false
       });
 
-      // Connect Division dropdown filter to DataTable column 2 (Division)
-      $('#divisionFilter').on('change', function () {
-        const val = $.fn.dataTable.util.escapeRegex($(this).val());
-        table.column(2).search(val ? '^' + val + '$' : '', true, false).draw();
+      // Populate Meeting Subject filter options dynamically if meetings exist in storage
+      try {
+        const stored = localStorage.getItem('mancom_meetings_records');
+        if (stored) {
+          const meetings = JSON.parse(stored);
+          const select = $('#filterMeetingSubject');
+          const subjects = [...new Set(meetings.map(m => m.subject).filter(Boolean))];
+          subjects.forEach(s => {
+            select.append(`<option value="${s}">${s}</option>`);
+          });
+        }
+      } catch (e) {}
+
+      // 1. Meeting Subject Filter (Column 0: Meeting Subject)
+      $('#filterMeetingSubject').on('change', function () {
+        const val = $(this).val();
+        table.column(0).search(val ? val : '').draw();
       });
 
-      // Select All Checkbox Handler
-      $('#selectAllCheckbox').on('change', function () {
-        const isChecked = $(this).is(':checked');
-        $('#documentsTableBody .row-select').prop('checked', isChecked);
+      // 2. Division Filter (Column 2: Division)
+      $('#filterDivision').on('change', function () {
+        const val = $(this).val();
+        table.column(2).search(val ? val : '').draw();
+      });
+
+      // 3. Agenda / Reference Filter (Column 1: Agenda / Reference)
+      $('#filterAgenda').on('keyup change', function () {
+        const val = $(this).val();
+        table.column(1).search(val ? val : '').draw();
+      });
+
+      // 4. Reset All Filters
+      $('#btnResetFilters').on('click', function () {
+        $('#filterMeetingSubject').val('');
+        $('#filterDivision').val('');
+        $('#filterAgenda').val('');
+        table.search('').columns().search('').draw();
       });
     });
   </script>

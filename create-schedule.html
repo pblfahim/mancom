@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <!-- Local Bootstrap Icons 1.11.3 CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+  <!-- Local Bootstrap 5 DataTables CSS -->
+  <link rel="stylesheet" href="assets/css/dataTables.bootstrap5.min.css">
   <!-- Local Custom Portal Design System & Layout Stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -63,6 +65,51 @@
         </span>
       </button>
 
+      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
+      <div class="dropdown">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
+          title="Switch User Role (HRD Secretariat / Division User)">
+          <i class="bi bi-person-gear"></i>
+          <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
+          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
+          aria-labelledby="roleSwitcherBtn">
+          <li class="dropdown-header pb-1">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
+              Mode</small>
+          </li>
+          <li>
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
+              onclick="window.switchRole('hrd', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
+                  User</span>
+                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
+                  Documents</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division"
+              onclick="window.switchRole('division', true)">
+              <div>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
+                  Branch User</span>
+                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
+                  (Only)</small>
+              </div>
+              <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -85,6 +132,17 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class="dropdown-header">
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
+          </li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
+                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
+                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -199,27 +257,26 @@
            ================================================================== -->
       <div class="breadcrumb-nav-row">
         <!-- Home Navigation Link -->
-        <a href="index.html" class="home-icon-link" title="Home">
+        <a href="index.html" class="home-icon-link" title="Home" aria-label="Home">
           <i class="bi bi-house-door"></i>
         </a>
 
-        <!-- Create Schedule Button (Active / Highlighted on this page) -->
-        <a href="create-schedule.html" class="btn btn-create-schedule"
-          style="border-color: var(--pubali-green-active); color: var(--pubali-green-active); font-weight: 600;">
-          <i class="bi bi-calendar-plus text-success"></i>
-          Create Schedule
+        <!-- Create Schedule Button (Active on this page) -->
+        <a href="create-schedule.html" class="subnav-item active text-decoration-none">
+          <i class="bi bi-calendar-plus"></i>
+          <span>Create Schedule</span>
         </a>
 
-        <!-- Documents Tab (Links back to Documents Archive) -->
-        <a href="documents.html" class="btn-tab-documents text-decoration-none">
-          <i class="bi bi-file-earmark-text me-1"></i>
-          Documents
+        <!-- Documents Tab -->
+        <a href="documents.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-file-earmark-text"></i>
+          <span>Documents</span>
         </a>
 
-        <!-- Feedback Submission Button -->
-        <a href="FeedbackSubmission.html" class="btn-tab-documents text-decoration-none">
-          <i class="bi bi-chat-square-quote me-1"></i>
-          Feedback Submission
+        <!-- Feedback Submission Tab -->
+        <a href="FeedbackSubmission.html" class="subnav-item text-decoration-none">
+          <i class="bi bi-chat-square-quote"></i>
+          <span>Feedback Submission</span>
         </a>
       </div>
 
@@ -238,13 +295,14 @@
             <p>Schedule a new Management Committee session, designate location, and upload supporting working papers</p>
           </div>
           <div class="library-filter-tools">
-            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+            <span
+              class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
               <i class="bi bi-calendar-plus me-1"></i>New Schedule Entry
             </span>
           </div>
         </div>
 
-        <form id="scheduleMeetingForm" novalidate>
+        <form id="scheduleMeetingForm" class="scheduleMeetingForm" novalidate>
 
           <!-- Top Row: 4 Column Input Fields -->
           <div class="row g-4 mb-4">
@@ -254,8 +312,8 @@
               <label for="meetingSubject" class="schedule-label">
                 Meeting Subject <span class="required-star">*</span>
               </label>
-              <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject"
-                value="9th Meeting of Mancom Committee" required placeholder="Enter meeting subject">
+              <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject" value="" required
+                placeholder="Enter Subject (ex:9th Meeting of Mancom Committee)">
             </div>
 
             <!-- Column 2: Date with Green Calendar Icon -->
@@ -263,12 +321,16 @@
               <label for="meetingDate" class="schedule-label">
                 Date <span class="required-star">*</span>
               </label>
-              <div class="schedule-input-wrapper">
-                <input type="text" class="schedule-input" id="meetingDate" name="meetingDate" value="23 October 2026"
-                  required placeholder="DD Month YYYY">
-                <span class="schedule-input-icon calendar-icon" title="Select Date">
+              <div class="schedule-input-wrapper" id="dateInputWrapper">
+                <input type="text" class="schedule-input" id="meetingDate" name="meetingDate" value="" required
+                  placeholder="DD / Month / YYYY" autocomplete="off">
+                <span class="schedule-input-icon calendar-icon" id="btnOpenDatePicker"
+                  title="Open Calendar Date Picker">
                   <i class="bi bi-calendar4-week"></i>
                 </span>
+                <!-- Native date picker fallback -->
+                <input type="date" id="nativeDatePicker"
+                  style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;" tabindex="-1">
               </div>
             </div>
 
@@ -277,12 +339,15 @@
               <label for="meetingTime" class="schedule-label">
                 Time <span class="required-star">*</span>
               </label>
-              <div class="schedule-input-wrapper">
-                <input type="text" class="schedule-input" id="meetingTime" name="meetingTime" value="11.00 AM" required
-                  placeholder="HH.MM AM/PM">
-                <span class="schedule-input-icon" title="Select Time">
+              <div class="schedule-input-wrapper" id="timeInputWrapper">
+                <input type="text" class="schedule-input" id="meetingTime" name="meetingTime" value="" required
+                  placeholder="HH.MM AM/PM" autocomplete="off">
+                <span class="schedule-input-icon clock-icon" id="btnOpenTimePicker" title="Open Time Picker">
                   <i class="bi bi-clock-history"></i>
                 </span>
+                <!-- Native time picker fallback -->
+                <input type="time" id="nativeTimePicker"
+                  style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;" tabindex="-1">
               </div>
             </div>
 
@@ -292,52 +357,128 @@
                 Location <span class="required-star">*</span>
               </label>
               <div class="schedule-input-wrapper">
-                <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation"
-                  value="Credit Conference Room" required placeholder="Enter conference room / venue"
-                  list="locationSuggestions">
+                <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation" value="" required
+                  placeholder="Add venue (ex:Credit Conference Room)" list="locationSuggestions">
                 <span class="schedule-input-icon" title="Location Suggestions">
                   <i class="bi bi-arrow-clockwise"></i>
                 </span>
               </div>
               <!-- Datalist for fast location selection -->
-              <datalist id="locationSuggestions">
+              <!-- <datalist id="locationSuggestions">
                 <option value="Credit Conference Room">
                 <option value="Board Room, 14th Floor (Head Office)">
                 <option value="Executive Committee Hall">
                 <option value="HRD Conference Hall (6th Floor)">
                 <option value="Virtual MS Teams / Zoom">
-              </datalist>
+              </datalist> -->
             </div>
 
           </div>
 
-          <!-- Second Row: Large Document Upload Box -->
+          <!-- Second Row: Large Document Upload Box (Exact same UI & Preview as FeedbackSubmission) -->
           <div class="mb-4">
-            <label class="schedule-label">
-              Upload document (PDF, DOCX or PPTX; maximum 5 MB) <span class="required-star">*</span>
-            </label>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="schedule-label mb-0">
+                Upload Mancom Agenda <span class="required-star">*</span>
+              </label>
+              <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill"
+                style="font-size: 10.5px;" id="agendaFileOriginBadge">
+                <i class="bi bi-file-earmark-arrow-up me-1"></i>Official Agenda Paper
+              </span>
+            </div>
 
             <!-- Drag & Drop Zone -->
             <div class="dropzone-area" id="dropzone" tabindex="0" role="button"
-              aria-label="Dropzone for PDF file upload">
+              aria-label="Dropzone for PDF file upload" style="margin: 0 0 16px 0;">
               <div class="dropzone-icon-circle">
                 <i class="bi bi-file-earmark-pdf"></i>
               </div>
-              <div class="dropzone-title">Drag and drop your MANCOM PDF file here, or Browse Files</div>
+              <div class="dropzone-title">Drag and drop your MANCOM Agenda/Memorandum file here, or Browse Files</div>
               <div class="dropzone-subtitle">
-                Supported file type: <strong>.pdf</strong> (Maximum size: 50 MB) • Meeting Minutes, Agendas, Policies &
+                Supported file type: <strong>.pdf</strong> (Maximum size: 10 MB) • Working Papers, Agendas, Policies &
                 Memos
               </div>
-              <button type="button" class="dropzone-btn">
+              <button type="button" class="dropzone-btn" id="btnBrowseFile">
                 <i class="bi bi-folder2-open me-1"></i> Browse Computer
               </button>
-              <input type="file" id="pdfFileInput" accept="application/pdf,.pdf" style="display:none;"
+              <input type="file" id="pdfFileInput" accept="application/pdf,.pdf,.docx,.pptx" style="display:none;"
                 aria-label="Upload PDF file">
+            </div>
+
+            <!-- Selected File Preview Strip (Dynamic preview matching FeedbackSubmission upload) -->
+            <div class="selected-file-card" id="selectedFileCard" style="display: none; margin: 0 0 16px 0;">
+              <div class="selected-file-info d-flex align-items-center gap-3">
+                <i class="bi bi-file-earmark-pdf-fill file-type-icon fs-2 text-danger"></i>
+                <div class="file-details">
+                  <span class="file-name fw-semibold text-dark d-block" id="selectedFileName" style="cursor: pointer;"
+                    title="Click to preview document">filename.pdf</span>
+                  <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="file-meta text-muted small" id="selectedFileMeta">0 MB • Ready</span>
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                      style="font-size: 10px;">
+                      <i class="bi bi-check-circle-fill me-1"></i>Scheduled Agenda Paper
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="file-actions d-flex align-items-center gap-2">
+                <!-- Preview Document Button -->
+                <button type="button"
+                  class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1 px-3 py-1 fw-semibold"
+                  id="btnPreviewAgendaModal" title="Preview Attached Agenda in Full Viewer">
+                  <i class="bi bi-eye-fill"></i>
+                  <span>Preview</span>
+                </button>
+                <!-- Quick Inline Preview Toggle -->
+                <button type="button"
+                  class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 px-2 py-1"
+                  id="btnToggleInlinePreview" title="Toggle Quick Inline View" data-bs-toggle="collapse"
+                  data-bs-target="#inlineAgendaPreviewCollapse">
+                  <i class="bi bi-layout-sidebar-inset"></i>
+                  <span class="d-none d-sm-inline">Quick View</span>
+                </button>
+                <!-- Remove / Replace Document -->
+                <button type="button" class="btn btn-remove-file" id="btnRemoveFile" title="Replace or re-upload file">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Inline Collapsible Preview Box -->
+            <div class="collapse mb-3" id="inlineAgendaPreviewCollapse">
+              <div class="card card-body p-2 border bg-light shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-2 px-2 pt-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+                    <span class="fw-semibold small text-dark" id="inlinePreviewTitle">MANCOM Agenda Document
+                      Preview</span>
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                      style="font-size: 10px;">
+                      Live Document Stream
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center gap-1">
+                    <button type="button" class="btn btn-sm btn-outline-success px-2 py-0" id="btnExpandInlineToModal"
+                      title="Open Full Screen Modal Viewer">
+                      <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                    <button type="button" class="btn-close ms-2" data-bs-toggle="collapse"
+                      data-bs-target="#inlineAgendaPreviewCollapse" aria-label="Close Preview"
+                      style="font-size: 10px;"></button>
+                  </div>
+                </div>
+                <div class="rounded border overflow-hidden" style="height: 380px; background-color: #525659;">
+                  <iframe id="inlineAgendaPreviewFrame" style="width: 100%; height: 100%; border: 0;" src=""
+                    title="Agenda Document Inline Preview"></iframe>
+                </div>
+              </div>
             </div>
 
             <!-- Upload help hint -->
             <div class="form-text mt-1 text-muted" style="font-size: 11px;">
-              Accepted formats: <strong>.pdf, .docx, .pptx</strong>. Maximum allowable document size: <strong>5
+              Supported formats: <strong>.pdf, .docx, .pptx</strong>. Maximum allowable document size: <strong>10
                 MB</strong>.
             </div>
           </div>
@@ -356,6 +497,51 @@
           </div>
 
         </form>
+
+        <!-- ==================================================================
+             SCHEDULED MEETINGS DATA TABLE
+             Placed directly after this class "scheduleMeetingForm"
+             Loads live records dynamically from scheduleMeetingForm & localStorage
+             ================================================================== -->
+        <div class="scheduled-meetings-card mt-5 pt-4 border-top">
+          <!-- Table Controls Header -->
+          <div class="library-controls-header px-4 pt-0 pb-3 border-0">
+            <div class="library-title">
+              <h3 class="fw-bold"><i class="bi bi-calendar-check me-2 text-success"></i>Scheduled MANCOM Committee
+                Meetings</h3>
+              <p>Live schedule records created via the schedule meeting form above. Automatically persisted and
+                synchronized.</p>
+            </div>
+            <div class="library-filter-tools">
+              <span
+                class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
+                <i class="bi bi-calendar-event me-1"></i><span id="scheduledMeetingsCountBadge">0</span> Meetings
+                Scheduled
+              </span>
+            </div>
+          </div>
+
+          <!-- Responsive DataTable Container -->
+          <div class="table-responsive px-4 pb-4">
+            <table id="scheduledMeetingsTable"
+              class="table table-striped table-hover align-middle table-documents w-100">
+              <thead>
+                <tr>
+                  <th style="min-width: 200px;">Meeting Subject</th>
+                  <th style="min-width: 120px;">Date</th>
+                  <th style="min-width: 90px;">Time</th>
+                  <th style="min-width: 160px;">Location</th>
+                  <th style="min-width: 220px;">Mancom Agendar</th>
+                  <th style="min-width: 140px;">Submitted By</th>
+                  <th class="text-end" style="min-width: 120px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="scheduledMeetingsBody">
+                <!-- Dynamically populated from localStorage & scheduleMeetingForm submissions -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
     </main>
@@ -375,12 +561,13 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">9th MANCOM Meeting Scheduled</h6>
-            <small class="text-muted">Just now</small>
+            <h6 class="mb-1 fw-bold text-success">Welcome to MANCOM Portal</h6>
+            <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">Credit Conference Room has been reserved for 23 October 2026, 11:00 AM.
+          <p class="mb-1 small text-secondary">Schedule Management Committee meetings and upload agenda papers using the
+            form.
           </p>
-          <small class="text-muted"><i class="bi bi-geo-alt me-1"></i> Credit Conference Room</small>
+          <small class="text-muted"><i class="bi bi-shield-check me-1"></i> HRD Secretariat</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
@@ -415,18 +602,70 @@
   </div>
 
   <!-- ======================================================================
+       INTERACTIVE PDF VIEWER MODAL
+       Allows full in-browser previewing of scheduled MANCOM committee papers
+       ====================================================================== -->
+  <div class="modal fade modal-pdf-viewer" id="pdfViewerModal" tabindex="-1" aria-labelledby="pdfModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-pdf-header">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+            <div>
+              <h5 class="modal-title mb-0 fw-bold" id="pdfModalTitle">Document Preview</h5>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span id="pdfModalBadge" class="badge-classification strictly-confidential">Confidential</span>
+                <small class="text-muted">Pubali Bank PLC • Secure Document Stream</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- PDF Toolbar: Zoom Out, Zoom In, Print, Download, Close -->
+          <div class="d-flex align-items-center gap-2">
+            <div class="pdf-toolbar">
+              <button class="pdf-toolbar-btn" id="btnZoomOut" title="Zoom Out"><i class="bi bi-zoom-out"></i></button>
+              <button class="pdf-toolbar-btn" id="btnZoomIn" title="Zoom In"><i class="bi bi-zoom-in"></i></button>
+              <button class="pdf-toolbar-btn" id="btnPrintDoc" title="Print Document"><i
+                  class="bi bi-printer"></i></button>
+              <button class="pdf-toolbar-btn text-success" id="btnModalDownload" title="Download Local PDF"><i
+                  class="bi bi-download"></i></button>
+            </div>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <!-- PDF Frame Viewer Container -->
+        <div class="modal-body p-0">
+          <div class="pdf-frame-container">
+            <iframe id="pdfViewerFrame" class="pdf-iframe" src="" title="PDF Viewer"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
        LOCAL JAVASCRIPT BUNDLE & INTERACTIVE CONTROLLERS
        Zero CDN Dependency: All libraries loaded from local assets
        ====================================================================== -->
+  <!-- Local jQuery 3.7.1 -->
+  <script src="assets/js/jquery.min.js"></script>
+  <!-- Local DataTables 2.1.8 Core -->
+  <script src="assets/js/dataTables.min.js"></script>
+  <!-- Local DataTables Bootstrap 5 Extension -->
+  <script src="assets/js/dataTables.bootstrap5.min.js"></script>
   <!-- Local Bootstrap 5.3.3 JS Bundle (Includes Popper.js) -->
   <script src="assets/js/bootstrap.bundle.min.js"></script>
   <!-- Main Application Controller -->
   <script src="assets/js/app.js"></script>
 
   <!-- ======================================================================
-       SCHEDULE FORM CONTROLLER SCRIPT
-       Validates required inputs, handles file selection & constraints (<= 5MB),
-       implements drag-and-drop, and provides interactive user feedback
+       SCHEDULE FORM & DATATABLE CONTROLLER SCRIPT
+       - Validates required inputs, handles file selection & constraints (<= 10MB)
+       - Implements drag-and-drop file upload
+       - Dynamically inserts scheduled meetings into Bootstrap 5 DataTable
+       - Synchronizes data across localStorage (records & latest meeting)
        ====================================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -436,19 +675,17 @@
       const dateInput = document.getElementById('meetingDate');
       const timeInput = document.getElementById('meetingTime');
       const locationInput = document.getElementById('meetingLocation');
-      const uploadBox = document.getElementById('scheduleUploadBox');
-      const fileInput = document.getElementById('scheduleFileInput');
-      const btnChooseFile = document.getElementById('btnChooseFile');
-      const chosenFileText = document.getElementById('chosenFileText');
-      const uploadPlaceholder = document.getElementById('uploadPlaceholder');
-      const selectedFilePreview = document.getElementById('selectedFilePreview');
-      const previewFileName = document.getElementById('previewFileName');
-      const previewFileSize = document.getElementById('previewFileSize');
-      const btnRemoveDoc = document.getElementById('btnRemoveDoc');
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('pdfFileInput');
+      const btnBrowse = document.getElementById('btnBrowseFile');
+      const selectedFileCard = document.getElementById('selectedFileCard');
+      const selectedFileName = document.getElementById('selectedFileName');
+      const selectedFileMeta = document.getElementById('selectedFileMeta');
+      const btnRemoveFile = document.getElementById('btnRemoveFile');
       const btnClear = document.getElementById('btnScheduleClear');
       const btnSubmit = document.getElementById('btnScheduleSubmit');
 
-      // Toast instance
+      // Toast feedback instance
       const toastEl = document.getElementById('scheduleToast');
       const toast = toastEl ? new bootstrap.Toast(toastEl) : null;
       const toastHeader = document.getElementById('toastHeader');
@@ -457,6 +694,24 @@
       const toastIcon = document.getElementById('toastIcon');
 
       let currentFile = null;
+      let currentFileBlobUrl = null;
+
+      // Track active subject in localStorage for real-time synchronization with Feedback page
+      subjectInput.addEventListener('input', () => {
+        const val = subjectInput.value.trim();
+        if (val) {
+          localStorage.setItem('mancom_active_meeting_subject', val);
+          localStorage.setItem('mancom_latest_meeting_subject', val);
+          try {
+            const staged = localStorage.getItem('mancom_uploaded_agenda_file');
+            if (staged) {
+              const p = JSON.parse(staged);
+              p.subject = val;
+              localStorage.setItem('mancom_uploaded_agenda_file', JSON.stringify(p));
+            }
+          } catch (e) { }
+        }
+      });
 
       /**
        * Shows a styled toast notification
@@ -479,20 +734,599 @@
       }
 
       /**
+       * HTML Entity Escape helper
+       */
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      /**
        * Formats byte size into human readable string
        */
       function formatSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
+        if (!bytes || bytes === 0) return '0 Bytes';
         const k = 1024;
         const sizes = ['Bytes', 'KB', 'MB'];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
       }
 
+      // ======================================================================
+      // INTERACTIVE DATE PICKER CONTROLLER (Pubali Bank Styled)
+      // ======================================================================
+      const dateWrapper = document.getElementById('dateInputWrapper');
+      const btnOpenDatePicker = document.getElementById('btnOpenDatePicker');
+      const nativeDatePicker = document.getElementById('nativeDatePicker');
+
+      const MONTH_NAMES = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+
+      let activeDatePickerEl = null;
+
+      function parseInputDate(str) {
+        if (!str) return null;
+        str = str.trim();
+        // Check for DD Month YYYY (e.g. "23 October 2026")
+        for (let m = 0; m < 12; m++) {
+          const mName = MONTH_NAMES[m];
+          const mShort = mName.substring(0, 3);
+          if (str.toLowerCase().includes(mName.toLowerCase()) || str.toLowerCase().includes(mShort.toLowerCase())) {
+            const parts = str.match(/\d+/g);
+            if (parts && parts.length >= 2) {
+              const day = parseInt(parts[0], 10);
+              const year = parseInt(parts[parts.length - 1], 10);
+              if (year > 1900 && day >= 1 && day <= 31) {
+                return new Date(year, m, day);
+              }
+            }
+          }
+        }
+        // Check for YYYY-MM-DD or DD/MM/YYYY or DD-MM-YYYY
+        const d = new Date(str);
+        if (!isNaN(d.getTime())) return d;
+        const slashParts = str.split(/[\/\-\.]/);
+        if (slashParts.length === 3) {
+          if (slashParts[0].length === 4) {
+            // YYYY-MM-DD
+            return new Date(parseInt(slashParts[0]), parseInt(slashParts[1]) - 1, parseInt(slashParts[2]));
+          } else {
+            // DD/MM/YYYY
+            return new Date(parseInt(slashParts[2]), parseInt(slashParts[1]) - 1, parseInt(slashParts[0]));
+          }
+        }
+        return null;
+      }
+
+      function formatDateDisplay(d) {
+        if (!d || isNaN(d.getTime())) return '';
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = MONTH_NAMES[d.getMonth()];
+        const year = d.getFullYear();
+        return `${day} ${month} ${year}`;
+      }
+
+      function formatYMD(d) {
+        if (!d || isNaN(d.getTime())) return '';
+        const year = d.getFullYear();
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const day = d.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+
+      function renderDatePickerPopup(viewYear, viewMonth) {
+        closeAllPickers();
+
+        const popup = document.createElement('div');
+        popup.className = 'pubali-picker-popup pubali-datepicker-popup';
+        popup.id = 'activeDatePickerPopup';
+
+        const today = new Date();
+        const selectedDate = parseInputDate(dateInput.value);
+
+        // Header with Month/Year Navigation
+        const header = document.createElement('div');
+        header.className = 'pubali-calendar-header';
+        header.innerHTML = `
+          <button type="button" class="pubali-picker-nav-btn" id="btnPrevMonth" title="Previous Month">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <div class="pubali-calendar-title">
+            <select id="selectCalendarMonth" class="form-select form-select-sm py-0 px-2" style="width: auto; height: 28px;">
+              ${MONTH_NAMES.map((m, idx) => `<option value="${idx}" ${idx === viewMonth ? 'selected' : ''}>${m}</option>`).join('')}
+            </select>
+            <select id="selectCalendarYear" class="form-select form-select-sm py-0 px-2" style="width: auto; height: 28px;">
+              ${Array.from({ length: 15 }, (_, i) => today.getFullYear() - 2 + i).map(y => `<option value="${y}" ${y === viewYear ? 'selected' : ''}>${y}</option>`).join('')}
+            </select>
+          </div>
+          <button type="button" class="pubali-picker-nav-btn" id="btnNextMonth" title="Next Month">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        `;
+        popup.appendChild(header);
+
+        // Weekday headers
+        const weekdays = document.createElement('div');
+        weekdays.className = 'pubali-calendar-weekdays';
+        weekdays.innerHTML = `
+          <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+        `;
+        popup.appendChild(weekdays);
+
+        // Days Grid
+        const daysGrid = document.createElement('div');
+        daysGrid.className = 'pubali-calendar-days';
+
+        const firstDayOfMonth = new Date(viewYear, viewMonth, 1).getDay();
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const daysInPrevMonth = new Date(viewYear, viewMonth, 0).getDate();
+
+        // Previous month padding days
+        for (let i = firstDayOfMonth - 1; i >= 0; i--) {
+          const prevDay = daysInPrevMonth - i;
+          const dayEl = document.createElement('div');
+          dayEl.className = 'pubali-calendar-day other-month';
+          dayEl.textContent = prevDay;
+          dayEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const targetDate = new Date(viewYear, viewMonth - 1, prevDay);
+            selectDate(targetDate);
+          });
+          daysGrid.appendChild(dayEl);
+        }
+
+        // Current month days
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dayEl = document.createElement('div');
+          dayEl.className = 'pubali-calendar-day';
+          dayEl.textContent = d;
+
+          const thisDate = new Date(viewYear, viewMonth, d);
+          const isToday = thisDate.toDateString() === today.toDateString();
+          const isSelected = selectedDate && thisDate.toDateString() === selectedDate.toDateString();
+
+          if (isToday) dayEl.classList.add('today');
+          if (isSelected) dayEl.classList.add('selected');
+
+          dayEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectDate(thisDate);
+          });
+          daysGrid.appendChild(dayEl);
+        }
+
+        // Next month padding days to complete 35 or 42 grid cells
+        const totalCells = firstDayOfMonth + daysInMonth;
+        const remainingCells = totalCells <= 35 ? (35 - totalCells) : (42 - totalCells);
+        for (let n = 1; n <= remainingCells; n++) {
+          const dayEl = document.createElement('div');
+          dayEl.className = 'pubali-calendar-day other-month';
+          dayEl.textContent = n;
+          dayEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const targetDate = new Date(viewYear, viewMonth + 1, n);
+            selectDate(targetDate);
+          });
+          daysGrid.appendChild(dayEl);
+        }
+
+        popup.appendChild(daysGrid);
+
+        // Footer shortcuts
+        const footer = document.createElement('div');
+        footer.className = 'pubali-picker-footer';
+        footer.innerHTML = `
+          <button type="button" class="pubali-picker-btn-link" id="btnDateToday"><i class="bi bi-calendar-check me-1"></i>Today</button>
+          <button type="button" class="pubali-picker-btn-link text-danger" id="btnDateClear">Clear</button>
+          <button type="button" class="pubali-picker-btn-link text-secondary" id="btnDateClose">Close</button>
+        `;
+        popup.appendChild(footer);
+
+        dateWrapper.appendChild(popup);
+        activeDatePickerEl = popup;
+
+        // Bind popup header events
+        popup.querySelector('#btnPrevMonth').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const prev = new Date(viewYear, viewMonth - 1, 1);
+          renderDatePickerPopup(prev.getFullYear(), prev.getMonth());
+        });
+
+        popup.querySelector('#btnNextMonth').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const next = new Date(viewYear, viewMonth + 1, 1);
+          renderDatePickerPopup(next.getFullYear(), next.getMonth());
+        });
+
+        popup.querySelector('#selectCalendarMonth').addEventListener('change', (e) => {
+          e.stopPropagation();
+          const m = parseInt(e.target.value, 10);
+          renderDatePickerPopup(viewYear, m);
+        });
+
+        popup.querySelector('#selectCalendarYear').addEventListener('change', (e) => {
+          e.stopPropagation();
+          const y = parseInt(e.target.value, 10);
+          renderDatePickerPopup(y, viewMonth);
+        });
+
+        // Bind popup footer events
+        popup.querySelector('#btnDateToday').addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectDate(new Date());
+        });
+
+        popup.querySelector('#btnDateClear').addEventListener('click', (e) => {
+          e.stopPropagation();
+          dateInput.value = '';
+          if (nativeDatePicker) nativeDatePicker.value = '';
+          closeAllPickers();
+        });
+
+        popup.querySelector('#btnDateClose').addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeAllPickers();
+        });
+      }
+
+      function selectDate(d) {
+        dateInput.value = formatDateDisplay(d);
+        if (nativeDatePicker) nativeDatePicker.value = formatYMD(d);
+        dateInput.dispatchEvent(new Event('input', { bubbles: true }));
+        dateInput.dispatchEvent(new Event('change', { bubbles: true }));
+        closeAllPickers();
+      }
+
+      function openDatePicker() {
+        const parsed = parseInputDate(dateInput.value) || new Date();
+        renderDatePickerPopup(parsed.getFullYear(), parsed.getMonth());
+      }
+
+      dateInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDatePicker();
+      });
+
+      if (btnOpenDatePicker) {
+        btnOpenDatePicker.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (activeDatePickerEl) {
+            closeAllPickers();
+          } else {
+            openDatePicker();
+          }
+        });
+      }
+
+      // Format manual typing on blur
+      dateInput.addEventListener('blur', () => {
+        if (dateInput.value.trim()) {
+          const parsed = parseInputDate(dateInput.value);
+          if (parsed) {
+            dateInput.value = formatDateDisplay(parsed);
+            if (nativeDatePicker) nativeDatePicker.value = formatYMD(parsed);
+          }
+        }
+      });
+
+      // Synchronize native date picker if triggered
+      if (nativeDatePicker) {
+        nativeDatePicker.addEventListener('change', () => {
+          if (nativeDatePicker.value) {
+            const parts = nativeDatePicker.value.split('-');
+            const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+            selectDate(d);
+          }
+        });
+      }
+
+      // ======================================================================
+      // INTERACTIVE TIME PICKER CONTROLLER (Pubali Bank Styled)
+      // ======================================================================
+      const timeWrapper = document.getElementById('timeInputWrapper');
+      const btnOpenTimePicker = document.getElementById('btnOpenTimePicker');
+      const nativeTimePicker = document.getElementById('nativeTimePicker');
+      let activeTimePickerEl = null;
+
+      const COMMON_TIME_PRESETS = [
+        '09:30 AM', '10:00 AM', '10:30 AM',
+        '11:00 AM', '11:30 AM', '12:00 PM',
+        '02:30 PM', '03:00 PM', '03:30 PM',
+        '04:00 PM', '04:30 PM', '05:00 PM'
+      ];
+
+      function parseInputTime(str) {
+        if (!str) return { hour: '11', minute: '00', ampm: 'AM' };
+        str = str.trim().toUpperCase();
+        let ampm = 'AM';
+        if (str.includes('PM')) ampm = 'PM';
+        else if (str.includes('AM')) ampm = 'AM';
+
+        const nums = str.match(/\d+/g);
+        if (!nums || nums.length === 0) return { hour: '11', minute: '00', ampm: 'AM' };
+
+        let hour = parseInt(nums[0], 10);
+        let minute = nums.length > 1 ? parseInt(nums[1], 10) : 0;
+
+        if (hour > 12) {
+          hour = hour - 12;
+          ampm = 'PM';
+        } else if (hour === 0) {
+          hour = 12;
+          ampm = 'AM';
+        }
+
+        if (hour < 1) hour = 1;
+        if (hour > 12) hour = 12;
+        if (minute < 0) minute = 0;
+        if (minute > 59) minute = 59;
+
+        return {
+          hour: hour.toString().padStart(2, '0'),
+          minute: minute.toString().padStart(2, '0'),
+          ampm: ampm
+        };
+      }
+
+      function formatTimeDisplay(hour, minute, ampm) {
+        return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
+      }
+
+      function renderTimePickerPopup() {
+        closeAllPickers();
+
+        const popup = document.createElement('div');
+        popup.className = 'pubali-picker-popup pubali-timepicker-popup';
+        popup.id = 'activeTimePickerPopup';
+
+        const parsed = parseInputTime(timeInput.value);
+        let currentAmpm = parsed.ampm;
+
+        popup.innerHTML = `
+          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+            <span class="fw-bold fs-6 text-dark d-flex align-items-center gap-2">
+              <i class="bi bi-clock-history text-success"></i>Select Meeting Time
+            </span>
+            <button type="button" class="btn-close btn-sm" id="btnTimeClose" aria-label="Close"></button>
+          </div>
+
+          <!-- Time Spinners / Selectors Row -->
+          <div class="pubali-time-select-row">
+            <div class="pubali-time-unit">
+              <label>Hour</label>
+              <select class="pubali-time-select" id="selectTimeHour">
+                ${Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(h => `<option value="${h}" ${h === parsed.hour ? 'selected' : ''}>${h}</option>`).join('')}
+              </select>
+            </div>
+            <div class="pubali-time-colon">:</div>
+            <div class="pubali-time-unit">
+              <label>Minute</label>
+              <select class="pubali-time-select" id="selectTimeMinute">
+                ${['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'].map(m => `<option value="${m}" ${m === parsed.minute ? 'selected' : ''}>${m}</option>`).join('')}
+              </select>
+            </div>
+            <div class="pubali-ampm-switch">
+              <button type="button" class="pubali-ampm-btn ${currentAmpm === 'AM' ? 'active' : ''}" id="btnAmpmAM">AM</button>
+              <button type="button" class="pubali-ampm-btn ${currentAmpm === 'PM' ? 'active' : ''}" id="btnAmpmPM">PM</button>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="pubali-picker-footer mt-2 pt-2">
+            <button type="button" class="pubali-picker-btn-link text-secondary" id="btnTimeNow"><i class="bi bi-stopwatch me-1"></i>Current Time</button>
+            <div class="d-flex gap-2">
+              <button type="button" class="pubali-picker-btn-link text-danger" id="btnTimeClear">Clear</button>
+              <button type="button" class="btn btn-sm btn-success px-3 py-1 fw-medium" id="btnTimeApply" style="background-color: var(--pubali-green, #006a4e); font-size: 12px;">Apply</button>
+            </div>
+          </div>
+        `;
+
+        timeWrapper.appendChild(popup);
+        activeTimePickerEl = popup;
+
+        // AM/PM Switchers
+        const btnAM = popup.querySelector('#btnAmpmAM');
+        const btnPM = popup.querySelector('#btnAmpmPM');
+        btnAM.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentAmpm = 'AM';
+          btnAM.classList.add('active');
+          btnPM.classList.remove('active');
+        });
+        btnPM.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentAmpm = 'PM';
+          btnPM.classList.add('active');
+          btnAM.classList.remove('active');
+        });
+
+        // Presets click
+        popup.querySelectorAll('.pubali-preset-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const val = btn.getAttribute('data-preset');
+            selectTime(val);
+          });
+        });
+
+        // Current time button
+        popup.querySelector('#btnTimeNow').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const now = new Date();
+          let h = now.getHours();
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
+          const roundedM = (Math.round(now.getMinutes() / 5) * 5) % 60;
+          selectTime(formatTimeDisplay(h, roundedM, ampm));
+        });
+
+        // Apply button
+        popup.querySelector('#btnTimeApply').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const hour = popup.querySelector('#selectTimeHour').value;
+          const minute = popup.querySelector('#selectTimeMinute').value;
+          selectTime(formatTimeDisplay(hour, minute, currentAmpm));
+        });
+
+        // Clear button
+        popup.querySelector('#btnTimeClear').addEventListener('click', (e) => {
+          e.stopPropagation();
+          timeInput.value = '';
+          if (nativeTimePicker) nativeTimePicker.value = '';
+          closeAllPickers();
+        });
+
+        // Close button
+        popup.querySelector('#btnTimeClose').addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeAllPickers();
+        });
+      }
+
+      function selectTime(val) {
+        timeInput.value = val;
+        timeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        timeInput.dispatchEvent(new Event('change', { bubbles: true }));
+        closeAllPickers();
+      }
+
+      function openTimePicker() {
+        renderTimePickerPopup();
+      }
+
+      timeInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openTimePicker();
+      });
+
+      if (btnOpenTimePicker) {
+        btnOpenTimePicker.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (activeTimePickerEl) {
+            closeAllPickers();
+          } else {
+            openTimePicker();
+          }
+        });
+      }
+
+      // Manual time formatting on blur
+      timeInput.addEventListener('blur', () => {
+        if (timeInput.value.trim()) {
+          const parsed = parseInputTime(timeInput.value);
+          timeInput.value = formatTimeDisplay(parsed.hour, parsed.minute, parsed.ampm);
+        }
+      });
+
+      // Synchronize native time picker if triggered
+      if (nativeTimePicker) {
+        nativeTimePicker.addEventListener('change', () => {
+          if (nativeTimePicker.value) {
+            const parts = nativeTimePicker.value.split(':');
+            let h = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            selectTime(formatTimeDisplay(h, m, ampm));
+          }
+        });
+      }
+
+      // Close all pickers helper
+      function closeAllPickers() {
+        if (activeDatePickerEl) {
+          activeDatePickerEl.remove();
+          activeDatePickerEl = null;
+        }
+        if (activeTimePickerEl) {
+          activeTimePickerEl.remove();
+          activeTimePickerEl = null;
+        }
+      }
+
+      // Global click outside to dismiss popups
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#dateInputWrapper') && !e.target.closest('#timeInputWrapper')) {
+          closeAllPickers();
+        }
+      });
+
+      // Escape key to dismiss popups
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllPickers();
+        }
+      });
+
+      // Preview Elements for Uploaded Agenda (Matching FeedbackSubmission)
+      const btnPreviewAgendaModal = document.getElementById('btnPreviewAgendaModal');
+      const inlineAgendaPreviewCollapse = document.getElementById('inlineAgendaPreviewCollapse');
+      const inlinePreviewTitle = document.getElementById('inlinePreviewTitle');
+      const inlineAgendaPreviewFrame = document.getElementById('inlineAgendaPreviewFrame');
+      const btnExpandInlineToModal = document.getElementById('btnExpandInlineToModal');
+      const agendaFileOriginBadge = document.getElementById('agendaFileOriginBadge');
+
+      /**
+       * Opens interactive PDF preview modal for attached scheduled agenda paper
+       */
+      function openUploadedAgendaModal() {
+        const modalEl = document.getElementById('pdfViewerModal');
+        if (!modalEl) return;
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        const titleEl = document.getElementById('pdfModalTitle');
+        const badgeEl = document.getElementById('pdfModalBadge');
+        const frameEl = document.getElementById('pdfViewerFrame');
+        const downloadBtn = document.getElementById('btnModalDownload');
+
+        const currentSubject = subjectInput.value.trim() || 'MANCOM Committee Meeting';
+        const currentName = currentFile ? currentFile.name : 'MANCOM-Agenda-Paper.pdf';
+        const currentUrl = currentFileBlobUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+
+        if (titleEl) titleEl.textContent = `${currentSubject} - ${currentName}`;
+        if (badgeEl) {
+          badgeEl.className = 'badge-classification internal';
+          badgeEl.innerHTML = '<i class="bi bi-file-earmark-pdf-fill me-1"></i>Uploaded Mancom Agenda Paper';
+        }
+        if (frameEl) {
+          frameEl.src = currentUrl;
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            const link = document.createElement('a');
+            link.href = currentUrl;
+            link.download = currentName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+        }
+
+        modal.show();
+      }
+
+      if (btnPreviewAgendaModal) {
+        btnPreviewAgendaModal.addEventListener('click', openUploadedAgendaModal);
+      }
+      if (btnExpandInlineToModal) {
+        btnExpandInlineToModal.addEventListener('click', openUploadedAgendaModal);
+      }
+      if (selectedFileName) {
+        selectedFileName.addEventListener('click', openUploadedAgendaModal);
+      }
+
       /**
        * Handles selected file validation and display
        * Allowed formats: .pdf, .docx, .pptx
-       * Maximum size: 5 MB (5,242,880 bytes)
+       * Maximum size: 10 MB
        */
       function processFile(file) {
         if (!file) return;
@@ -507,22 +1341,52 @@
           return;
         }
 
-        // Check file size (5MB maximum)
-        const maxBytes = 5 * 1024 * 1024;
+        // Check file size (10MB maximum)
+        const maxBytes = 10 * 1024 * 1024;
         if (file.size > maxBytes) {
-          notify('File Too Large', `The selected file size (${formatSize(file.size)}) exceeds the allowable 5 MB limit.`, false);
+          notify('File Too Large', `The selected file size (${formatSize(file.size)}) exceeds the allowable 10 MB limit.`, false);
           return;
+        }
+
+        // Revoke previous blob URL if exists
+        if (currentFileBlobUrl && currentFileBlobUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(currentFileBlobUrl);
         }
 
         // File is valid
         currentFile = file;
-        previewFileName.textContent = file.name;
-        previewFileSize.textContent = formatSize(file.size);
-        chosenFileText.textContent = file.name;
+        try {
+          currentFileBlobUrl = URL.createObjectURL(file);
+        } catch (err) {
+          currentFileBlobUrl = 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+        }
 
-        // Display preview badge inside the upload box
-        uploadPlaceholder.style.display = 'none';
-        selectedFilePreview.style.display = 'flex';
+        selectedFileName.textContent = file.name;
+        selectedFileMeta.textContent = `${formatSize(file.size)} • Ready`;
+
+        if (inlineAgendaPreviewFrame) {
+          inlineAgendaPreviewFrame.src = currentFileBlobUrl;
+        }
+        if (inlinePreviewTitle) {
+          inlinePreviewTitle.textContent = `${file.name} (${subjectInput.value.trim() || 'MANCOM Meeting'})`;
+        }
+        if (agendaFileOriginBadge) {
+          agendaFileOriginBadge.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i>Agenda Document Attached';
+        }
+
+        // Display preview card and hide dropzone
+        dropzone.style.display = 'none';
+        selectedFileCard.style.display = 'flex';
+
+        // Stage uploaded agenda for FeedbackSubmission.html
+        try {
+          localStorage.setItem('mancom_uploaded_agenda_file', JSON.stringify({
+            fileName: file.name,
+            fileSize: formatSize(file.size),
+            fileUrl: 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            subject: subjectInput.value.trim() || '9th Meeting of Mancom Committee'
+          }));
+        } catch (e) { }
 
         notify('Document Attached', `"${file.name}" (${formatSize(file.size)}) ready for schedule submission.`, true);
       }
@@ -531,24 +1395,39 @@
        * Resets attached document back to empty state
        */
       function resetAttachedFile() {
+        if (currentFileBlobUrl && currentFileBlobUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(currentFileBlobUrl);
+        }
         currentFile = null;
+        currentFileBlobUrl = null;
         fileInput.value = '';
-        chosenFileText.textContent = 'No file chosen';
-        uploadPlaceholder.style.display = 'flex';
-        selectedFilePreview.style.display = 'none';
+        selectedFileCard.style.display = 'none';
+        dropzone.style.display = 'block';
+
+        if (inlineAgendaPreviewCollapse) {
+          const bsCollapse = bootstrap.Collapse.getInstance(inlineAgendaPreviewCollapse);
+          if (bsCollapse) bsCollapse.hide();
+          else inlineAgendaPreviewCollapse.classList.remove('show');
+        }
+        if (inlineAgendaPreviewFrame) {
+          inlineAgendaPreviewFrame.src = '';
+        }
+        if (agendaFileOriginBadge) {
+          agendaFileOriginBadge.innerHTML = '<i class="bi bi-file-earmark-arrow-up me-1"></i>Official Agenda Paper';
+        }
       }
 
-      // Trigger file selector when clicking the upload box or button
-      uploadBox.addEventListener('click', (e) => {
-        // Do not trigger file dialog if clicking remove button
-        if (e.target.closest('#btnRemoveDoc')) return;
+      // Trigger file selector when clicking the dropzone area
+      dropzone.addEventListener('click', () => {
         fileInput.click();
       });
 
-      btnChooseFile.addEventListener('click', (e) => {
-        e.stopPropagation();
-        fileInput.click();
-      });
+      if (btnBrowse) {
+        btnBrowse.addEventListener('click', (e) => {
+          e.stopPropagation();
+          fileInput.click();
+        });
+      }
 
       // Handle native input change
       fileInput.addEventListener('change', (e) => {
@@ -558,29 +1437,29 @@
       });
 
       // Remove attached document button
-      btnRemoveDoc.addEventListener('click', (e) => {
+      btnRemoveFile.addEventListener('click', (e) => {
         e.stopPropagation();
         resetAttachedFile();
       });
 
-      // Drag and Drop support on the upload box
+      // Drag and Drop support on the dropzone
       ['dragenter', 'dragover'].forEach(name => {
-        uploadBox.addEventListener(name, (e) => {
+        dropzone.addEventListener(name, (e) => {
           e.preventDefault();
           e.stopPropagation();
-          uploadBox.classList.add('drag-over');
+          dropzone.classList.add('drag-over');
         });
       });
 
       ['dragleave', 'drop'].forEach(name => {
-        uploadBox.addEventListener(name, (e) => {
+        dropzone.addEventListener(name, (e) => {
           e.preventDefault();
           e.stopPropagation();
-          uploadBox.classList.remove('drag-over');
+          dropzone.classList.remove('drag-over');
         });
       });
 
-      uploadBox.addEventListener('drop', (e) => {
+      dropzone.addEventListener('drop', (e) => {
         const files = e.dataTransfer.files;
         if (files && files.length > 0) {
           processFile(files[0]);
@@ -595,10 +1474,234 @@
         dateInput.value = '';
         timeInput.value = '';
         locationInput.value = '';
+        closeAllPickers();
         notify('Form Cleared', 'All schedule inputs and attachments have been reset.', true);
       });
 
-      // Form Submission action
+      // ======================================================================
+      // SCHEDULED MEETINGS DATA STORE & DATATABLES INITIALIZATION (RESET CLEAN)
+      // ======================================================================
+      let scheduledMeetings = [];
+      try {
+        const cached = localStorage.getItem('mancom_meetings_records');
+        if (cached) {
+          scheduledMeetings = JSON.parse(cached);
+        }
+      } catch (e) {
+        console.error('Error parsing stored meetings', e);
+      }
+      if (!Array.isArray(scheduledMeetings)) {
+        scheduledMeetings = [];
+      }
+
+      /**
+       * Initializes or re-initializes Bootstrap 5 DataTable on #scheduledMeetingsTable
+       */
+      function initDataTable() {
+        if ($.fn.DataTable.isDataTable('#scheduledMeetingsTable')) {
+          $('#scheduledMeetingsTable').DataTable().destroy();
+        }
+        $('#scheduledMeetingsTable').DataTable({
+          pageLength: 5,
+          lengthMenu: [
+            [5, 10, 25, 50, -1],
+            [5, 10, 25, 50, 'All']
+          ],
+          order: [[1, 'desc']], // Sort by Date column descending
+          columnDefs: [
+            { orderable: false, targets: [6] } // Disable sorting on Actions column
+          ],
+          language: {
+            search: "",
+            searchPlaceholder: "Search scheduled meetings...",
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ meetings",
+            infoEmpty: "Showing 0 to 0 of 0 meetings",
+            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-calendar-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM meetings scheduled yet</p><small>Use the form above to schedule a new Management Committee meeting.</small></div>',
+            zeroRecords: "No matching meetings found",
+            infoFiltered: "(filtered from _MAX_ total records)",
+            paginate: {
+              first: '<i class="bi bi-chevron-double-left"></i>',
+              previous: '<i class="bi bi-chevron-left"></i>',
+              next: '<i class="bi bi-chevron-right"></i>',
+              last: '<i class="bi bi-chevron-double-right"></i>'
+            }
+          },
+          responsive: true,
+          autoWidth: false
+        });
+      }
+
+      /**
+       * Renders the Scheduled Meetings HTML table rows and binds DataTables
+       */
+      function renderScheduledMeetingsTable() {
+        const tbody = document.getElementById('scheduledMeetingsBody');
+        if (!tbody) return;
+
+        if ($.fn.DataTable.isDataTable('#scheduledMeetingsTable')) {
+          $('#scheduledMeetingsTable').DataTable().destroy();
+        }
+
+        const countBadge = document.getElementById('scheduledMeetingsCountBadge');
+        if (countBadge) countBadge.textContent = scheduledMeetings.length;
+
+        if (scheduledMeetings.length === 0) {
+          tbody.innerHTML = '';
+          initDataTable();
+          return;
+        }
+
+        tbody.innerHTML = scheduledMeetings.map(m => `
+          <tr id="row-${escapeHtml(m.id)}">
+            <td>
+              <div class="meeting-subject-cell">
+                <span class="meeting-subject-title text-dark">${escapeHtml(m.subject)}</span>
+                <div class="meeting-subject-sub">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill" style="font-size: 11px;">
+                    <i class="bi bi-check-circle-fill me-1"></i>Scheduled
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="fw-medium text-nowrap">
+                <i class="bi bi-calendar3 me-1 text-success"></i>${escapeHtml(m.date)}
+              </span>
+            </td>
+            <td>
+              <span class="badge bg-light text-dark border text-nowrap">
+                <i class="bi bi-clock me-1 text-secondary"></i>${escapeHtml(m.time)}
+              </span>
+            </td>
+            <td>
+              <span class="small fw-medium text-secondary">
+                <i class="bi bi-geo-alt-fill me-1 text-danger"></i>${escapeHtml(m.location)}
+              </span>
+            </td>
+            <td>
+              <div class="doc-name-cell">
+                <div class="doc-icon-badge">
+                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                </div>
+                <div>
+                  <span class="doc-title-text" onclick="window.previewScheduledDoc('${escapeHtml(m.id)}')" title="Click to preview">${escapeHtml(m.fileName)}</span>
+                  <div class="doc-session-sub">
+                    ${escapeHtml(m.fileSize || 'PDF Document')} • Working Paper
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <img src="assets/images/avatar.png" alt="${escapeHtml(m.submittedBy || 'Md. Fahim')}" class="rounded-circle" width="22" height="22">
+                <span class="small fw-medium">${escapeHtml(m.submittedBy || 'Md. Fahim')}</span>
+              </div>
+              <div class="small text-muted">
+                <i class="bi bi-clock me-1"></i>${escapeHtml(m.submittedAt || 'Recent')}
+              </div>
+            </td>
+            <td class="text-end">
+              <div class="d-inline-flex gap-1">
+                <button type="button" class="btn-action-icon" title="Preview Attached Agenda" onclick="window.previewScheduledDoc('${escapeHtml(m.id)}')">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <a href="FeedbackSubmission.html" class="btn-action-icon text-success" title="Submit Feedback for this Meeting" onclick="window.prepareFeedback('${escapeHtml(m.subject)}')">
+                  <i class="bi bi-chat-square-quote"></i>
+                </a>
+                <button type="button" class="btn-action-icon delete" title="Cancel / Remove Meeting" onclick="window.deleteScheduledMeeting('${escapeHtml(m.id)}')">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+        initDataTable();
+      }
+
+      // Initial table render
+      renderScheduledMeetingsTable();
+
+      // ======================================================================
+      // GLOBAL ACTION HANDLERS
+      // ======================================================================
+
+      /**
+       * Opens interactive PDF preview modal for attached scheduled agenda paper
+       */
+      window.previewScheduledDoc = function (id) {
+        const meeting = scheduledMeetings.find(m => m.id === id);
+        if (!meeting) return;
+
+        const modalEl = document.getElementById('pdfViewerModal');
+        if (!modalEl) return;
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        const titleEl = document.getElementById('pdfModalTitle');
+        const badgeEl = document.getElementById('pdfModalBadge');
+        const frameEl = document.getElementById('pdfViewerFrame');
+        const downloadBtn = document.getElementById('btnModalDownload');
+
+        if (titleEl) titleEl.textContent = `${meeting.subject} - ${meeting.fileName}`;
+        if (badgeEl) {
+          badgeEl.className = 'badge-classification internal';
+          badgeEl.innerHTML = '<i class="bi bi-calendar-event me-1"></i>Scheduled Meeting Paper';
+        }
+        if (frameEl) {
+          frameEl.src = meeting.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            const link = document.createElement('a');
+            link.href = meeting.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+            link.download = meeting.fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+        }
+
+        modal.show();
+      };
+
+      /**
+       * Pre-sets meeting subject and agenda file in localStorage before navigating to Feedback page
+       */
+      window.prepareFeedback = function (subject) {
+        const meeting = scheduledMeetings.find(m => m.subject === subject);
+        localStorage.setItem('mancom_latest_meeting_subject', subject);
+        localStorage.setItem('mancom_active_meeting_subject', subject);
+        if (meeting) {
+          localStorage.setItem('mancom_latest_schedule', JSON.stringify(meeting));
+          localStorage.setItem('mancom_uploaded_agenda_file', JSON.stringify({
+            fileName: meeting.fileName,
+            fileSize: meeting.fileSize,
+            fileUrl: meeting.fileUrl,
+            subject: meeting.subject
+          }));
+        }
+      };
+
+      /**
+       * Deletes a scheduled meeting from the list and localStorage
+       */
+      window.deleteScheduledMeeting = function (id) {
+        const meeting = scheduledMeetings.find(m => m.id === id);
+        if (!meeting) return;
+
+        if (confirm(`Are you sure you want to cancel and remove "${meeting.subject}" from scheduled MANCOM meetings?`)) {
+          scheduledMeetings = scheduledMeetings.filter(m => m.id !== id);
+          localStorage.setItem('mancom_meetings_records', JSON.stringify(scheduledMeetings));
+          renderScheduledMeetingsTable();
+          notify('Meeting Removed', `"${meeting.subject}" has been cancelled and removed from the schedule.`, true);
+        }
+      };
+
+      // ======================================================================
+      // FORM SUBMISSION: DYNAMIC INGESTION INTO DATA TABLE
+      // ======================================================================
       form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -633,8 +1736,8 @@
         }
 
         if (!currentFile) {
-          notify('Missing Document', 'Please attach a meeting paper or agenda document (PDF, DOCX, or PPTX; max 5MB).', false);
-          uploadBox.focus();
+          notify('Missing Document', 'Please attach a meeting paper or agenda document (PDF, DOCX, or PPTX; max 10MB).', false);
+          dropzone.focus();
           return;
         }
 
@@ -645,8 +1748,66 @@
         setTimeout(() => {
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = 'Submit';
-          notify('Schedule Created!', `Successfully scheduled "${subject}" on ${date} at ${time} (${location}). Invitations sent to MANCOM committee members.`, true);
-        }, 800);
+
+          // Format current timestamp
+          const now = new Date();
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          const formattedSubmitTime = `${now.getDate().toString().padStart(2, '0')} ${months[now.getMonth()]} ${now.getFullYear()}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+
+          // Create new meeting record
+          const newMeetingId = 'SCH-' + Date.now();
+          const newMeeting = {
+            id: newMeetingId,
+            subject: subject,
+            date: date,
+            time: time,
+            location: location,
+            fileName: currentFile.name,
+            fileSize: formatSize(currentFile.size),
+            fileUrl: currentFileBlobUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            submittedBy: 'Md. Fahim',
+            submittedAt: formattedSubmitTime
+          };
+
+          // Ingest new meeting into scheduled list
+          scheduledMeetings.unshift(newMeeting);
+          localStorage.setItem('mancom_meetings_records', JSON.stringify(scheduledMeetings));
+
+          // Save latest subject to localStorage so Feedback page auto-fetches it
+          localStorage.setItem('mancom_latest_meeting_subject', subject);
+          localStorage.setItem('mancom_active_meeting_subject', subject);
+          localStorage.setItem('mancom_latest_schedule', JSON.stringify(newMeeting));
+          localStorage.setItem('mancom_uploaded_agenda_file', JSON.stringify({
+            fileName: newMeeting.fileName,
+            fileSize: newMeeting.fileSize,
+            fileUrl: newMeeting.fileUrl,
+            subject: newMeeting.subject
+          }));
+
+          // Reset form inputs & attached file
+          form.reset();
+          resetAttachedFile();
+          subjectInput.value = '';
+          dateInput.value = '';
+          timeInput.value = '';
+          locationInput.value = '';
+          closeAllPickers();
+
+          // Re-render Data Table with the new meeting record loaded
+          renderScheduledMeetingsTable();
+
+          // Flash highlight on the newly added row
+          const newRow = document.getElementById(`row-${newMeetingId}`);
+          if (newRow) {
+            newRow.classList.add('table-success');
+            setTimeout(() => {
+              newRow.classList.remove('table-success');
+            }, 3000);
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+          notify('Schedule Created!', `Successfully scheduled "${subject}" on ${date} at ${time} (${location}). Record added to Data Table below and synchronized.`, true);
+        }, 600);
       });
     });
   </script>
