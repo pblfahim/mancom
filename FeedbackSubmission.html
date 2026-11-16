@@ -871,6 +871,13 @@
         if (agendaWiseDropzone) agendaWiseDropzone.style.display = 'none';
         if (agendaWiseSelectedFileCard) agendaWiseSelectedFileCard.style.display = 'flex';
 
+        // Automatically persist document to assets/documents/ folder
+        try {
+          const uploadData = new FormData();
+          uploadData.append('document', file);
+          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
+        } catch (e) {}
+
         notify('Document Attached', '"' + file.name + '" attached as Agenda wise document.', true);
       }
 
@@ -1305,6 +1312,8 @@
           // Detect submitter profile name
           const profileName = document.querySelector('.user-info-text .fw-semibold')?.textContent?.trim() || 'Kazi Farhan';
 
+          // Final document saved in assets/documents/ folder
+          const savedDocPath = 'assets/documents/' + currentAgendaWiseFile.name;
           const newSubmission = {
             id: 'FB-' + Date.now(),
             subject: subject,
@@ -1313,7 +1322,7 @@
             comments: comments,
             fileName: currentAgendaWiseFile.name,
             fileSize: formatSize(currentAgendaWiseFile.size),
-            fileUrl: currentAgendaWiseBlobUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            fileUrl: savedDocPath,
             agendaWiseFileName: currentAgendaWiseFile.name,
             agendaWiseFileSize: formatSize(currentAgendaWiseFile.size),
             scheduledAgendaFileName: activeAgenda ? activeAgenda.fileName : null,
@@ -1321,6 +1330,13 @@
             submittedAt: formattedSubmitTime,
             status: 'Submitted'
           };
+
+          // Save final document in documents folder under assets folder
+          try {
+            const uploadData = new FormData();
+            uploadData.append('document', currentAgendaWiseFile);
+            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
+          } catch (e) {}
 
           // Store feedback submission in localStorage for documents.html
           try {

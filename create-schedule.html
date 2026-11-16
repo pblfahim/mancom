@@ -1378,15 +1378,23 @@
         dropzone.style.display = 'none';
         selectedFileCard.style.display = 'flex';
 
-        // Stage uploaded agenda for FeedbackSubmission.html
+        // Stage uploaded agenda for FeedbackSubmission.html & persist to assets/documents/
+        const agendaDocPath = 'assets/documents/' + file.name;
         try {
           localStorage.setItem('mancom_uploaded_agenda_file', JSON.stringify({
             fileName: file.name,
             fileSize: formatSize(file.size),
-            fileUrl: 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            fileUrl: agendaDocPath,
             subject: subjectInput.value.trim() || '9th Meeting of Mancom Committee'
           }));
         } catch (e) { }
+
+        // Automatically persist document to assets/documents/ folder
+        try {
+          const uploadData = new FormData();
+          uploadData.append('document', file);
+          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
+        } catch (e) {}
 
         notify('Document Attached', `"${file.name}" (${formatSize(file.size)}) ready for schedule submission.`, true);
       }
@@ -1756,6 +1764,8 @@
 
           // Create new meeting record
           const newMeetingId = 'SCH-' + Date.now();
+          // Final document saved in assets/documents/ folder
+          const savedDocPath = 'assets/documents/' + currentFile.name;
           const newMeeting = {
             id: newMeetingId,
             subject: subject,
@@ -1764,10 +1774,17 @@
             location: location,
             fileName: currentFile.name,
             fileSize: formatSize(currentFile.size),
-            fileUrl: currentFileBlobUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf',
+            fileUrl: savedDocPath,
             submittedBy: 'Md. Fahim',
             submittedAt: formattedSubmitTime
           };
+
+          // Save final document in documents folder under assets folder
+          try {
+            const uploadData = new FormData();
+            uploadData.append('document', currentFile);
+            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
+          } catch (e) {}
 
           // Ingest new meeting into scheduled list
           scheduledMeetings.unshift(newMeeting);
