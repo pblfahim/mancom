@@ -491,73 +491,259 @@
   <script src="assets/js/app.js"></script>
 
   <!-- ======================================================================
-       DATATABLES INITIALIZATION SCRIPT
-       Configures pagination, search, sorting, and dropdown filter hooks
+       DATATABLES & DYNAMIC REPOSITORY SCRIPT
+       - Automatically loads data submitted from FeedbackSubmission.html
+       - Renders live rows with Meeting Subject, Agenda / Ref, Division, Submitter
+       - Real-time cross-tab synchronization on Feedback Submission
+       - Filtering by Meeting Subject, Division, and Agenda / Reference
+       - Full-screen interactive modal preview, download, and delete actions
        ====================================================================== -->
   <script>
     $(document).ready(function () {
-      // Initialize Bootstrap 5 DataTable on #documentsTable
-      const table = $('#documentsTable').DataTable({
-        pageLength: 5,
-        lengthMenu: [
-          [5, 10, 25, 50, -1],
-          [5, 10, 25, 50, 'All']
-        ],
-        // Default sort by Submitted by/ at column descending (Column 3)
-        order: [[3, 'desc']],
-        // Disable sorting on Actions column (Column 4)
-        columnDefs: [
-          { orderable: false, targets: [4] }
-        ],
-        language: {
-          search: "",
-          searchPlaceholder: "Search documents in repository...",
-          lengthMenu: "Show _MENU_ entries",
-          info: "Showing _START_ to _END_ of _TOTAL_ documents",
-          infoEmpty: "Showing 0 to 0 of 0 documents",
-          emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-folder-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM documents found in repository</p><small>Documents uploaded or submitted across committee meetings will appear here.</small></div>',
-          zeroRecords: "No matching documents found",
-          infoFiltered: "(filtered from _MAX_ total entries)",
-          paginate: {
-            first: '<i class="bi bi-chevron-double-left"></i>',
-            previous: '<i class="bi bi-chevron-left"></i>',
-            next: '<i class="bi bi-chevron-right"></i>',
-            last: '<i class="bi bi-chevron-double-right"></i>'
-          }
-        },
-        responsive: true,
-        autoWidth: false
-      });
+      let dataTableInstance = null;
 
-      // Populate Meeting Subject filter options dynamically if meetings exist in storage
-      try {
-        const stored = localStorage.getItem('mancom_meetings_records');
-        if (stored) {
-          const meetings = JSON.parse(stored);
-          const select = $('#filterMeetingSubject');
-          const subjects = [...new Set(meetings.map(m => m.subject).filter(Boolean))];
-          subjects.forEach(s => {
-            select.append(`<option value="${s}">${s}</option>`);
-          });
+      /**
+       * HTML escaping utility
+       */
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      /**
+       * Shows styled toast notification on documents page
+       */
+      function notify(message, isSuccess = true) {
+        const toastEl = document.getElementById('portalToast');
+        const msgEl = document.getElementById('toastMessage');
+        if (!toastEl || !msgEl) return;
+        msgEl.textContent = message;
+        const header = toastEl.querySelector('.toast-header');
+        if (header) {
+          header.className = `toast-header text-white ${isSuccess ? 'bg-success' : 'bg-danger'}`;
         }
-      } catch (e) {}
+        new bootstrap.Toast(toastEl).show();
+      }
+
+      /**
+       * Retrieves stored documents from Feedback Submissions & Document Repository
+       */
+      function getStoredDocuments() {
+        let list = [];
+        try {
+          const fromFeedbacks = JSON.parse(localStorage.getItem('mancom_feedback_submissions') || '[]');
+          const fromDocs = JSON.parse(localStorage.getItem('mancom_documents_records') || '[]');
+          const combined = [...fromFeedbacks, ...fromDocs];
+          const seen = new Set();
+          list = combined.filter(item => {
+            if (!item || !item.id || seen.has(item.id)) return false;
+            seen.add(item.id);
+            return true;
+          });
+        } catch (e) {
+          list = [];
+        }
+        return list;
+      }
+
+      /**
+       * Initializes or re-initializes Bootstrap 5 DataTable
+       */
+      function initDataTable() {
+        if ($.fn.DataTable.isDataTable('#documentsTable')) {
+          $('#documentsTable').DataTable().destroy();
+        }
+
+        dataTableInstance = $('#documentsTable').DataTable({
+          pageLength: 5,
+          lengthMenu: [
+            [5, 10, 25, 50, -1],
+            [5, 10, 25, 50, 'All']
+          ],
+          // Default sort by Submitted by/ at column descending (Column 3)
+          order: [[3, 'desc']],
+          // Disable sorting on Actions column (Column 4)
+          columnDefs: [
+            { orderable: false, targets: [4] }
+          ],
+          language: {
+            search: "",
+            searchPlaceholder: "Search documents in repository...",
+            lengthMenu: "Show _MENU_ entries",
+            info: "Showing _START_ to _END_ of _TOTAL_ documents",
+            infoEmpty: "Showing 0 to 0 of 0 documents",
+            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-folder-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM documents found in repository</p><small>Documents submitted via Feedback Submission will appear here automatically.</small></div>',
+            zeroRecords: "No matching documents found",
+            infoFiltered: "(filtered from _MAX_ total entries)",
+            paginate: {
+              first: '<i class="bi bi-chevron-double-left"></i>',
+              previous: '<i class="bi bi-chevron-left"></i>',
+              next: '<i class="bi bi-chevron-right"></i>',
+              last: '<i class="bi bi-chevron-double-right"></i>'
+            }
+          },
+          responsive: true,
+          autoWidth: false
+        });
+      }
+
+      /**
+       * Dynamically populates Meeting Subject dropdown filter based on available records
+       */
+      function updateFilters(docs) {
+        const subjectSelect = $('#filterMeetingSubject');
+        const currentSubjectVal = subjectSelect.val();
+        subjectSelect.find('option:not(:first)').remove();
+
+        let subjects = docs.map(d => d.subject).filter(Boolean);
+        try {
+          const schedMeetings = JSON.parse(localStorage.getItem('mancom_meetings_records') || '[]');
+          subjects.push(...schedMeetings.map(m => m.subject).filter(Boolean));
+        } catch (e) {}
+
+        const uniqueSubjects = [...new Set(subjects)];
+        uniqueSubjects.forEach(s => {
+          subjectSelect.append(`<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`);
+        });
+
+        if (currentSubjectVal && uniqueSubjects.includes(currentSubjectVal)) {
+          subjectSelect.val(currentSubjectVal);
+        }
+      }
+
+      /**
+       * Renders document rows from stored feedback submissions and initializes DataTable
+       */
+      function renderDocumentsTable() {
+        const tbody = document.getElementById('documentsTableBody');
+        if (!tbody) return;
+
+        if ($.fn.DataTable.isDataTable('#documentsTable')) {
+          $('#documentsTable').DataTable().destroy();
+        }
+
+        const docs = getStoredDocuments();
+
+        if (docs.length === 0) {
+          tbody.innerHTML = '';
+          initDataTable();
+          updateFilters(docs);
+          return;
+        }
+
+        tbody.innerHTML = docs.map(doc => {
+          const fileName = doc.fileName || doc.agendaWiseFileName || 'Attached-Document.pdf';
+          const fileSize = doc.fileSize || doc.agendaWiseFileSize || 'Ready';
+          const lower = fileName.toLowerCase();
+          let fileIcon = 'bi bi-file-earmark-pdf-fill text-danger';
+          if (lower.endsWith('.docx')) {
+            fileIcon = 'bi bi-file-earmark-word-fill text-primary';
+          } else if (lower.endsWith('.pptx')) {
+            fileIcon = 'bi bi-file-earmark-ppt-fill text-warning';
+          }
+
+          return `
+            <tr id="row-${escapeHtml(doc.id)}">
+              <!-- Column 0: Meeting Subject -->
+              <td>
+                <div class="meeting-subject-cell">
+                  <span class="meeting-subject-title text-dark fw-semibold d-block">${escapeHtml(doc.subject)}</span>
+                  <div class="meeting-subject-sub mt-1">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill" style="font-size: 10.5px;">
+                      <i class="bi bi-check-circle-fill me-1"></i>Official MANCOM
+                    </span>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Column 1: Agenda / Reference -->
+              <td>
+                <div class="doc-name-cell">
+                  <div class="doc-icon-badge">
+                    <i class="${fileIcon}"></i>
+                  </div>
+                  <div>
+                    <span class="doc-title-text fw-medium" onclick="window.previewRepoDoc('${escapeHtml(doc.id)}')" style="cursor: pointer;" title="Click to preview document">
+                      ${escapeHtml(doc.agenda)}
+                    </span>
+                    <div class="doc-session-sub text-muted small mt-1">
+                      <i class="bi bi-paperclip me-1"></i>${escapeHtml(fileName)} <span class="mx-1">•</span> ${escapeHtml(fileSize)}
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Column 2: Division -->
+              <td>
+                <span class="badge bg-light text-dark border px-2.5 py-1.5 fw-medium">
+                  <i class="bi bi-building me-1 text-primary"></i>${escapeHtml(doc.division)}
+                </span>
+              </td>
+
+              <!-- Column 3: Submitted by/ at -->
+              <td>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <img src="assets/images/avatar.png" alt="${escapeHtml(doc.submittedBy || 'Kazi Farhan')}" class="rounded-circle" width="22" height="22">
+                  <span class="small fw-semibold text-dark">${escapeHtml(doc.submittedBy || 'Kazi Farhan')}</span>
+                </div>
+                <div class="small text-muted">
+                  <i class="bi bi-clock me-1"></i>${escapeHtml(doc.submittedAt)}
+                </div>
+              </td>
+
+              <!-- Column 4: Actions -->
+              <td class="text-end">
+                <div class="d-inline-flex gap-1">
+                  <button type="button" class="btn-action-icon" title="Preview Attached Document" onclick="window.previewRepoDoc('${escapeHtml(doc.id)}')">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button type="button" class="btn-action-icon text-success" title="Download Document" onclick="window.downloadRepoDoc('${escapeHtml(doc.id)}')">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button type="button" class="btn-action-icon delete" title="Delete / Remove Record" onclick="window.deleteRepoDoc('${escapeHtml(doc.id)}')">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        initDataTable();
+        updateFilters(docs);
+      }
+
+      // ======================================================================
+      // FILTER EVENT LISTENERS
+      // ======================================================================
 
       // 1. Meeting Subject Filter (Column 0: Meeting Subject)
       $('#filterMeetingSubject').on('change', function () {
         const val = $(this).val();
-        table.column(0).search(val ? val : '').draw();
+        if (dataTableInstance) {
+          dataTableInstance.column(0).search(val ? val : '').draw();
+        }
       });
 
       // 2. Division Filter (Column 2: Division)
       $('#filterDivision').on('change', function () {
         const val = $(this).val();
-        table.column(2).search(val ? val : '').draw();
+        if (dataTableInstance) {
+          dataTableInstance.column(2).search(val ? val : '').draw();
+        }
       });
 
       // 3. Agenda / Reference Filter (Column 1: Agenda / Reference)
       $('#filterAgenda').on('keyup change', function () {
         const val = $(this).val();
-        table.column(1).search(val ? val : '').draw();
+        if (dataTableInstance) {
+          dataTableInstance.column(1).search(val ? val : '').draw();
+        }
       });
 
       // 4. Reset All Filters
@@ -565,8 +751,148 @@
         $('#filterMeetingSubject').val('');
         $('#filterDivision').val('');
         $('#filterAgenda').val('');
-        table.search('').columns().search('').draw();
+        if (dataTableInstance) {
+          dataTableInstance.search('').columns().search('').draw();
+        }
       });
+
+      // ======================================================================
+      // GLOBAL ACTION HANDLERS (PREVIEW, DOWNLOAD, DELETE)
+      // ======================================================================
+
+      /**
+       * Opens interactive PDF preview modal for attached feedback document
+       */
+      window.previewRepoDoc = function (id) {
+        const docs = getStoredDocuments();
+        const doc = docs.find(d => d.id === id);
+        if (!doc) return;
+
+        const modalEl = document.getElementById('pdfViewerModal');
+        if (!modalEl) return;
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        const titleEl = document.getElementById('pdfModalTitle');
+        const badgeEl = document.getElementById('pdfModalBadge');
+        const frameEl = document.getElementById('pdfViewerFrame');
+        const downloadBtn = document.getElementById('btnModalDownload');
+
+        const currentName = doc.fileName || doc.agendaWiseFileName || 'Document.pdf';
+        const currentUrl = doc.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+
+        if (titleEl) titleEl.textContent = `${doc.subject} - ${doc.agenda}`;
+        if (badgeEl) {
+          badgeEl.className = 'badge-classification internal';
+          badgeEl.innerHTML = '<i class="bi bi-file-earmark-check-fill me-1"></i>Feedback Submission Document';
+        }
+        if (frameEl) {
+          frameEl.src = currentUrl;
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            const link = document.createElement('a');
+            link.href = currentUrl;
+            link.download = currentName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+        }
+
+        modal.show();
+      };
+
+      /**
+       * Downloads attached feedback document
+       */
+      window.downloadRepoDoc = function (id) {
+        const docs = getStoredDocuments();
+        const doc = docs.find(d => d.id === id);
+        if (!doc) return;
+
+        const fileName = doc.fileName || doc.agendaWiseFileName || 'Document.pdf';
+        const fileUrl = doc.fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        notify(`Downloaded "${fileName}" successfully.`, true);
+      };
+
+      /**
+       * Deletes a feedback document record from repository
+       */
+      window.deleteRepoDoc = function (id) {
+        let docs = getStoredDocuments();
+        const doc = docs.find(d => d.id === id);
+        if (!doc) return;
+
+        if (confirm(`Are you sure you want to remove the document record for "${doc.agenda}"?`)) {
+          docs = docs.filter(d => d.id !== id);
+          localStorage.setItem('mancom_feedback_submissions', JSON.stringify(docs));
+          localStorage.setItem('mancom_documents_records', JSON.stringify(docs));
+          renderDocumentsTable();
+          notify(`Record for "${doc.agenda}" removed from repository.`, true);
+        }
+      };
+
+      // Modal Zoom & Print Toolbar Controls
+      const btnZoomIn = document.getElementById('btnZoomIn');
+      const btnZoomOut = document.getElementById('btnZoomOut');
+      const btnPrintDoc = document.getElementById('btnPrintDoc');
+      let currentZoom = 100;
+      if (btnZoomIn) {
+        btnZoomIn.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && currentZoom < 180) {
+            currentZoom += 15;
+            frame.style.transform = `scale(${currentZoom / 100})`;
+            frame.style.transformOrigin = 'top center';
+          }
+        });
+      }
+      if (btnZoomOut) {
+        btnZoomOut.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && currentZoom > 70) {
+            currentZoom -= 15;
+            frame.style.transform = `scale(${currentZoom / 100})`;
+            frame.style.transformOrigin = 'top center';
+          }
+        });
+      }
+      if (btnPrintDoc) {
+        btnPrintDoc.addEventListener('click', () => {
+          const frame = document.getElementById('pdfViewerFrame');
+          if (frame && frame.contentWindow) {
+            try {
+              frame.contentWindow.print();
+            } catch (e) {
+              window.print();
+            }
+          }
+        });
+      }
+
+      // ======================================================================
+      // REAL-TIME CROSS-TAB STORAGE SYNCHRONIZATION
+      // Automatically re-loads the table whenever FeedbackSubmission is submitted
+      // ======================================================================
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'mancom_feedback_submissions' ||
+            e.key === 'mancom_documents_records' ||
+            e.key === 'mancom_latest_feedback_submitted') {
+          renderDocumentsTable();
+        }
+      });
+
+      // Initial table render
+      renderDocumentsTable();
     });
   </script>
 </body>

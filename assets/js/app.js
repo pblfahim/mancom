@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // RENDER DOCUMENT LIBRARY TABLE
   // ==========================================================================
   function renderDocumentsTable() {
-    if (!documentsTableBody) return;
+    if (!documentsTableBody || document.getElementById("filterMeetingSubject")) return;
     const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const selectedCat = categoryFilter ? categoryFilter.value : 'all';
     const selectedClass = classificationFilter ? classificationFilter.value : 'all';
