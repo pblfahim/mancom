@@ -288,259 +288,275 @@
            - Centered Clear Form and Submit action buttons
            ================================================================== -->
       <section class="schedule-card">
-        <!-- Controls Header: Meaningful Title and Status Badge -->
+        <!-- Schedule Form Group: Grouping library-controls-header and scheduleMeetingForm -->
+        <div class="schedule-form-group">
+          <!-- Controls Header: Meaningful Title and Status Badge -->
+          <div class="library-controls-header">
+            <div class="library-title">
+              <h3><i class="bi bi-calendar-event me-2 text-success"></i>MANCOM Meeting Schedule Creation</h3>
+              <p>Schedule a new Management Committee session, designate location, and upload supporting working papers
+              </p>
+            </div>
+            <div class="library-filter-tools">
+            </div>
+          </div>
+
+          <form id="scheduleMeetingForm" class="scheduleMeetingForm schedule-meeting-form" novalidate>
+            <div class="row g-4 create-sch">
+
+              <!-- Left Column: Meeting Logistics & Session Details -->
+              <div class="col-lg-6">
+                <div class="schedule-section-body">
+                  <!-- Field 1: Meeting Subject (Full Width of left panel) -->
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <label for="meetingSubject" class="schedule-label mb-0">
+                        Meeting Subject <span class="required-star">*</span>
+                      </label>
+                      <span class="text-muted" style="font-size: 11px;">Session Title</span>
+                    </div>
+                    <div class="schedule-input-wrapper">
+                      <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject" value=""
+                        required placeholder="e.g., 9th Meeting of Management Committee (MANCOM)"
+                        list="meetingSubjectDatalist">
+                      <span class="schedule-input-icon text-muted" title="Subject suggestions">
+                        <i class="bi bi-chat-quote"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Fields 2 & 3: Date & Time (Side-by-side) -->
+                  <div class="row g-3 mb-3">
+                    <!-- Date -->
+                    <div class="col-sm-6">
+                      <label for="meetingDate" class="schedule-label">
+                        Date <span class="required-star">*</span>
+                      </label>
+                      <div class="schedule-input-wrapper" id="dateInputWrapper">
+                        <input type="text" class="schedule-input" id="meetingDate" name="meetingDate" value="" required
+                          placeholder="DD / Month / YYYY" autocomplete="off">
+                        <span class="schedule-input-icon calendar-icon" id="btnOpenDatePicker" role="button"
+                          title="Open Calendar Date Picker">
+                          <i class="bi bi-calendar4-week"></i>
+                        </span>
+                        <!-- Native date picker fallback -->
+                        <input type="date" id="nativeDatePicker"
+                          style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;"
+                          tabindex="-1">
+                      </div>
+                    </div>
+
+                    <!-- Time -->
+                    <div class="col-sm-6">
+                      <label for="meetingTime" class="schedule-label">
+                        Time <span class="required-star">*</span>
+                      </label>
+                      <div class="schedule-input-wrapper" id="timeInputWrapper">
+                        <input type="text" class="schedule-input" id="meetingTime" name="meetingTime" value="" required
+                          placeholder="HH:MM AM/PM" autocomplete="off">
+                        <span class="schedule-input-icon clock-icon" id="btnOpenTimePicker" role="button"
+                          title="Open Time Picker">
+                          <i class="bi bi-clock-history"></i>
+                        </span>
+                        <!-- Native time picker fallback -->
+                        <input type="time" id="nativeTimePicker"
+                          style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;"
+                          tabindex="-1">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Field 4: Location with Fast Preset Badges -->
+                  <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <label for="meetingLocation" class="schedule-label mb-0">
+                        Location / Venue <span class="required-star">*</span>
+                      </label>
+                      <span class="text-muted" style="font-size: 11px;">Select or type</span>
+                    </div>
+                    <div class="schedule-input-wrapper">
+                      <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation" value=""
+                        required placeholder="e.g., Board Room, 14th Floor (Head Office)" list="locationSuggestions">
+                      <span class="schedule-input-icon" title="Location venue">
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                      </span>
+                    </div>
+                    <datalist id="locationSuggestions">
+                      <option value="Board Room, 14th Floor (Head Office)">
+                      <option value="Credit Conference Room (3rd Floor)">
+                      <option value="Executive Committee Hall">
+                      <option value="Virtual MS Teams / Zoom Conference">
+                    </datalist>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Official MANCOM Agenda Working Papers -->
+              <div class="col-lg-6">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <label for="pdfFileInput" class="schedule-label mb-0">
+                    Upload Agenda <span class="required-star">*</span>
+                  </label>
+                </div>
+                <div class="schedule-section-body flex-grow-1 d-flex flex-column justify-content-between">
+                  <div>
+                    <!-- Drag & Drop Zone -->
+                    <div class="dropzone-area" id="dropzone" tabindex="0" role="button"
+                      aria-label="Dropzone for PDF file upload" style="margin: 0 0 16px 0;">
+                      <div class="dropzone-icon-circle">
+                        <i class="bi bi-cloud-arrow-up text-success fs-1"></i>
+                      </div>
+                      <div class="dropzone-title fw-bold">Drag and drop your MANCOM Agenda file here, or Browse Files
+                      </div>
+                      <div class="dropzone-subtitle">
+                        Supported file formats: <strong>.pdf, .docx, .pptx</strong> (Maximum size: 10 MB)
+                      </div>
+                      <button type="button" class="dropzone-btn" id="btnBrowseFile">
+                        <i class="bi bi-folder2-open me-1"></i> Browse Computer
+                      </button>
+                      <input type="file" id="pdfFileInput" accept="application/pdf,.pdf,.docx,.pptx"
+                        style="display:none;" aria-label="Upload PDF file">
+                    </div>
+
+                    <!-- Selected File Preview Strip (Dynamic preview matching FeedbackSubmission upload) -->
+                    <div class="selected-file-card" id="selectedFileCard" style="display: none; margin: 0 0 16px 0;">
+                      <div class="selected-file-info d-flex align-items-center gap-3">
+                        <i class="bi bi-file-earmark-pdf-fill file-type-icon fs-2 text-danger"></i>
+                        <div class="file-details">
+                          <span class="file-name fw-semibold text-dark d-block" id="selectedFileName"
+                            style="cursor: pointer;" title="Click to preview document">filename.pdf</span>
+                          <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="file-meta text-muted small" id="selectedFileMeta">0 MB • Ready</span>
+                            <span
+                              class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                              style="font-size: 10px;">
+                              <i class="bi bi-check-circle-fill me-1"></i>Scheduled Agenda Paper
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="file-actions d-flex align-items-center gap-2">
+                        <!-- Preview Document Button -->
+                        <button type="button"
+                          class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1 px-3 py-1 fw-semibold"
+                          id="btnPreviewAgendaModal" title="Preview Attached Agenda in Full Viewer">
+                          <i class="bi bi-eye-fill"></i>
+                          <span>Preview</span>
+                        </button>
+                        <!-- Quick Inline Preview Toggle -->
+                        <button type="button"
+                          class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 px-2 py-1"
+                          id="btnToggleInlinePreview" title="Toggle Quick Inline View" data-bs-toggle="collapse"
+                          data-bs-target="#inlineAgendaPreviewCollapse">
+                          <i class="bi bi-layout-sidebar-inset"></i>
+                          <span class="d-none d-sm-inline">Quick View</span>
+                        </button>
+                        <!-- Remove / Replace Document -->
+                        <button type="button" class="btn btn-remove-file" id="btnRemoveFile"
+                          title="Replace or re-upload file">
+                          <i class="bi bi-x-lg"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Inline Collapsible Preview Box -->
+                    <div class="collapse mb-3" id="inlineAgendaPreviewCollapse">
+                      <div class="card card-body p-2 border bg-light shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-2 px-2 pt-1">
+                          <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+                            <span class="fw-semibold small text-dark" id="inlinePreviewTitle">MANCOM Agenda Document
+                              Preview</span>
+                            <span
+                              class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                              style="font-size: 10px;">
+                              Live Document Stream
+                            </span>
+                          </div>
+                          <div class="d-flex align-items-center gap-1">
+                            <button type="button" class="btn btn-sm btn-outline-success px-2 py-0"
+                              id="btnExpandInlineToModal" title="Open Full Screen Modal Viewer">
+                              <i class="bi bi-arrows-fullscreen"></i>
+                            </button>
+                            <button type="button" class="btn-close ms-2" data-bs-toggle="collapse"
+                              data-bs-target="#inlineAgendaPreviewCollapse" aria-label="Close Preview"
+                              style="font-size: 10px;"></button>
+                          </div>
+                        </div>
+                        <div class="rounded border overflow-hidden" style="height: 340px; background-color: #525659;">
+                          <iframe id="inlineAgendaPreviewFrame" style="width: 100%; height: 100%; border: 0;" src=""
+                            title="Agenda Document Inline Preview"></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Bottom Action Bar: Clear Form & Submit (Professional, Balanced, Crisp) -->
+            <div class="schedule-action-bar">
+              <div class="d-flex align-items-center text-muted small schedule-form-hints">
+                <i class="bi bi-shield-check text-success me-1 fs-6"></i>
+                <span>Fields marked with (<span class="text-danger fw-bold">*</span>) are mandatory. Agendas auto-sync
+                  to Documents repository.</span>
+              </div>
+              <div class="schedule-action-buttons">
+                <button type="button" class="btn btn-schedule-clear" id="btnScheduleClear"
+                  title="Clear all input fields and attachments">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i> Clear Form
+                </button>
+                <button type="submit" class="btn btn-schedule-submit" id="btnScheduleSubmit"
+                  title="Schedule and record MANCOM meeting">
+                  <i class="bi bi-calendar-check me-1"></i> Schedule Meeting
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           SCHEDULED MEETINGS DATA TABLE
+           Placed in dedicated card with live records dynamically from localStorage
+           ================================================================== -->
+      <section class="schedule-card scheduled-meetings-card">
+        <!-- Table Controls Header -->
         <div class="library-controls-header">
           <div class="library-title">
-            <h3><i class="bi bi-calendar-event me-2 text-success"></i>MANCOM Meeting Schedule Creation</h3>
-            <p>Schedule a new Management Committee session, designate location, and upload supporting working papers</p>
+            <h3 class="fw-bold"><i class="bi bi-calendar-check me-2 text-success"></i>Scheduled MANCOM Committee
+              Meetings</h3>
+            <p>Live schedule records created via the schedule meeting form above. Automatically persisted and
+              synchronized.</p>
           </div>
           <div class="library-filter-tools">
             <span
               class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
-              <i class="bi bi-calendar-plus me-1"></i>New Schedule Entry
+              <i class="bi bi-calendar-event me-1"></i><span id="scheduledMeetingsCountBadge">0</span> Meetings
+              Scheduled
             </span>
           </div>
         </div>
 
-        <form id="scheduleMeetingForm" class="scheduleMeetingForm" novalidate>
-
-          <!-- Top Row: 4 Column Input Fields -->
-          <div class="row g-4 mb-4">
-
-            <!-- Column 1: Meeting Subject -->
-            <div class="col-lg-3 col-md-6">
-              <label for="meetingSubject" class="schedule-label">
-                Meeting Subject <span class="required-star">*</span>
-              </label>
-              <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject" value="" required
-                placeholder="Enter Subject (ex:9th Meeting of Mancom Committee)">
-            </div>
-
-            <!-- Column 2: Date with Green Calendar Icon -->
-            <div class="col-lg-3 col-md-6">
-              <label for="meetingDate" class="schedule-label">
-                Date <span class="required-star">*</span>
-              </label>
-              <div class="schedule-input-wrapper" id="dateInputWrapper">
-                <input type="text" class="schedule-input" id="meetingDate" name="meetingDate" value="" required
-                  placeholder="DD / Month / YYYY" autocomplete="off">
-                <span class="schedule-input-icon calendar-icon" id="btnOpenDatePicker"
-                  title="Open Calendar Date Picker">
-                  <i class="bi bi-calendar4-week"></i>
-                </span>
-                <!-- Native date picker fallback -->
-                <input type="date" id="nativeDatePicker"
-                  style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;" tabindex="-1">
-              </div>
-            </div>
-
-            <!-- Column 3: Time with Clock Icon -->
-            <div class="col-lg-3 col-md-6">
-              <label for="meetingTime" class="schedule-label">
-                Time <span class="required-star">*</span>
-              </label>
-              <div class="schedule-input-wrapper" id="timeInputWrapper">
-                <input type="text" class="schedule-input" id="meetingTime" name="meetingTime" value="" required
-                  placeholder="HH.MM AM/PM" autocomplete="off">
-                <span class="schedule-input-icon clock-icon" id="btnOpenTimePicker" title="Open Time Picker">
-                  <i class="bi bi-clock-history"></i>
-                </span>
-                <!-- Native time picker fallback -->
-                <input type="time" id="nativeTimePicker"
-                  style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;" tabindex="-1">
-              </div>
-            </div>
-
-            <!-- Column 4: Location with Refresh/History Icon -->
-            <div class="col-lg-3 col-md-6">
-              <label for="meetingLocation" class="schedule-label">
-                Location <span class="required-star">*</span>
-              </label>
-              <div class="schedule-input-wrapper">
-                <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation" value="" required
-                  placeholder="Add venue (ex:Credit Conference Room)" list="locationSuggestions">
-                <span class="schedule-input-icon" title="Location Suggestions">
-                  <i class="bi bi-arrow-clockwise"></i>
-                </span>
-              </div>
-              <!-- Datalist for fast location selection -->
-              <!-- <datalist id="locationSuggestions">
-                <option value="Credit Conference Room">
-                <option value="Board Room, 14th Floor (Head Office)">
-                <option value="Executive Committee Hall">
-                <option value="HRD Conference Hall (6th Floor)">
-                <option value="Virtual MS Teams / Zoom">
-              </datalist> -->
-            </div>
-
-          </div>
-
-          <!-- Second Row: Large Document Upload Box (Exact same UI & Preview as FeedbackSubmission) -->
-          <div class="mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <label class="schedule-label mb-0">
-                Upload Mancom Agenda <span class="required-star">*</span>
-              </label>
-              <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill"
-                style="font-size: 10.5px;" id="agendaFileOriginBadge">
-                <i class="bi bi-file-earmark-arrow-up me-1"></i>Official Agenda Paper
-              </span>
-            </div>
-
-            <!-- Drag & Drop Zone -->
-            <div class="dropzone-area" id="dropzone" tabindex="0" role="button"
-              aria-label="Dropzone for PDF file upload" style="margin: 0 0 16px 0;">
-              <div class="dropzone-icon-circle">
-                <i class="bi bi-file-earmark-pdf"></i>
-              </div>
-              <div class="dropzone-title">Drag and drop your MANCOM Agenda/Memorandum file here, or Browse Files</div>
-              <div class="dropzone-subtitle">
-                Supported file type: <strong>.pdf</strong> (Maximum size: 10 MB) • Working Papers, Agendas, Policies &
-                Memos
-              </div>
-              <button type="button" class="dropzone-btn" id="btnBrowseFile">
-                <i class="bi bi-folder2-open me-1"></i> Browse Computer
-              </button>
-              <input type="file" id="pdfFileInput" accept="application/pdf,.pdf,.docx,.pptx" style="display:none;"
-                aria-label="Upload PDF file">
-            </div>
-
-            <!-- Selected File Preview Strip (Dynamic preview matching FeedbackSubmission upload) -->
-            <div class="selected-file-card" id="selectedFileCard" style="display: none; margin: 0 0 16px 0;">
-              <div class="selected-file-info d-flex align-items-center gap-3">
-                <i class="bi bi-file-earmark-pdf-fill file-type-icon fs-2 text-danger"></i>
-                <div class="file-details">
-                  <span class="file-name fw-semibold text-dark d-block" id="selectedFileName" style="cursor: pointer;"
-                    title="Click to preview document">filename.pdf</span>
-                  <div class="d-flex align-items-center gap-2 mt-1">
-                    <span class="file-meta text-muted small" id="selectedFileMeta">0 MB • Ready</span>
-                    <span
-                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
-                      style="font-size: 10px;">
-                      <i class="bi bi-check-circle-fill me-1"></i>Scheduled Agenda Paper
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="file-actions d-flex align-items-center gap-2">
-                <!-- Preview Document Button -->
-                <button type="button"
-                  class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1 px-3 py-1 fw-semibold"
-                  id="btnPreviewAgendaModal" title="Preview Attached Agenda in Full Viewer">
-                  <i class="bi bi-eye-fill"></i>
-                  <span>Preview</span>
-                </button>
-                <!-- Quick Inline Preview Toggle -->
-                <button type="button"
-                  class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1 px-2 py-1"
-                  id="btnToggleInlinePreview" title="Toggle Quick Inline View" data-bs-toggle="collapse"
-                  data-bs-target="#inlineAgendaPreviewCollapse">
-                  <i class="bi bi-layout-sidebar-inset"></i>
-                  <span class="d-none d-sm-inline">Quick View</span>
-                </button>
-                <!-- Remove / Replace Document -->
-                <button type="button" class="btn btn-remove-file" id="btnRemoveFile" title="Replace or re-upload file">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Inline Collapsible Preview Box -->
-            <div class="collapse mb-3" id="inlineAgendaPreviewCollapse">
-              <div class="card card-body p-2 border bg-light shadow-sm">
-                <div class="d-flex justify-content-between align-items-center mb-2 px-2 pt-1">
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
-                    <span class="fw-semibold small text-dark" id="inlinePreviewTitle">MANCOM Agenda Document
-                      Preview</span>
-                    <span
-                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
-                      style="font-size: 10px;">
-                      Live Document Stream
-                    </span>
-                  </div>
-                  <div class="d-flex align-items-center gap-1">
-                    <button type="button" class="btn btn-sm btn-outline-success px-2 py-0" id="btnExpandInlineToModal"
-                      title="Open Full Screen Modal Viewer">
-                      <i class="bi bi-arrows-fullscreen"></i>
-                    </button>
-                    <button type="button" class="btn-close ms-2" data-bs-toggle="collapse"
-                      data-bs-target="#inlineAgendaPreviewCollapse" aria-label="Close Preview"
-                      style="font-size: 10px;"></button>
-                  </div>
-                </div>
-                <div class="rounded border overflow-hidden" style="height: 380px; background-color: #525659;">
-                  <iframe id="inlineAgendaPreviewFrame" style="width: 100%; height: 100%; border: 0;" src=""
-                    title="Agenda Document Inline Preview"></iframe>
-                </div>
-              </div>
-            </div>
-
-            <!-- Upload help hint -->
-            <div class="form-text mt-1 text-muted" style="font-size: 11px;">
-              Supported formats: <strong>.pdf, .docx, .pptx</strong>. Maximum allowable document size: <strong>10
-                MB</strong>.
-            </div>
-          </div>
-
-          <!-- Bottom Action Buttons: Clear Form & Submit (Centered matching screenshot) -->
-          <div class="schedule-action-buttons">
-            <!-- Clear Form button (White with border) -->
-            <button type="button" class="btn btn-schedule-clear" id="btnScheduleClear">
-              Clear Form
-            </button>
-
-            <!-- Submit button (Signature Pubali Bank Green) -->
-            <button type="submit" class="btn btn-schedule-submit" id="btnScheduleSubmit">
-              Submit
-            </button>
-          </div>
-
-        </form>
-
-        <!-- ==================================================================
-             SCHEDULED MEETINGS DATA TABLE
-             Placed directly after this class "scheduleMeetingForm"
-             Loads live records dynamically from scheduleMeetingForm & localStorage
-             ================================================================== -->
-        <div class="scheduled-meetings-card mt-5 pt-4 border-top">
-          <!-- Table Controls Header -->
-          <div class="library-controls-header px-4 pt-0 pb-3 border-0">
-            <div class="library-title">
-              <h3 class="fw-bold"><i class="bi bi-calendar-check me-2 text-success"></i>Scheduled MANCOM Committee
-                Meetings</h3>
-              <p>Live schedule records created via the schedule meeting form above. Automatically persisted and
-                synchronized.</p>
-            </div>
-            <div class="library-filter-tools">
-              <span
-                class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
-                <i class="bi bi-calendar-event me-1"></i><span id="scheduledMeetingsCountBadge">0</span> Meetings
-                Scheduled
-              </span>
-            </div>
-          </div>
-
-          <!-- Responsive DataTable Container -->
-          <div class="table-responsive px-4 pb-4">
-            <table id="scheduledMeetingsTable"
-              class="table table-striped table-hover align-middle table-documents w-100">
-              <thead>
-                <tr>
-                  <th style="min-width: 200px;">Meeting Subject</th>
-                  <th style="min-width: 120px;">Date</th>
-                  <th style="min-width: 90px;">Time</th>
-                  <th style="min-width: 160px;">Location</th>
-                  <th style="min-width: 220px;">Mancom Agendar</th>
-                  <th style="min-width: 140px;">Submitted By</th>
-                  <th class="text-end" style="min-width: 120px;">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="scheduledMeetingsBody">
-                <!-- Dynamically populated from localStorage & scheduleMeetingForm submissions -->
-              </tbody>
-            </table>
-          </div>
+        <!-- Responsive DataTable Container -->
+        <div class="table-responsive p-3 p-md-4 pt-3">
+          <table id="scheduledMeetingsTable" class="table table-striped table-hover align-middle table-documents w-100">
+            <thead>
+              <tr>
+                <th style="min-width: 200px;">Meeting Subject</th>
+                <th style="min-width: 120px;">Date</th>
+                <th style="min-width: 90px;">Time</th>
+                <th style="min-width: 160px;">Location</th>
+                <th style="min-width: 220px;">MANCOM Agenda</th>
+                <th style="min-width: 140px;">Submitted By</th>
+                <th class="text-end" style="min-width: 120px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="scheduledMeetingsBody">
+              <!-- Dynamically populated from localStorage & scheduleMeetingForm submissions -->
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -561,20 +577,20 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">Welcome to MANCOM Portal</h6>
+            <h6 class="mb-2 fw-bold text-success">Welcome to MANCOM Portal</h6>
             <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">Schedule Management Committee meetings and upload agenda papers using the
+          <p class="mb-2 small text-secondary">Schedule Management Committee meetings and upload agenda papers using the
             form.
           </p>
           <small class="text-muted"><i class="bi bi-shield-check me-1"></i> HRD Secretariat</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <h6 class="mb-2 fw-bold">Circular #2026/89: Holiday Roster</h6>
             <small class="text-muted">Yesterday</small>
           </div>
-          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+          <p class="mb-2 small text-secondary">HR Division has published the updated duty schedule for regional
             branches.</p>
           <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
         </div>
@@ -1393,8 +1409,8 @@
         try {
           const uploadData = new FormData();
           uploadData.append('document', file);
-          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
-        } catch (e) {}
+          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => { });
+        } catch (e) { }
 
         notify('Document Attached', `"${file.name}" (${formatSize(file.size)}) ready for schedule submission.`, true);
       }
@@ -1474,8 +1490,22 @@
         }
       });
 
+      // Quick Venue Chips Click Handler
+      document.querySelectorAll('.btn-location-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const venue = chip.getAttribute('data-venue');
+          if (locationInput && venue) {
+            locationInput.value = venue;
+            locationInput.focus();
+            document.querySelectorAll('.btn-location-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+          }
+        });
+      });
+
       // Clear Form button action
       btnClear.addEventListener('click', () => {
+        document.querySelectorAll('.btn-location-chip').forEach(c => c.classList.remove('active'));
         form.reset();
         resetAttachedFile();
         subjectInput.value = '';
@@ -1525,7 +1555,7 @@
             lengthMenu: "Show _MENU_ entries",
             info: "Showing _START_ to _END_ of _TOTAL_ meetings",
             infoEmpty: "Showing 0 to 0 of 0 meetings",
-            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-calendar-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM meetings scheduled yet</p><small>Use the form above to schedule a new Management Committee meeting.</small></div>',
+            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-calendar-x fs-1 text-secondary d-block mb-2"></i><p class="mb-2 fw-semibold">No MANCOM meetings scheduled yet</p><small>Use the form above to schedule a new Management Committee meeting.</small></div>',
             zeroRecords: "No matching meetings found",
             infoFiltered: "(filtered from _MAX_ total records)",
             paginate: {
@@ -1601,7 +1631,7 @@
               </div>
             </td>
             <td>
-              <div class="d-flex align-items-center gap-2 mb-1">
+              <div class="d-flex align-items-center gap-2 mb-2">
                 <img src="assets/images/avatar.png" alt="${escapeHtml(m.submittedBy || 'Md. Fahim')}" class="rounded-circle" width="22" height="22">
                 <span class="small fw-medium">${escapeHtml(m.submittedBy || 'Md. Fahim')}</span>
               </div>
@@ -1755,7 +1785,7 @@
 
         setTimeout(() => {
           btnSubmit.disabled = false;
-          btnSubmit.innerHTML = 'Submit';
+          btnSubmit.innerHTML = '<i class="bi bi-calendar-check me-1"></i> Schedule Meeting';
 
           // Format current timestamp
           const now = new Date();
@@ -1783,8 +1813,8 @@
           try {
             const uploadData = new FormData();
             uploadData.append('document', currentFile);
-            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
-          } catch (e) {}
+            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => { });
+          } catch (e) { }
 
           // Ingest new meeting into scheduled list
           scheduledMeetings.unshift(newMeeting);
@@ -1802,6 +1832,7 @@
           }));
 
           // Reset form inputs & attached file
+          document.querySelectorAll('.btn-location-chip').forEach(c => c.classList.remove('active'));
           form.reset();
           resetAttachedFile();
           subjectInput.value = '';

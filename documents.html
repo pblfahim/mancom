@@ -68,31 +68,42 @@
 
       <!-- Interactive Role Switcher Pill (HRD vs Division) -->
       <div class="dropdown">
-        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Switch User Role (HRD Secretariat / Division User)">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
+          title="Switch User Role (HRD Secretariat / Division User)">
           <i class="bi bi-person-gear"></i>
           <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
           <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu" aria-labelledby="roleSwitcherBtn">
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
+          aria-labelledby="roleSwitcherBtn">
           <li class="dropdown-header pb-1">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role Mode</small>
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
+              Mode</small>
           </li>
           <li>
-            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd" onclick="window.switchRole('hrd', true)">
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
+              onclick="window.switchRole('hrd', true)">
               <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD User</span>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
+                  User</span>
                 <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
-                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule & Documents</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
+                  Documents</small>
               </div>
               <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
             </button>
           </li>
           <li>
-            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division" onclick="window.switchRole('division', true)">
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division"
+              onclick="window.switchRole('division', true)">
               <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division / Branch User</span>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
+                  Branch User</span>
                 <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
-                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission (Only)</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
+                  (Only)</small>
               </div>
               <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
             </button>
@@ -129,8 +140,11 @@
           <li class="dropdown-header">
             <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
           </li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
+                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
+                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
+          </li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -296,11 +310,11 @@
              DOCUMENT REPOSITORY FILTERS
              Filter by Meeting Subject, Division, and Agenda / Reference
              ================================================================== -->
-        <div class="repository-filter-card">
+        <div class="repository-filter-card mt-4">
           <div class="row g-3 align-items-end">
             <!-- Filter 1: Meeting Subject -->
             <div class="col-lg-4 col-md-6">
-              <label for="filterMeetingSubject" class="form-label text-secondary mb-1">
+              <label for="filterMeetingSubject" class="form-label text-secondary mb-2">
                 <i class="bi bi-calendar-event me-1 text-success"></i>Meeting Subject
               </label>
               <select class="form-select form-select-sm filter-select" id="filterMeetingSubject">
@@ -310,7 +324,7 @@
 
             <!-- Filter 2: Division -->
             <div class="col-lg-4 col-md-6">
-              <label for="filterDivision" class="form-label text-secondary mb-1">
+              <label for="filterDivision" class="form-label text-secondary mb-2">
                 <i class="bi bi-building me-1 text-success"></i>Division
               </label>
               <select class="form-select form-select-sm filter-select" id="filterDivision">
@@ -326,7 +340,7 @@
 
             <!-- Filter 3: Agenda / Reference -->
             <div class="col-lg-3 col-md-8">
-              <label for="filterAgenda" class="form-label text-secondary mb-1">
+              <label for="filterAgenda" class="form-label text-secondary mb-2">
                 <i class="bi bi-file-earmark-text me-1 text-success"></i>Agenda / Reference
               </label>
               <div class="input-group input-group-sm">
@@ -428,27 +442,28 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">MANCOM Document Repository</h6>
+            <h6 class="mb-2 fw-bold text-success">MANCOM Document Repository</h6>
             <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">Access, preview, and download official Management Committee signed papers and memos.</p>
+          <p class="mb-2 small text-secondary">Access, preview, and download official Management Committee signed papers
+            and memos.</p>
           <small class="text-muted"><i class="bi bi-folder-check me-1"></i> Document Repository</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <h6 class="mb-2 fw-bold">Circular #2026/89: Holiday Roster</h6>
             <small class="text-muted">Yesterday</small>
           </div>
-          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+          <p class="mb-2 small text-secondary">HR Division has published the updated duty schedule for regional
             branches.</p>
           <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Core Banking Maintenance</h6>
+            <h6 class="mb-2 fw-bold">Core Banking Maintenance</h6>
             <small class="text-muted">3 days ago</small>
           </div>
-          <p class="mb-1 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
+          <p class="mb-2 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
             AM.</p>
           <small class="text-muted"><i class="bi bi-hdd-network me-1"></i> IT Division</small>
         </div>
@@ -577,7 +592,7 @@
             lengthMenu: "Show _MENU_ entries",
             info: "Showing _START_ to _END_ of _TOTAL_ documents",
             infoEmpty: "Showing 0 to 0 of 0 documents",
-            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-folder-x fs-1 text-secondary d-block mb-2"></i><p class="mb-1 fw-semibold">No MANCOM documents found in repository</p><small>Documents submitted via Feedback Submission will appear here automatically.</small></div>',
+            emptyTable: '<div class="text-center py-5 text-muted"><i class="bi bi-folder-x fs-1 text-secondary d-block mb-2"></i><p class="mb-2 fw-semibold">No MANCOM documents found in repository</p><small>Documents submitted via Feedback Submission will appear here automatically.</small></div>',
             zeroRecords: "No matching documents found",
             infoFiltered: "(filtered from _MAX_ total entries)",
             paginate: {
@@ -604,7 +619,7 @@
         try {
           const schedMeetings = JSON.parse(localStorage.getItem('mancom_meetings_records') || '[]');
           subjects.push(...schedMeetings.map(m => m.subject).filter(Boolean));
-        } catch (e) {}
+        } catch (e) { }
 
         const uniqueSubjects = [...new Set(subjects)];
         uniqueSubjects.forEach(s => {
@@ -687,7 +702,7 @@
 
               <!-- Column 3: Submitted by/ at -->
               <td>
-                <div class="d-flex align-items-center gap-2 mb-1">
+                <div class="d-flex align-items-center gap-2 mb-2">
                   <img src="assets/images/avatar.png" alt="${escapeHtml(doc.submittedBy || 'Kazi Farhan')}" class="rounded-circle" width="22" height="22">
                   <span class="small fw-semibold text-dark">${escapeHtml(doc.submittedBy || 'Kazi Farhan')}</span>
                 </div>
@@ -885,8 +900,8 @@
       // ======================================================================
       window.addEventListener('storage', (e) => {
         if (e.key === 'mancom_feedback_submissions' ||
-            e.key === 'mancom_documents_records' ||
-            e.key === 'mancom_latest_feedback_submitted') {
+          e.key === 'mancom_documents_records' ||
+          e.key === 'mancom_latest_feedback_submitted') {
           renderDocumentsTable();
         }
       });

@@ -53,31 +53,42 @@
 
       <!-- Interactive Role Switcher Pill (HRD vs Division) -->
       <div class="dropdown">
-        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Switch User Role (HRD Secretariat / Division User)">
+        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
+          title="Switch User Role (HRD Secretariat / Division User)">
           <i class="bi bi-person-gear"></i>
           <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
           <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu" aria-labelledby="roleSwitcherBtn">
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
+          aria-labelledby="roleSwitcherBtn">
           <li class="dropdown-header pb-1">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role Mode</small>
+            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
+              Mode</small>
           </li>
           <li>
-            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd" onclick="window.switchRole('hrd', true)">
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
+              onclick="window.switchRole('hrd', true)">
               <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD User</span>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
+                  User</span>
                 <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
-                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule & Documents</small>
+                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
+                  Documents</small>
               </div>
               <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
             </button>
           </li>
           <li>
-            <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division" onclick="window.switchRole('division', true)">
+            <button type="button"
+              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division"
+              onclick="window.switchRole('division', true)">
               <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division / Branch User</span>
+                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
+                  Branch User</span>
                 <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
-                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission (Only)</small>
+                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
+                  (Only)</small>
               </div>
               <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
             </button>
@@ -114,8 +125,11 @@
           <li class="dropdown-header">
             <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
           </li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
+                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
+          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
+                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
+          </li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -240,7 +254,8 @@
       <section class="page-subheader">
         <div class="portal-title-block">
           <h1>MANCOM Portal</h1>
-          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md. Fahim (Senior Officer, Human Resources Division)</p>
+          <p class="portal-subtitle">Pubali Bank PLC · Acting as Md. Fahim (Senior Officer, Human Resources Division)
+          </p>
         </div>
       </section>
 
@@ -249,9 +264,12 @@
       <div class="dashboard-hrd-module">
         <div class="row g-4">
           <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm p-4" style="background-color: var(--bg-surface); border-radius: 14px;">
+            <div class="card h-100 border-0 shadow-sm p-4"
+              style="background-color: var(--bg-surface); border-radius: 14px;">
               <div class="d-flex align-items-center gap-3 mb-3">
-                <span class="d-inline-flex align-items-center justify-content-center rounded-3 bg-success-subtle text-success p-3" style="width: 52px; height: 52px;">
+                <span
+                  class="d-inline-flex align-items-center justify-content-center rounded-3 bg-success-subtle text-success p-3"
+                  style="width: 52px; height: 52px;">
                   <i class="bi bi-calendar-plus fs-3"></i>
                 </span>
                 <div>
@@ -260,10 +278,12 @@
                 </div>
               </div>
               <p class="text-secondary small mb-4">
-                Schedule Management Committee sessions, designate physical or virtual meeting venues, and attach official agenda working papers.
+                Schedule Management Committee sessions, designate physical or virtual meeting venues, and attach
+                official agenda working papers.
               </p>
               <div class="mt-auto">
-                <a href="create-schedule.html" class="btn btn-success px-4 py-2 fw-medium" style="background-color: var(--pubali-green, #2a633a);">
+                <a href="create-schedule.html" class="btn btn-success px-4 py-2 fw-medium"
+                  style="background-color: var(--pubali-green, #2a633a);">
                   <i class="bi bi-plus-circle me-1"></i>Open Schedule Creator
                 </a>
               </div>
@@ -271,9 +291,12 @@
           </div>
 
           <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm p-4" style="background-color: var(--bg-surface); border-radius: 14px;">
+            <div class="card h-100 border-0 shadow-sm p-4"
+              style="background-color: var(--bg-surface); border-radius: 14px;">
               <div class="d-flex align-items-center gap-3 mb-3">
-                <span class="d-inline-flex align-items-center justify-content-center rounded-3 bg-success-subtle text-success p-3" style="width: 52px; height: 52px;">
+                <span
+                  class="d-inline-flex align-items-center justify-content-center rounded-3 bg-success-subtle text-success p-3"
+                  style="width: 52px; height: 52px;">
                   <i class="bi bi-folder2-open fs-3"></i>
                 </span>
                 <div>
@@ -282,7 +305,8 @@
                 </div>
               </div>
               <p class="text-secondary small mb-4">
-                Access, search, preview, and download official signed MANCOM minutes, policies, and confidential circulars across all bank divisions.
+                Access, search, preview, and download official signed MANCOM minutes, policies, and confidential
+                circulars across all bank divisions.
               </p>
               <div class="mt-auto">
                 <a href="documents.html" class="btn btn-outline-success px-4 py-2 fw-medium">
@@ -298,9 +322,12 @@
       <div class="dashboard-division-module" style="display: none;">
         <div class="row g-4">
           <div class="col-lg-8">
-            <div class="card h-100 border-0 shadow-sm p-4" style="background-color: var(--bg-surface); border-radius: 14px;">
+            <div class="card h-100 border-0 shadow-sm p-4"
+              style="background-color: var(--bg-surface); border-radius: 14px;">
               <div class="d-flex align-items-center gap-3 mb-3">
-                <span class="d-inline-flex align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary p-3" style="width: 52px; height: 52px;">
+                <span
+                  class="d-inline-flex align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary p-3"
+                  style="width: 52px; height: 52px;">
                   <i class="bi bi-chat-square-quote fs-3"></i>
                 </span>
                 <div>
@@ -309,7 +336,8 @@
                 </div>
               </div>
               <p class="text-secondary small mb-4">
-                Review scheduled MANCOM committee agendas, preview working papers, and submit divisional/branch observations, remarks, and feedback papers directly to HRD Secretariat.
+                Review scheduled MANCOM committee agendas, preview working papers, and submit divisional/branch
+                observations, remarks, and feedback papers directly to HRD Secretariat.
               </p>
               <div class="mt-auto">
                 <a href="FeedbackSubmission.html" class="btn btn-primary px-4 py-2 fw-medium">
@@ -320,17 +348,20 @@
           </div>
 
           <div class="col-lg-4">
-            <div class="card h-100 border-0 shadow-sm p-4 text-center" style="background-color: var(--bg-surface); border-radius: 14px;">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center"
+              style="background-color: var(--bg-surface); border-radius: 14px;">
               <div class="mb-3">
-                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light border p-3" style="width: 60px; height: 60px;">
+                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light border p-3"
+                  style="width: 60px; height: 60px;">
                   <i class="bi bi-person-badge fs-2 text-primary"></i>
                 </span>
               </div>
-              <h5 class="fw-bold mb-1 text-dark">Division / Branch Mode</h5>
+              <h5 class="fw-bold mb-2 text-dark">Division / Branch Mode</h5>
               <p class="text-muted small mb-3">
                 Authorized for <strong>Division & Branch</strong> representatives.
               </p>
-              <button type="button" class="btn btn-sm btn-outline-secondary w-100" onclick="window.switchRole('hrd', true)">
+              <button type="button" class="btn btn-sm btn-outline-secondary w-100"
+                onclick="window.switchRole('hrd', true)">
                 <i class="bi bi-arrow-repeat me-1"></i>Switch to HRD User
               </button>
             </div>
@@ -411,28 +442,28 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">14th MANCOM Minutes Published</h6>
+            <h6 class="mb-2 fw-bold text-success">14th MANCOM Minutes Published</h6>
             <small class="text-muted">1 hour ago</small>
           </div>
-          <p class="mb-1 small text-secondary">The signed copy of the 14th MANCOM meeting is now available in the
+          <p class="mb-2 small text-secondary">The signed copy of the 14th MANCOM meeting is now available in the
             Document Repository.</p>
           <small class="text-muted"><i class="bi bi-shield-lock me-1"></i> Strictly Confidential</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <h6 class="mb-2 fw-bold">Circular #2026/89: Holiday Roster</h6>
             <small class="text-muted">Yesterday</small>
           </div>
-          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+          <p class="mb-2 small text-secondary">HR Division has published the updated duty schedule for regional
             branches.</p>
           <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Core Banking Maintenance</h6>
+            <h6 class="mb-2 fw-bold">Core Banking Maintenance</h6>
             <small class="text-muted">3 days ago</small>
           </div>
-          <p class="mb-1 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
+          <p class="mb-2 small text-secondary">Scheduled data center maintenance on Friday 16 October 02:00 AM - 05:00
             AM.</p>
           <small class="text-muted"><i class="bi bi-hdd-network me-1"></i> IT Division</small>
         </div>

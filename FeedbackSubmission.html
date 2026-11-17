@@ -307,7 +307,7 @@
 
           <!-- Row 3: Dynamic preview matching FeedbackSubmission upload (Auto-loaded from Create Schedule) -->
           <div class="mb-4" id="scheduledAgendaPreviewSection" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center mb-1">
+            <div class="d-flex justify-content-between align-items-center mb-2">
               <label class="feedback-label mb-0">
                 <i class="bi bi-file-earmark-pdf text-danger me-1"></i>Official MANCOM Agenda Document
               </label>
@@ -395,7 +395,7 @@
 
             <!-- Column 1: Meeting Subject (Auto-fetched from create-schedule page) -->
             <div class="col-md-6">
-              <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <label for="feedbackMeetingSubject" class="feedback-label mb-0">
                   Meeting Subject <span class="required-star">*</span>
                 </label>
@@ -409,7 +409,7 @@
 
             <!-- Column 2: Division (Auto-selected according to profile) -->
             <div class="col-md-6">
-              <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="d-flex justify-content-between align-items-center mb-2">
                 <label for="feedbackDivision" class="feedback-label mb-0">
                   Division / Branch <span class="required-star">*</span>
                 </label>
@@ -433,7 +433,7 @@
 
           <!-- Row 3: Uploaded Agenda wise document (Added after Agenda / Reference) -->
           <div class="mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-1">
+            <div class="d-flex justify-content-between align-items-center mb-2">
               <label for="agendaWiseFileInput" class="feedback-label mb-0">
                 Uploaded Agenda wise document <span class="required-star">*</span>
               </label>
@@ -450,7 +450,8 @@
               </div>
               <div class="dropzone-title">Drag and drop your Agenda-wise document here, or Browse Files</div>
               <div class="dropzone-subtitle">
-                Supported file types: <strong>.pdf, .docx, .pptx</strong> (Maximum size: 10 MB) • Working Papers, Presentations & Memos
+                Supported file types: <strong>.pdf, .docx, .pptx</strong> (Maximum size: 10 MB) • Working Papers,
+                Presentations & Memos
               </div>
               <button type="button" class="dropzone-btn" id="btnBrowseAgendaWiseFile">
                 <i class="bi bi-folder2-open me-1"></i> Browse Computer
@@ -469,7 +470,8 @@
                     title="Click to preview document">agenda-wise-document.pdf</span>
                   <div class="d-flex align-items-center gap-2 mt-1">
                     <span class="file-meta text-muted small" id="agendaWiseFileMeta">0 MB • Ready</span>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
                       style="font-size: 10px;">
                       <i class="bi bi-check-circle-fill me-1"></i>Agenda Wise Document Attached
                     </span>
@@ -493,7 +495,8 @@
                   <span class="d-none d-sm-inline">Quick View</span>
                 </button>
                 <!-- Remove / Replace Document -->
-                <button type="button" class="btn btn-remove-file" id="btnRemoveAgendaWiseFile" title="Remove or replace file">
+                <button type="button" class="btn btn-remove-file" id="btnRemoveAgendaWiseFile"
+                  title="Remove or replace file">
                   <i class="bi bi-x-lg"></i>
                 </button>
               </div>
@@ -505,15 +508,17 @@
                 <div class="d-flex justify-content-between align-items-center mb-2 px-2 pt-1">
                   <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-file-earmark-pdf-fill text-danger fs-5" id="inlineAgendaWiseIcon"></i>
-                    <span class="fw-semibold small text-dark" id="inlineAgendaWisePreviewTitle">Agenda Wise Document Preview</span>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
+                    <span class="fw-semibold small text-dark" id="inlineAgendaWisePreviewTitle">Agenda Wise Document
+                      Preview</span>
+                    <span
+                      class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill"
                       style="font-size: 10px;">
                       Attached Document Stream
                     </span>
                   </div>
                   <div class="d-flex align-items-center gap-1">
-                    <button type="button" class="btn btn-sm btn-outline-success px-2 py-0" id="btnExpandAgendaWiseToModal"
-                      title="Open Full Screen Modal Viewer">
+                    <button type="button" class="btn btn-sm btn-outline-success px-2 py-0"
+                      id="btnExpandAgendaWiseToModal" title="Open Full Screen Modal Viewer">
                       <i class="bi bi-arrows-fullscreen"></i>
                     </button>
                     <button type="button" class="btn-close ms-2" data-bs-toggle="collapse"
@@ -529,14 +534,15 @@
             </div>
 
             <div class="form-text mt-1 text-muted" style="font-size: 11px;">
-              <i class="bi bi-info-circle me-1 text-success"></i>Upload your division's specific working paper, presentation, or memorandum for this agenda item.
+              <i class="bi bi-info-circle me-1 text-success"></i>Upload your division's specific working paper,
+              presentation, or memorandum for this agenda item.
             </div>
           </div>
 
 
           <!-- Row 4: Comments (optional) Textarea -->
           <div class="mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-1">
+            <div class="d-flex justify-content-between align-items-center mb-2">
               <label for="feedbackComments" class="feedback-label mb-0">
                 Comments (optional)
               </label>
@@ -580,19 +586,19 @@
       <div class="list-group list-group-flush">
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold text-success">Feedback Channel Active</h6>
+            <h6 class="mb-2 fw-bold text-success">Feedback Channel Active</h6>
             <small class="text-muted">Notice</small>
           </div>
-          <p class="mb-1 small text-secondary">Divisional feedback channels are active for scheduled committee sessions.
+          <p class="mb-2 small text-secondary">Divisional feedback channels are active for scheduled committee sessions.
           </p>
           <small class="text-muted"><i class="bi bi-chat-left-quote me-1"></i> MANCOM Secretariat</small>
         </div>
         <div class="list-group-item p-3">
           <div class="d-flex w-100 justify-content-between">
-            <h6 class="mb-1 fw-bold">Circular #2026/89: Holiday Roster</h6>
+            <h6 class="mb-2 fw-bold">Circular #2026/89: Holiday Roster</h6>
             <small class="text-muted">Yesterday</small>
           </div>
-          <p class="mb-1 small text-secondary">HR Division has published the updated duty schedule for regional
+          <p class="mb-2 small text-secondary">HR Division has published the updated duty schedule for regional
             branches.</p>
           <small class="text-muted"><i class="bi bi-building me-1"></i> HR Division</small>
         </div>
@@ -875,8 +881,8 @@
         try {
           const uploadData = new FormData();
           uploadData.append('document', file);
-          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
-        } catch (e) {}
+          fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => { });
+        } catch (e) { }
 
         notify('Document Attached', '"' + file.name + '" attached as Agenda wise document.', true);
       }
@@ -1114,7 +1120,7 @@
           if (storedRecords) {
             scheduledRecords = JSON.parse(storedRecords);
           }
-        } catch (e) {}
+        } catch (e) { }
 
         // Populate suggestion datalist if element exists
         const datalist = document.getElementById('meetingSubjectSuggestions');
@@ -1129,7 +1135,7 @@
           if (stored) {
             latestSchedule = JSON.parse(stored);
           }
-        } catch (e) {}
+        } catch (e) { }
 
         let uploadedAgenda = null;
         try {
@@ -1137,12 +1143,12 @@
           if (stored) {
             uploadedAgenda = JSON.parse(stored);
           }
-        } catch (e) {}
+        } catch (e) { }
 
         const activeSubject = urlMeeting ||
-                              localStorage.getItem('mancom_latest_meeting_subject') ||
-                              localStorage.getItem('mancom_active_meeting_subject') ||
-                              (latestSchedule && latestSchedule.subject);
+          localStorage.getItem('mancom_latest_meeting_subject') ||
+          localStorage.getItem('mancom_active_meeting_subject') ||
+          (latestSchedule && latestSchedule.subject);
 
         let agendaToDisplay = null;
 
@@ -1211,7 +1217,7 @@
         try {
           const stored = localStorage.getItem('mancom_meetings_records');
           if (stored) scheduledRecords = JSON.parse(stored);
-        } catch (e) {}
+        } catch (e) { }
 
         const matched = scheduledRecords.find(m => m.subject.toLowerCase() === val);
         if (matched && matched.fileName) {
@@ -1229,10 +1235,10 @@
       // Cross-tab/window storage synchronization with Create Schedule
       window.addEventListener('storage', (e) => {
         if (e.key === 'mancom_latest_meeting_subject' ||
-            e.key === 'mancom_active_meeting_subject' ||
-            e.key === 'mancom_latest_schedule' ||
-            e.key === 'mancom_uploaded_agenda_file' ||
-            e.key === 'mancom_meetings_records') {
+          e.key === 'mancom_active_meeting_subject' ||
+          e.key === 'mancom_latest_schedule' ||
+          e.key === 'mancom_uploaded_agenda_file' ||
+          e.key === 'mancom_meetings_records') {
           autoFillFromSchedule();
         }
       });
@@ -1335,8 +1341,8 @@
           try {
             const uploadData = new FormData();
             uploadData.append('document', currentAgendaWiseFile);
-            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => {});
-          } catch (e) {}
+            fetch('/api/upload', { method: 'POST', body: uploadData }).catch(() => { });
+          } catch (e) { }
 
           // Store feedback submission in localStorage for documents.html
           try {
@@ -1351,7 +1357,7 @@
 
             // Fire notify key for cross-tab reactivity
             localStorage.setItem('mancom_latest_feedback_submitted', JSON.stringify(newSubmission));
-          } catch (err) {}
+          } catch (err) { }
 
           btnSubmit.disabled = false;
           btnSubmit.innerHTML = 'Submit Feedback';
