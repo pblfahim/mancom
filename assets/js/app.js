@@ -40,10 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('librarySearch');
   const categoryFilter = document.getElementById('categoryFilter');
   const classificationFilter = document.getElementById('classificationFilter');
-  const sidebarSearchInput = document.getElementById('sidebarSearchInput');
-  const sidebarNavList = document.getElementById('sidebarNavList');
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-  const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
   const pdfModalEl = document.getElementById('pdfViewerModal');
   const pdfModal = pdfModalEl ? new bootstrap.Modal(pdfModalEl) : null;
   const pdfFrame = document.getElementById('pdfViewerFrame');
@@ -444,84 +440,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // ==========================================================================
-    // SIDEBAR LIVE SEARCH FILTER
-    // ==========================================================================
-    if (sidebarSearchInput && sidebarNavList) {
-      sidebarSearchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        const items = sidebarNavList.querySelectorAll('.sidebar-nav-item');
-        items.forEach(item => {
-          const text = item.textContent.toLowerCase();
-          if (text.includes(query)) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    }
-
     // Filter Table Listeners
     if (searchInput) searchInput.addEventListener('input', renderDocumentsTable);
     if (categoryFilter) categoryFilter.addEventListener('change', renderDocumentsTable);
     if (classificationFilter) classificationFilter.addEventListener('change', renderDocumentsTable);
 
     // ==========================================================================
-    // THEME SWITCHER (DARK / LIGHT MODE)
+    // THEME (DARK / LIGHT MODE)
     // ==========================================================================
     const savedTheme = localStorage.getItem('mancom_theme') || 'light';
     document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-
-    if (themeToggleBtn) {
-      themeToggleBtn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-bs-theme');
-        const nextTheme = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-bs-theme', nextTheme);
-        localStorage.setItem('mancom_theme', nextTheme);
-        updateThemeIcon(nextTheme);
-        showToast(`Switched to ${nextTheme === 'dark' ? 'Dark' : 'Light'} Mode`);
-      });
-    }
-
-    function updateThemeIcon(theme) {
-      if (!themeToggleBtn) return;
-      const icon = themeToggleBtn.querySelector('i');
-      if (theme === 'dark') {
-        icon.className = 'bi bi-moon-stars-fill';
-      } else {
-        icon.className = 'bi bi-sun';
-      }
-    }
-
-    // ==========================================================================
-    // FULLSCREEN TOGGLE
-    // ==========================================================================
-    if (fullscreenToggleBtn) {
-      fullscreenToggleBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(err => {
-            showToast('Fullscreen mode not available', false);
-          });
-          fullscreenToggleBtn.querySelector('i').className = 'bi bi-fullscreen-exit';
-        } else {
-          document.exitFullscreen();
-          fullscreenToggleBtn.querySelector('i').className = 'bi bi-fullscreen';
-        }
-      });
-    }
-
-    // ==========================================================================
-    // MOBILE SIDEBAR TOGGLE
-    // ==========================================================================
-    const btnMobileMenu = document.getElementById('btnMobileMenu');
-    const portalSidebar = document.getElementById('portalSidebar');
-    if (btnMobileMenu && portalSidebar) {
-      btnMobileMenu.addEventListener('click', () => {
-        portalSidebar.classList.toggle('show-mobile');
-      });
-    }
 
     // ==========================================================================
     // ROLE-BASED ACCESS CONTROL (RBAC) ENGINE
@@ -535,7 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
         badge: 'HRD',
         navBadge: 'HRD User',
         title: 'Senior Officer (Human Resources Division)',
-        sidebarRole: 'Senior Officer (HRD)',
         division: 'Human Resources Division (HRD)',
         homeUrl: 'create-schedule.html',
         allowedPages: ['create-schedule.html', 'documents.html']
@@ -546,7 +473,6 @@ document.addEventListener('DOMContentLoaded', () => {
         badge: 'Division/Branch',
         navBadge: 'Division/Branch User',
         title: 'Senior Principal Officer (Division / Branch)',
-        sidebarRole: 'Senior Principal Officer',
         division: 'Credit Division / Branch Operations',
         homeUrl: 'FeedbackSubmission.html',
         allowedPages: ['FeedbackSubmission.html']
@@ -570,41 +496,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Updates all UI elements across navbar, sidebar, and subheaders for current role
+     * Updates subheaders and navigation for current role
      */
     function updateRoleUI(role) {
       const config = ROLE_CONFIGS[role] || ROLE_CONFIGS.hrd;
       const isHRD = role === 'hrd';
 
-      // 1. Navbar Profile Text & Role Badge
-      document.querySelectorAll('.user-name').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.user-role').forEach(el => el.textContent = config.badge);
-      document.querySelectorAll('#navRoleBadge').forEach(el => {
-        el.textContent = config.navBadge;
-      });
-
-      // 2. Dropdown Header
-      document.querySelectorAll('.dropdown-header h6').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.dropdown-header small').forEach(el => el.textContent = config.title);
-
-      // 3. Sidebar Profile Card
-      document.querySelectorAll('.sidebar-user-name').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.sidebar-user-role').forEach(el => el.textContent = config.sidebarRole);
-
-      // 4. Page Subheader Text
+      // 1. Page Subheader Text
       document.querySelectorAll('.portal-subtitle').forEach(el => {
         el.textContent = isHRD
           ? 'Pubali Bank PLC · HRD Secretariat: Authorized for Create Schedule & Documents'
           : 'Pubali Bank PLC · Division / Branch Portal: Authorized for Feedback Submission';
       });
 
-      // 5. Active checkmarks in role switcher dropdowns
-      document.querySelectorAll('.check-hrd').forEach(el => el.style.display = isHRD ? 'inline-block' : 'none');
-      document.querySelectorAll('.check-division').forEach(el => el.style.display = !isHRD ? 'inline-block' : 'none');
-      document.querySelectorAll('.role-btn-hrd').forEach(el => el.classList.toggle('active-role', isHRD));
-      document.querySelectorAll('.role-btn-division').forEach(el => el.classList.toggle('active-role', !isHRD));
-
-      // 6. Subnavigation breadcrumb row visibility
+      // 2. Subnavigation breadcrumb row visibility
       // For HRD: Show Create Schedule and Documents; Hide Feedback Submission
       // For Division/Branch: Show Feedback Submission ONLY; Hide Create Schedule and Documents
       document.querySelectorAll('.breadcrumb-nav-row').forEach(row => {
@@ -623,12 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // 7. Sidebar MANCOM link routing based on active role
-      document.querySelectorAll('.sidebar-nav-link.active-mancom, a[href="index.html"].sidebar-nav-link').forEach(link => {
-        link.href = isHRD ? 'create-schedule.html' : 'FeedbackSubmission.html';
-      });
-
-      // 8. Dashboard index.html cards (if on dashboard)
+      // 3. Dashboard index.html cards (if on dashboard)
       const hrdModules = document.querySelectorAll('.dashboard-hrd-module');
       const divisionModules = document.querySelectorAll('.dashboard-division-module');
       hrdModules.forEach(el => el.style.display = isHRD ? 'block' : 'none');

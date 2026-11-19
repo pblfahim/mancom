@@ -38,10 +38,6 @@
 }
 
 :root {
-  /* Layout Dimensions */
-  --sidebar-width: 250px;
-  --navbar-height: 70px;
-
   /* Pubali Brand Greens */
   --pubali-green: #2a633a;
   --pubali-green-dark: #1e4b2b;
@@ -54,7 +50,6 @@
   --bg-body: #fafbfc;
   --bg-surface: #ffffff;
   --bg-surface-secondary: #f4f6f9;
-  --bg-sidebar: #ffffff;
   --border-color: #eaedf2;
   --border-subtle: #f1f4f8;
 
@@ -89,7 +84,6 @@
   --bg-body: #0b1120;
   --bg-surface: #131c31;
   --bg-surface-secondary: #1e293b;
-  --bg-sidebar: #131c31;
   --border-color: #243048;
   --border-subtle: #1e293b;
 
@@ -121,187 +115,6 @@ body {
 }
 
 /* ==========================================================================
-   TOP NAVIGATION BAR
-   ========================================================================== */
-.main-navbar {
-  background-color: var(--pubali-green);
-  height: var(--navbar-height, 70px);
-  padding: 0 24px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 1030;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  transition: background-color var(--transition-speed) ease;
-}
-
-.brand-section {
-  width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
-  max-width: var(--sidebar-width);
-  height: 100%;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-sizing: border-box;
-}
-
-.brand-logo-img {
-  height: auto;
-  max-width: 180px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
-}
-
-.brand-fallback-text {
-  display: flex;
-  flex-direction: column;
-  color: #ffffff;
-  line-height: 1.15;
-}
-
-.brand-fallback-text .bn {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
-
-.brand-fallback-text .en {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  opacity: 0.95;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.nav-icon-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all var(--transition-speed) ease;
-}
-
-.nav-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* Role Switcher Pill & Dropdown (HRD vs Division) */
-.role-badge-btn {
-  width: auto !important;
-  height: 36px !important;
-  border-radius: 20px !important;
-  padding: 0 12px !important;
-  font-size: 12px !important;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.16) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-}
-
-.role-badge-btn:hover,
-.role-badge-btn[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.28) !important;
-  color: #ffffff !important;
-}
-
-.role-dropdown-menu {
-  min-width: 270px;
-  border-radius: 12px !important;
-  padding: 8px;
-  margin-top: 8px !important;
-}
-
-.role-dropdown-menu .dropdown-item {
-  border-radius: 8px;
-  padding: 8px 12px;
-  transition: all var(--transition-speed) ease;
-}
-
-.role-dropdown-menu .dropdown-item:hover {
-  background-color: var(--pubali-green-subtle);
-}
-
-.role-dropdown-menu .dropdown-item.active-role {
-  background-color: rgba(42, 99, 58, 0.08);
-  border: 1px solid rgba(42, 99, 58, 0.2);
-}
-
-.user-profile-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 12px 4px 6px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all var(--transition-speed) ease;
-}
-
-.user-profile-pill:hover,
-.user-profile-pill[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-}
-
-.user-avatar-nav {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  background-color: #ffffff;
-}
-
-.user-meta-nav {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.15;
-  text-align: left;
-}
-
-.user-meta-nav .user-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: #ffffff;
-  white-space: nowrap;
-}
-
-.user-meta-nav .user-role {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-}
-
-.user-profile-pill .dropdown-caret {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.85);
-  margin-left: 2px;
-}
-
-/* ==========================================================================
    PAGE SUBHEADER & BREADCRUMBS
    ========================================================================== */
 .page-subheader {
@@ -319,8 +132,6 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* position: sticky; */
-  top: 70px;
   z-index: 1020;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
@@ -446,158 +257,7 @@ body {
    ========================================================================== */
 .portal-container {
   display: flex;
-  min-height: calc(100vh - 70px);
-}
-
-/* Sidebar Styling */
-.portal-sidebar {
-  width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
-  max-width: var(--sidebar-width);
-  background-color: var(--bg-sidebar);
-  border-right: 1px solid var(--border-color);
-  padding: 24px 16px 36px 16px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  transition: all var(--transition-speed) ease;
-}
-
-.sidebar-user-card {
-  text-align: center;
-  padding-bottom: 20px;
-}
-
-.sidebar-avatar-wrapper {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-.sidebar-avatar-img {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background: #f1f5f9;
-}
-
-.status-indicator-dot {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background-color: var(--accent-emerald);
-  border: 2px solid #ffffff;
-}
-
-.sidebar-user-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 2px 0;
-}
-
-.sidebar-user-role {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin: 0;
-  font-weight: 400;
-}
-
-/* Sidebar Search Box */
-.sidebar-search-container {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.sidebar-search-input {
-  width: 100%;
-  height: 38px;
-  border-radius: 20px;
-  background-color: var(--bg-surface-secondary);
-  border: 1px solid var(--border-color);
-  padding: 6px 36px 6px 16px;
-  font-size: 13px;
-  color: var(--text-primary);
-  outline: none;
-  transition: all var(--transition-speed);
-}
-
-.sidebar-search-input:focus {
-  border-color: var(--pubali-green-active);
-  background-color: var(--bg-surface);
-  box-shadow: 0 0 0 3px var(--pubali-green-subtle);
-}
-
-.sidebar-search-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  font-size: 14px;
-  pointer-events: none;
-}
-
-/* Sidebar Navigation Items */
-.sidebar-nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sidebar-nav-item {
-  width: 100%;
-}
-
-.sidebar-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 9px 16px;
-  border-radius: 24px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all var(--transition-speed) ease;
-}
-
-.sidebar-nav-link i {
-  font-size: 16px;
-  width: 20px;
-  text-align: center;
-  color: var(--text-secondary);
-  transition: color var(--transition-speed);
-}
-
-.sidebar-nav-link:hover {
-  color: var(--text-primary);
-  background-color: var(--bg-surface-secondary);
-}
-
-.sidebar-nav-link:hover i {
-  color: var(--pubali-green-active);
-}
-
-/* MANCOM ACTIVE STATE - Pixel Perfect Match */
-.sidebar-nav-link.active-mancom {
-  background-color: var(--pubali-green-active);
-  color: #ffffff !important;
-  font-weight: 600;
-  box-shadow: var(--shadow-pill);
-}
-
-.sidebar-nav-link.active-mancom i {
-  color: #ffffff !important;
+  min-height: 100vh;
 }
 
 /* ==========================================================================
@@ -1258,30 +918,6 @@ body {
    RESPONSIVE DESIGN
    ========================================================================== */
 @media (max-width: 991.98px) {
-  .main-navbar {
-    padding: 0 16px;
-  }
-
-  .brand-section {
-    width: auto;
-    min-width: auto;
-    max-width: none;
-    padding: 0;
-  }
-
-  .portal-sidebar {
-    position: fixed;
-    top: 70px;
-    left: -260px;
-    height: calc(100vh - 70px);
-    z-index: 1020;
-    box-shadow: var(--shadow-lg);
-  }
-
-  .portal-sidebar.show-mobile {
-    left: 0;
-  }
-
   .portal-main-content {
     padding: 16px;
   }
@@ -1293,10 +929,6 @@ body {
 }
 
 @media (max-width: 575.98px) {
-  .main-navbar {
-    padding: 0 14px;
-  }
-
   .breadcrumb-nav-row {
     margin: -16px -16px 16px -16px;
     padding: 8px 14px;
@@ -1304,14 +936,6 @@ body {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
-  }
-
-  .brand-logo-img {
-    height: 36px;
-  }
-
-  .user-meta-nav {
-    display: none;
   }
 
   .library-controls-header {
