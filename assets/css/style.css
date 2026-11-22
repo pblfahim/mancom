@@ -563,6 +563,8 @@ body {
    ========================================================================== */
 .portal-main-content {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   padding: 24px 28px 48px 28px;
   overflow-x: hidden;
 }
@@ -1284,7 +1286,7 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (NAVBAR & SIDEBAR SHELL)
    ========================================================================== */
 @media (max-width: 991.98px) {
   .main-navbar {
@@ -1310,29 +1312,11 @@ body {
   .portal-sidebar.show-mobile {
     left: 0;
   }
-
-  .portal-main-content {
-    padding: 16px;
-  }
-
-  .breadcrumb-nav-row {
-    margin: -16px -16px 20px -16px;
-    padding: 10px 16px;
-  }
 }
 
 @media (max-width: 575.98px) {
   .main-navbar {
     padding: 0 14px;
-  }
-
-  .breadcrumb-nav-row {
-    margin: -16px -16px 16px -16px;
-    padding: 8px 14px;
-    gap: 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
   }
 
   .brand-logo-img {
@@ -1341,33 +1325,6 @@ body {
 
   .user-meta-nav {
     display: none;
-  }
-
-  .library-controls-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .schedule-card form,
-  .schedule-form-group form,
-  .feedback-card form {
-    padding: 20px 16px 24px 16px;
-  }
-
-  .schedule-action-bar {
-    flex-direction: column-reverse;
-    gap: 16px;
-    align-items: stretch;
-    text-align: center;
-  }
-
-  .schedule-action-buttons {
-    width: 100%;
-    justify-content: stretch;
-  }
-
-  .schedule-action-buttons button {
-    flex: 1;
   }
 }
 
@@ -2293,4 +2250,1465 @@ table.dataTable thead>tr>th.dt-orderable-desc:hover {
   border-color: var(--pubali-green-active);
   background-color: var(--pubali-green-subtle);
   color: var(--pubali-green-active);
+}
+
+/* ==========================================================================
+   PORTAL MAIN CONTENT RESPONSIVE MEDIA QUERIES (FULL PROJECT)
+   Ensures seamless responsive adaptation for all components under .portal-main-content:
+   - Breadcrumb navigation pills & scrolling
+   - Page subheaders & title blocks
+   - Dual-column schedule creation form & full-width feedback form
+   - Dropzone area, upload boxes, and selected file preview cards
+   - Interactive Pubali Date & Time picker popups (preventing any viewport overflow)
+   - Location chip selectors & quick preset chips
+   - Document repository filters & search toolbars
+   - Scheduled meetings & documents responsive DataTables (search, length, pagination, action icons)
+   - Action bars & bottom submit/clear buttons
+
+   Breakpoints covered:
+   1. max-width: 1199.98px (Large Tablets / Compact Desktops / Laptops)
+   2. max-width: 991.98px  (Medium Tablets / Landscape Devices)
+   3. max-width: 767.98px  (Small Tablets / Large Mobiles)
+   4. max-width: 575.98px  (Standard Smart Devices)
+   5. max-width: 375px     (Compact / Narrow Smart Devices down to 320px)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Breakpoint: <= 1199.98px (Large Tablets / Laptops)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1199.98px) {
+  .portal-main-content {
+    padding: 22px 24px 40px 24px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -22px -24px 22px -24px;
+    padding: 10px 24px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 26px 28px 30px 28px;
+  }
+
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 26px 18px;
+  }
+
+  .library-controls-header {
+    padding: 18px 22px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Breakpoint: <= 991.98px (Medium Tablets / Landscape Devices)
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  .portal-main-content {
+    padding: 16px 18px 36px 18px;
+    min-width: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -16px -18px 20px -18px;
+    padding: 10px 18px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+  }
+
+  .breadcrumb-nav-row::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .breadcrumb-nav-row::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  .page-subheader {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .portal-title-block h1 {
+    font-size: 20px;
+  }
+
+  .portal-subtitle {
+    font-size: 12.5px;
+  }
+
+  /* Form Container Cards */
+  .schedule-card,
+  .feedback-card,
+  .card-documents-library,
+  .scheduled-meetings-card {
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 22px 20px 26px 20px;
+  }
+
+  /* Dual column layout stack on tablet */
+  .create-sch {
+    row-gap: 24px;
+  }
+
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    margin: 8px 0 16px 0;
+    padding: 24px 18px;
+  }
+
+  /* Headers */
+  .library-controls-header {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 16px;
+  }
+
+  .library-controls-header .library-title p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    max-width: 100%;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 240px;
+  }
+
+  /* DataTables & Scheduled meetings card */
+  .scheduled-meetings-card {
+    margin-top: 22px;
+  }
+
+  .dataTables_wrapper {
+    padding: 14px 18px;
+  }
+
+  /* Selected file strip */
+  .selected-file-card {
+    margin: 0 0 16px 0;
+    padding: 12px 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Breakpoint: <= 767.98px (Small Tablets & Large Mobiles)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .portal-main-content {
+    padding: 14px 14px 30px 14px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -14px -14px 16px -14px;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .subnav-item {
+    font-size: 12.5px;
+    padding: 5px 12px;
+  }
+
+  .page-subheader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+
+  .portal-title-block h1 {
+    font-size: 18px;
+  }
+
+  .portal-subtitle {
+    font-size: 12px;
+  }
+
+  /* Controls Header & Agenda Attachment */
+  .library-controls-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .library-controls-header .library-title {
+    width: 100%;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 15.5px;
+    word-break: break-word;
+  }
+
+  .library-controls-header .library-title p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 220px;
+    font-size: 12px;
+  }
+
+  .library-filter-tools {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* Forms & Inputs */
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 18px 16px 22px 16px;
+  }
+
+  .schedule-label,
+  .feedback-label {
+    font-size: 12.5px;
+  }
+
+  .schedule-input,
+  .feedback-input {
+    height: 42px;
+    font-size: 13.5px;
+  }
+
+  /* Location chips */
+  .location-chips-wrapper {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .btn-location-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* Dropzone */
+  .dropzone-area,
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 22px 14px;
+    margin: 6px 0 14px 0;
+  }
+
+  .dropzone-icon-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  .dropzone-title {
+    font-size: 13.5px;
+  }
+
+  .dropzone-subtitle {
+    font-size: 11px;
+  }
+
+  .dropzone-btn {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  /* Selected file preview strip */
+  .selected-file-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+    margin: 0 0 16px 0;
+  }
+
+  .selected-file-info {
+    width: 100%;
+  }
+
+  .selected-file-card .file-name {
+    word-break: break-all;
+    font-size: 13px;
+  }
+
+  .selected-file-card .file-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Action Bars */
+  .schedule-action-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 14px;
+    margin-top: 18px;
+    padding-top: 14px;
+  }
+
+  .schedule-form-hints {
+    text-align: center;
+    font-size: 11.5px;
+  }
+
+  .schedule-action-buttons {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .schedule-action-buttons .btn-schedule-clear,
+  .schedule-action-buttons .btn-schedule-submit {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 14px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .feedback-action-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .feedback-action-buttons .btn-clear-feedback,
+  .feedback-action-buttons .btn-submit-feedback {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+
+  /* Repository Filters */
+  .repository-filter-card {
+    padding: 14px 12px;
+    margin-bottom: 16px;
+  }
+
+  .repository-filter-card .btn-reset-filters {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  /* DataTables controls responsive stacking */
+  .dataTables_wrapper {
+    padding: 12px 14px;
+  }
+
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .dataTables_wrapper .dataTables_filter label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dataTables_wrapper .dataTables_filter input {
+    flex: 1;
+    width: 100%;
+    margin-left: 8px;
+  }
+
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_paginate {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 8px;
+  }
+
+  .dataTables_wrapper .pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  /* Table styling */
+  .table-responsive {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-documents th,
+  .table-documents td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .btn-action-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  /* Date & Time Picker Popups bounding */
+  .pubali-picker-popup {
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Breakpoint: <= 575.98px (Standard Smartphones)
+   -------------------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+  .portal-main-content {
+    padding: 12px 10px 24px 10px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -12px -10px 14px -10px;
+    padding: 8px 10px;
+    gap: 6px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .home-icon-link {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .subnav-item {
+    padding: 4px 10px;
+    font-size: 11.5px;
+    gap: 5px;
+  }
+
+  .subnav-item i {
+    font-size: 12px;
+  }
+
+  .schedule-card,
+  .feedback-card,
+  .card-documents-library,
+  .scheduled-meetings-card {
+    border-radius: 10px;
+    margin-bottom: 18px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 14px 12px 18px 12px;
+  }
+
+  .library-controls-header {
+    padding: 12px 12px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 14.5px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 170px;
+    font-size: 11.5px;
+  }
+
+  /* Date & Time Picker Popups on Mobile */
+  .pubali-picker-popup {
+    width: 100% !important;
+    max-width: 310px !important;
+    left: 0 !important;
+    right: auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    padding: 12px;
+  }
+
+  .pubali-calendar-title {
+    font-size: 13px;
+  }
+
+  .pubali-calendar-title select {
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+
+  .pubali-time-select {
+    font-size: 14px;
+    height: 36px;
+  }
+
+  /* Dropzone area */
+  .dropzone-area,
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 18px 10px;
+    border-radius: 10px;
+  }
+
+  .dropzone-icon-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .dropzone-title {
+    font-size: 12.5px;
+    margin-bottom: 4px;
+  }
+
+  .dropzone-subtitle {
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .dropzone-btn {
+    padding: 5px 12px;
+    font-size: 11.5px;
+    margin-top: 8px;
+  }
+
+  /* Selected file card */
+  .selected-file-card {
+    padding: 10px 10px;
+  }
+
+  .selected-file-info {
+    gap: 10px;
+  }
+
+  .file-type-icon {
+    font-size: 24px;
+  }
+
+  .selected-file-card .file-actions button {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  /* Action buttons */
+  .schedule-action-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .schedule-action-buttons .btn-schedule-clear,
+  .schedule-action-buttons .btn-schedule-submit {
+    width: 100%;
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  /* Metrics cards */
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .metric-card {
+    padding: 12px 14px;
+  }
+
+  .metric-icon-box {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  /* Dashboard module cards */
+  .portal-main-content .row.g-4>[class*="col-"]>.card {
+    padding: 16px !important;
+  }
+
+  /* Inline iframe previews */
+  #inlineAgendaPreviewFrame,
+  #inlineAgendaWisePreviewFrame {
+    height: 250px;
+  }
+
+  /* DataTables pagination */
+  .dataTables_wrapper .pagination .page-item .page-link {
+    font-size: 11px;
+    padding: 4px 8px;
+    margin: 0 1px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Breakpoint: <= 375px (Compact Phones down to 320px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 375px) {
+  .portal-main-content {
+    padding: 10px 8px 20px 8px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -10px -8px 12px -8px;
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .subnav-item {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .library-controls-header {
+    padding: 10px 8px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 13.5px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 130px;
+    font-size: 11px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 12px 8px 16px 8px;
+  }
+
+  .location-chips-wrapper {
+    gap: 4px;
+  }
+
+  .btn-location-chip {
+    font-size: 10.5px;
+    padding: 4px 7px;
+  }
+
+  /* Popups fluid full-width fit */
+  .pubali-picker-popup {
+    width: calc(100vw - 20px) !important;
+    max-width: 100% !important;
+    padding: 8px !important;
+    left: -2px !important;
+  }
+
+  .pubali-calendar-days {
+    gap: 2px;
+  }
+
+  .pubali-calendar-day {
+    font-size: 11px;
+  }
+
+  .pubali-calendar-weekdays {
+    font-size: 10px;
+  }
+
+  .pubali-time-select {
+    font-size: 13px;
+    height: 32px;
+    padding: 2px 4px;
+  }
+
+  .pubali-preset-btn {
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+
+  .portal-main-content .row.g-4>[class*="col-"]>.card {
+    padding: 14px !important;
+  }
+
+  .table-documents th,
+  .table-documents td {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  .badge-classification {
+    font-size: 9.5px;
+    padding: 2px 5px;
+  }
+}
+
+
+/* ==========================================================================
+   PORTAL MAIN CONTENT RESPONSIVE MEDIA QUERIES (FULL PROJECT)
+   Ensures seamless responsive adaptation for all components under .portal-main-content:
+   - Breadcrumb navigation pills & scrolling
+   - Page subheaders & title blocks
+   - Dual-column schedule creation form & full-width feedback form
+   - Dropzone area, upload boxes, and selected file preview cards
+   - Interactive Pubali Date & Time picker popups (preventing any viewport overflow)
+   - Location chip selectors & quick preset chips
+   - Document repository filters & search toolbars
+   - Scheduled meetings & documents responsive DataTables (search, length, pagination, action icons)
+   - Action bars & bottom submit/clear buttons
+
+   Breakpoints covered:
+   1. max-width: 1199.98px (Large Tablets / Compact Desktops / Laptops)
+   2. max-width: 991.98px  (Medium Tablets / Landscape Devices)
+   3. max-width: 767.98px  (Small Tablets / Large Mobiles)
+   4. max-width: 575.98px  (Standard Smart Devices)
+   5. max-width: 375px     (Compact / Narrow Smart Devices down to 320px)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Breakpoint: <= 1199.98px (Large Tablets / Laptops)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1199.98px) {
+  .portal-main-content {
+    padding: 22px 24px 40px 24px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -22px -24px 22px -24px;
+    padding: 10px 24px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 26px 28px 30px 28px;
+  }
+
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 26px 18px;
+  }
+
+  .library-controls-header {
+    padding: 18px 22px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Breakpoint: <= 991.98px (Medium Tablets / Landscape Devices)
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  .portal-main-content {
+    padding: 16px 18px 36px 18px;
+    min-width: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -16px -18px 20px -18px;
+    padding: 10px 18px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    scrollbar-width: thin;
+  }
+
+  .breadcrumb-nav-row::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .breadcrumb-nav-row::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  .page-subheader {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
+  .portal-title-block h1 {
+    font-size: 20px;
+  }
+
+  .portal-subtitle {
+    font-size: 12.5px;
+  }
+
+  /* Form Container Cards */
+  .schedule-card,
+  .feedback-card,
+  .card-documents-library,
+  .scheduled-meetings-card {
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 22px 20px 26px 20px;
+  }
+
+  /* Dual column layout stack on tablet */
+  .create-sch {
+    row-gap: 24px;
+  }
+
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    margin: 8px 0 16px 0;
+    padding: 24px 18px;
+  }
+
+  /* Headers */
+  .library-controls-header {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 16px;
+  }
+
+  .library-controls-header .library-title p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    max-width: 100%;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 240px;
+  }
+
+  /* DataTables & Scheduled meetings card */
+  .scheduled-meetings-card {
+    margin-top: 22px;
+  }
+
+  .dataTables_wrapper {
+    padding: 14px 18px;
+  }
+
+  /* Selected file strip */
+  .selected-file-card {
+    margin: 0 0 16px 0;
+    padding: 12px 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Breakpoint: <= 767.98px (Small Tablets & Large Mobiles)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .portal-main-content {
+    padding: 14px 14px 30px 14px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -14px -14px 16px -14px;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .subnav-item {
+    font-size: 12.5px;
+    padding: 5px 12px;
+  }
+
+  .page-subheader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+
+  .portal-title-block h1 {
+    font-size: 18px;
+  }
+
+  .portal-subtitle {
+    font-size: 12px;
+  }
+
+  /* Controls Header & Agenda Attachment */
+  .library-controls-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .library-controls-header .library-title {
+    width: 100%;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 15.5px;
+    word-break: break-word;
+  }
+
+  .library-controls-header .library-title p {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 220px;
+    font-size: 12px;
+  }
+
+  .library-filter-tools {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  /* Forms & Inputs */
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 18px 16px 22px 16px;
+  }
+
+  .schedule-label,
+  .feedback-label {
+    font-size: 12.5px;
+  }
+
+  .schedule-input,
+  .feedback-input {
+    height: 42px;
+    font-size: 13.5px;
+  }
+
+  /* Location chips */
+  .location-chips-wrapper {
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .btn-location-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* Dropzone */
+  .dropzone-area,
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 22px 14px;
+    margin: 6px 0 14px 0;
+  }
+
+  .dropzone-icon-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  .dropzone-title {
+    font-size: 13.5px;
+  }
+
+  .dropzone-subtitle {
+    font-size: 11px;
+  }
+
+  .dropzone-btn {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  /* Selected file preview strip */
+  .selected-file-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+    margin: 0 0 16px 0;
+  }
+
+  .selected-file-info {
+    width: 100%;
+  }
+
+  .selected-file-card .file-name {
+    word-break: break-all;
+    font-size: 13px;
+  }
+
+  .selected-file-card .file-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Action Bars */
+  .schedule-action-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 14px;
+    margin-top: 18px;
+    padding-top: 14px;
+  }
+
+  .schedule-form-hints {
+    text-align: center;
+    font-size: 11.5px;
+  }
+
+  .schedule-action-buttons {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .schedule-action-buttons .btn-schedule-clear,
+  .schedule-action-buttons .btn-schedule-submit {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 14px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .feedback-action-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .feedback-action-buttons .btn-clear-feedback,
+  .feedback-action-buttons .btn-submit-feedback {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+
+  /* Repository Filters */
+  .repository-filter-card {
+    padding: 14px 12px;
+    margin-bottom: 16px;
+  }
+
+  .repository-filter-card .btn-reset-filters {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  /* DataTables controls responsive stacking */
+  .dataTables_wrapper {
+    padding: 12px 14px;
+  }
+
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .dataTables_wrapper .dataTables_filter label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dataTables_wrapper .dataTables_filter input {
+    flex: 1;
+    width: 100%;
+    margin-left: 8px;
+  }
+
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_paginate {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 8px;
+  }
+
+  .dataTables_wrapper .pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  /* Table styling */
+  .table-responsive {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-documents th,
+  .table-documents td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .btn-action-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  /* Date & Time Picker Popups bounding */
+  .pubali-picker-popup {
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Breakpoint: <= 575.98px (Standard Smartphones)
+   -------------------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+  .portal-main-content {
+    padding: 12px 10px 24px 10px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -12px -10px 14px -10px;
+    padding: 8px 10px;
+    gap: 6px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .home-icon-link {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .subnav-item {
+    padding: 4px 10px;
+    font-size: 11.5px;
+    gap: 5px;
+  }
+
+  .subnav-item i {
+    font-size: 12px;
+  }
+
+  .schedule-card,
+  .feedback-card,
+  .card-documents-library,
+  .scheduled-meetings-card {
+    border-radius: 10px;
+    margin-bottom: 18px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 14px 12px 18px 12px;
+  }
+
+  .library-controls-header {
+    padding: 12px 12px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 14.5px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 170px;
+    font-size: 11.5px;
+  }
+
+  /* Date & Time Picker Popups on Mobile */
+  .pubali-picker-popup {
+    width: 100% !important;
+    max-width: 310px !important;
+    left: 0 !important;
+    right: auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    padding: 12px;
+  }
+
+  .pubali-calendar-title {
+    font-size: 13px;
+  }
+
+  .pubali-calendar-title select {
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+
+  .pubali-time-select {
+    font-size: 14px;
+    height: 36px;
+  }
+
+  /* Dropzone area */
+  .dropzone-area,
+  .create-sch .dropzone-area,
+  .schedule-section-panel .dropzone-area {
+    padding: 18px 10px;
+    border-radius: 10px;
+  }
+
+  .dropzone-icon-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .dropzone-title {
+    font-size: 12.5px;
+    margin-bottom: 4px;
+  }
+
+  .dropzone-subtitle {
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .dropzone-btn {
+    padding: 5px 12px;
+    font-size: 11.5px;
+    margin-top: 8px;
+  }
+
+  /* Selected file card */
+  .selected-file-card {
+    padding: 10px 10px;
+  }
+
+  .selected-file-info {
+    gap: 10px;
+  }
+
+  .file-type-icon {
+    font-size: 24px;
+  }
+
+  .selected-file-card .file-actions button {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  /* Action buttons */
+  .schedule-action-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .schedule-action-buttons .btn-schedule-clear,
+  .schedule-action-buttons .btn-schedule-submit {
+    width: 100%;
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  /* Metrics cards */
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .metric-card {
+    padding: 12px 14px;
+  }
+
+  .metric-icon-box {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  /* Dashboard module cards */
+  .portal-main-content .row.g-4>[class*="col-"]>.card {
+    padding: 16px !important;
+  }
+
+  /* Inline iframe previews */
+  #inlineAgendaPreviewFrame,
+  #inlineAgendaWisePreviewFrame {
+    height: 250px;
+  }
+
+  /* DataTables pagination */
+  .dataTables_wrapper .pagination .page-item .page-link {
+    font-size: 11px;
+    padding: 4px 8px;
+    margin: 0 1px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Breakpoint: <= 375px (Compact Phones down to 320px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 375px) {
+  .portal-main-content {
+    padding: 10px 8px 20px 8px;
+  }
+
+  .breadcrumb-nav-row {
+    margin: -10px -8px 12px -8px;
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .subnav-item {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .library-controls-header {
+    padding: 10px 8px;
+  }
+
+  .library-controls-header .library-title h3 {
+    font-size: 13.5px;
+  }
+
+  .library-controls-header .meeting-agenda-attachment .agenda-file-title {
+    max-width: 130px;
+    font-size: 11px;
+  }
+
+  .schedule-card form,
+  .schedule-form-group form,
+  .scheduleMeetingForm,
+  .feedback-card form {
+    padding: 12px 8px 16px 8px;
+  }
+
+  .location-chips-wrapper {
+    gap: 4px;
+  }
+
+  .btn-location-chip {
+    font-size: 10.5px;
+    padding: 4px 7px;
+  }
+
+  /* Popups fluid full-width fit */
+  .pubali-picker-popup {
+    width: calc(100vw - 20px) !important;
+    max-width: 100% !important;
+    padding: 8px !important;
+    left: -2px !important;
+  }
+
+  .pubali-calendar-days {
+    gap: 2px;
+  }
+
+  .pubali-calendar-day {
+    font-size: 11px;
+  }
+
+  .pubali-calendar-weekdays {
+    font-size: 10px;
+  }
+
+  .pubali-time-select {
+    font-size: 13px;
+    height: 32px;
+    padding: 2px 4px;
+  }
+
+  .pubali-preset-btn {
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+
+  .portal-main-content .row.g-4>[class*="col-"]>.card {
+    padding: 14px !important;
+  }
+
+  .table-documents th,
+  .table-documents td {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  .badge-classification {
+    font-size: 9.5px;
+    padding: 2px 5px;
+  }
 }
