@@ -204,48 +204,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Role Switcher Pill & Dropdown (HRD vs Division) */
-.role-badge-btn {
-  width: auto !important;
-  height: 36px !important;
-  border-radius: 20px !important;
-  padding: 0 12px !important;
-  font-size: 12px !important;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.16) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-}
-
-.role-badge-btn:hover,
-.role-badge-btn[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.28) !important;
-  color: #ffffff !important;
-}
-
-.role-dropdown-menu {
-  min-width: 270px;
-  border-radius: 12px !important;
-  padding: 8px;
-  margin-top: 8px !important;
-}
-
-.role-dropdown-menu .dropdown-item {
-  border-radius: 8px;
-  padding: 8px 12px;
-  transition: all var(--transition-speed) ease;
-}
-
-.role-dropdown-menu .dropdown-item:hover {
-  background-color: var(--pubali-green-subtle);
-}
-
-.role-dropdown-menu .dropdown-item.active-role {
-  background-color: rgba(42, 99, 58, 0.08);
-  border: 1px solid rgba(42, 99, 58, 0.2);
-}
-
 .user-profile-pill {
   display: flex;
   align-items: center;
@@ -962,7 +920,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 16px 20px;
-  margin: 0 20px 16px 20px;
+  margin: 0 0 20px 0;
   transition: all var(--transition-speed) ease;
 }
 
@@ -1048,6 +1006,77 @@ body {
   font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
+}
+
+/* Upload Agenda Attachment Component in Documents Repository */
+.meeting-agenda-attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  background-color: var(--bg-surface-secondary);
+  border: 1px solid var(--border-color);
+  padding: 5px 12px;
+  border-radius: 8px;
+  max-width: 100%;
+  transition: all 0.15s ease;
+}
+
+.library-controls-header .meeting-agenda-attachment {
+  margin-top: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.meeting-agenda-attachment:hover {
+  background-color: var(--bg-hover, rgba(0, 0, 0, 0.04));
+  border-color: rgba(0, 122, 77, 0.35);
+}
+
+.meeting-agenda-attachment .agenda-file-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.library-controls-header .meeting-agenda-attachment .agenda-file-title {
+  max-width: 260px;
+  font-size: 13px;
+}
+
+.meeting-agenda-attachment .agenda-file-title:hover {
+  color: var(--pubali-green-active);
+  text-decoration: underline;
+}
+
+.meeting-agenda-attachment .agenda-file-size {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.meeting-agenda-attachment .agenda-download-btn {
+  color: var(--text-secondary);
+  padding: 2px 4px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  transition: color 0.15s ease;
+}
+
+.meeting-agenda-attachment .agenda-download-btn:hover {
+  color: var(--pubali-green-active);
 }
 
 /* Table Custom Styles */

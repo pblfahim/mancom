@@ -66,51 +66,6 @@
         </span>
       </button>
 
-      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
-      <div class="dropdown">
-        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
-          title="Switch User Role (HRD Secretariat / Division User)">
-          <i class="bi bi-person-gear"></i>
-          <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
-          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
-          aria-labelledby="roleSwitcherBtn">
-          <li class="dropdown-header pb-1">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
-              Mode</small>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
-              onclick="window.switchRole('hrd', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
-                  User</span>
-                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
-                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
-                  Documents</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
-            </button>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division"
-              onclick="window.switchRole('division', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
-                  Branch User</span>
-                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
-                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
-                  (Only)</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -133,17 +88,6 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="dropdown-header">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
-          </li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
-                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
-                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -281,6 +225,62 @@
         </a>
       </div>
 
+
+      <!-- ==================================================================
+             DOCUMENT REPOSITORY FILTERS
+             Filter by Meeting Subject, Division, and Agenda / Reference
+             ================================================================== -->
+      <div class="repository-filter-card mt-4">
+        <div class="row g-3 align-items-end">
+          <!-- Filter 1: Meeting Subject -->
+          <div class="col-lg-4 col-md-6">
+            <label for="filterMeetingSubject" class="form-label text-secondary mb-2">
+              <i class="bi bi-calendar-event me-1 text-success"></i>Meeting Subject
+            </label>
+            <select class="form-select form-select-sm filter-select" id="filterMeetingSubject">
+              <option value="" selected>All Meeting Subjects</option>
+            </select>
+          </div>
+
+          <!-- Filter 2: Division -->
+          <div class="col-lg-4 col-md-6">
+            <label for="filterDivision" class="form-label text-secondary mb-2">
+              <i class="bi bi-building me-1 text-success"></i>Division
+            </label>
+            <select class="form-select form-select-sm filter-select" id="filterDivision">
+              <option value="" selected>All Divisions</option>
+              <option value="Human Resources Division">Human Resources Division</option>
+              <option value="Credit Division">Credit Division</option>
+              <option value="Information Technology Division">Information Technology Division</option>
+              <option value="Finance & Accounts Division">Finance & Accounts Division</option>
+              <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
+              <option value="Recovery Division">Recovery Division</option>
+            </select>
+          </div>
+
+          <!-- Filter 3: Agenda / Reference -->
+          <div class="col-lg-3 col-md-8">
+            <label for="filterAgenda" class="form-label text-secondary mb-2">
+              <i class="bi bi-file-earmark-text me-1 text-success"></i>Agenda / Reference
+            </label>
+            <div class="input-group input-group-sm">
+              <span class="input-group-text">
+                <i class="bi bi-search"></i>
+              </span>
+              <input type="text" class="form-control filter-input" id="filterAgenda"
+                placeholder="Filter by Agenda or Ref...">
+            </div>
+          </div>
+
+          <!-- Reset Filters Button -->
+          <div class="col-lg-1 col-md-4 text-md-end">
+            <button type="button" class="btn btn-reset-filters btn-sm w-100" id="btnResetFilters"
+              title="Reset all filters">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+            </button>
+          </div>
+        </div>
+      </div>
       <!-- ==================================================================
            MANCOM DOCUMENTS ARCHIVE & REPOSITORY TABLE WITH BOOTSTRAP DATATABLE
            Features:
@@ -293,72 +293,24 @@
         <!-- Controls Header: Title and Filter Dropdowns -->
         <div class="library-controls-header">
           <div class="library-title">
-            <h3><i class="bi bi-folder2 me-2 text-success"></i>MANCOM Document Repository</h3>
+            <h3 id="libraryTitleSubject"><i class="bi bi-folder2 me-2 text-success"></i><span
+                id="librarySubjectText">Meeting Subject</span></h3>
             <p>Access, preview, and download official Management Committee signed papers and memos</p>
           </div>
 
-          <!-- Secondary Filter Tools / Status Badge -->
-          <div class="library-filter-tools">
-            <span
-              class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
-              <i class="bi bi-folder-check me-1"></i>Official Repository
-            </span>
-          </div>
-        </div>
-
-        <!-- ==================================================================
-             DOCUMENT REPOSITORY FILTERS
-             Filter by Meeting Subject, Division, and Agenda / Reference
-             ================================================================== -->
-        <div class="repository-filter-card mt-4">
-          <div class="row g-3 align-items-end">
-            <!-- Filter 1: Meeting Subject -->
-            <div class="col-lg-4 col-md-6">
-              <label for="filterMeetingSubject" class="form-label text-secondary mb-2">
-                <i class="bi bi-calendar-event me-1 text-success"></i>Meeting Subject
-              </label>
-              <select class="form-select form-select-sm filter-select" id="filterMeetingSubject">
-                <option value="" selected>All Meeting Subjects</option>
-              </select>
+          <!-- Upload Agenda Uploaded File Section (From Create Schedule) -->
+          <div class="meeting-agenda-attachment mt-1" id="headerAgendaAttachment"
+            title="Official Upload Agenda Working Paper">
+            <i class="bi bi-file-earmark-pdf-fill text-danger fs-5" id="headerAgendaIcon"></i>
+            <div class="d-flex flex-column text-start">
+              <span class="agenda-file-title" id="headerAgendaFileName" onclick="window.previewHeaderAgenda()"
+                title="Click to preview Upload Agenda">MANCOM-2026-M14-Minutes-Signed.pdf</span>
+              <span class="agenda-file-size" id="headerAgendaFileSize">Upload Agenda • 3.8 MB</span>
             </div>
-
-            <!-- Filter 2: Division -->
-            <div class="col-lg-4 col-md-6">
-              <label for="filterDivision" class="form-label text-secondary mb-2">
-                <i class="bi bi-building me-1 text-success"></i>Division
-              </label>
-              <select class="form-select form-select-sm filter-select" id="filterDivision">
-                <option value="" selected>All Divisions</option>
-                <option value="Human Resources Division">Human Resources Division</option>
-                <option value="Credit Division">Credit Division</option>
-                <option value="Information Technology Division">Information Technology Division</option>
-                <option value="Finance & Accounts Division">Finance & Accounts Division</option>
-                <option value="Internal Audit & Risk Division">Internal Audit & Risk Division</option>
-                <option value="Recovery Division">Recovery Division</option>
-              </select>
-            </div>
-
-            <!-- Filter 3: Agenda / Reference -->
-            <div class="col-lg-3 col-md-8">
-              <label for="filterAgenda" class="form-label text-secondary mb-2">
-                <i class="bi bi-file-earmark-text me-1 text-success"></i>Agenda / Reference
-              </label>
-              <div class="input-group input-group-sm">
-                <span class="input-group-text">
-                  <i class="bi bi-search"></i>
-                </span>
-                <input type="text" class="form-control filter-input" id="filterAgenda"
-                  placeholder="Filter by Agenda or Ref...">
-              </div>
-            </div>
-
-            <!-- Reset Filters Button -->
-            <div class="col-lg-1 col-md-4 text-md-end">
-              <button type="button" class="btn btn-reset-filters btn-sm w-100" id="btnResetFilters"
-                title="Reset all filters">
-                <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
-              </button>
-            </div>
+            <button type="button" class="agenda-download-btn ms-2" id="headerAgendaDownloadBtn"
+              onclick="window.downloadHeaderAgenda()" title="Download Upload Agenda File">
+              <i class="bi bi-download fs-6"></i>
+            </button>
           </div>
         </div>
 
@@ -651,6 +603,17 @@
           return;
         }
 
+        // Retrieve scheduled meetings and uploaded agenda staged data for lookup
+        let scheduledMeetings = [];
+        try {
+          scheduledMeetings = JSON.parse(localStorage.getItem('mancom_meetings_records') || '[]');
+        } catch (e) { scheduledMeetings = []; }
+
+        let stagedAgenda = null;
+        try {
+          stagedAgenda = JSON.parse(localStorage.getItem('mancom_uploaded_agenda_file') || 'null');
+        } catch (e) { stagedAgenda = null; }
+
         tbody.innerHTML = docs.map(doc => {
           const fileName = doc.fileName || doc.agendaWiseFileName || 'Attached-Document.pdf';
           const fileSize = doc.fileSize || doc.agendaWiseFileSize || 'Ready';
@@ -668,11 +631,6 @@
               <td>
                 <div class="meeting-subject-cell">
                   <span class="meeting-subject-title text-dark fw-semibold d-block">${escapeHtml(doc.subject)}</span>
-                  <div class="meeting-subject-sub mt-1">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill" style="font-size: 10.5px;">
-                      <i class="bi bi-check-circle-fill me-1"></i>Official MANCOM
-                    </span>
-                  </div>
                 </div>
               </td>
 
@@ -840,6 +798,53 @@
       };
 
       /**
+       * Downloads any file given its url and filename (e.g. Upload Agenda attachment)
+       */
+      window.downloadFile = function (fileUrl, fileName) {
+        const link = document.createElement('a');
+        link.href = fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+        link.download = fileName || 'MANCOM-Agenda-Paper.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        notify(`Downloaded "${fileName || 'Document'}" successfully.`, true);
+      };
+
+      /**
+       * Opens interactive PDF preview modal for attached Upload Agenda document
+       */
+      window.previewAgendaFile = function (fileUrl, fileName, subject) {
+        const modalEl = document.getElementById('pdfViewerModal');
+        if (!modalEl) return;
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+        const titleEl = document.getElementById('pdfModalTitle');
+        const badgeEl = document.getElementById('pdfModalBadge');
+        const frameEl = document.getElementById('pdfViewerFrame');
+        const downloadBtn = document.getElementById('btnModalDownload');
+
+        const currentName = fileName || 'MANCOM-Agenda-Paper.pdf';
+        const currentUrl = fileUrl || 'assets/documents/MANCOM-2026-M14-Minutes-Signed.pdf';
+
+        if (titleEl) titleEl.textContent = `${subject || 'MANCOM Meeting'} - ${currentName}`;
+        if (badgeEl) {
+          badgeEl.className = 'badge-classification internal';
+          badgeEl.innerHTML = '<i class="bi bi-file-earmark-pdf-fill me-1"></i>Official Uploaded Agenda';
+        }
+        if (frameEl) {
+          frameEl.src = currentUrl;
+        }
+
+        if (downloadBtn) {
+          downloadBtn.onclick = function () {
+            window.downloadFile(currentUrl, currentName);
+          };
+        }
+
+        modal.show();
+      };
+
+      /**
        * Deletes a feedback document record from repository
        */
       window.deleteRepoDoc = function (id) {
@@ -895,19 +900,95 @@
       }
 
       // ======================================================================
+      // HEADER UPLOADED AGENDA COMPONENT CONTROLLER
+      // Dynamically updates the Upload Agenda attachment widget in library-controls-header
+      // ======================================================================
+      function updateHeaderAgenda() {
+        let uploadedAgenda = null;
+        try {
+          const staged = localStorage.getItem('mancom_uploaded_agenda_file');
+          if (staged) uploadedAgenda = JSON.parse(staged);
+        } catch (e) { }
+
+        let latestSchedule = null;
+        try {
+          const sched = localStorage.getItem('mancom_latest_schedule');
+          if (sched) latestSchedule = JSON.parse(sched);
+        } catch (e) { }
+
+        let scheduledRecords = [];
+        try {
+          scheduledRecords = JSON.parse(localStorage.getItem('mancom_meetings_records') || '[]');
+        } catch (e) { }
+
+        let activeAgenda = null;
+        if (uploadedAgenda && uploadedAgenda.fileName) {
+          activeAgenda = uploadedAgenda;
+        } else if (latestSchedule && latestSchedule.fileName) {
+          activeAgenda = latestSchedule;
+        } else if (scheduledRecords.length > 0 && scheduledRecords[0].fileName) {
+          activeAgenda = scheduledRecords[0];
+        }
+
+        const fileName = (activeAgenda && activeAgenda.fileName) || 'MANCOM-2026-M14-Minutes-Signed.pdf';
+        const fileSize = (activeAgenda && activeAgenda.fileSize) || '3.8 MB';
+        const fileUrl = (activeAgenda && activeAgenda.fileUrl) || ('assets/documents/' + fileName);
+        const subject = (activeAgenda && activeAgenda.subject) || 'Official MANCOM Meeting';
+
+        const nameEl = document.getElementById('headerAgendaFileName');
+        const sizeEl = document.getElementById('headerAgendaFileSize');
+        const iconEl = document.getElementById('headerAgendaIcon');
+        const subjectEl = document.getElementById('librarySubjectText');
+
+        if (subjectEl) {
+          subjectEl.textContent = subject || 'Meeting Subject';
+        }
+
+        if (nameEl) {
+          nameEl.textContent = fileName;
+          nameEl.title = `Click to preview Upload Agenda: ${fileName}`;
+        }
+        if (sizeEl) {
+          sizeEl.textContent = `Upload Agenda • ${fileSize}`;
+        }
+        if (iconEl) {
+          const lower = fileName.toLowerCase();
+          if (lower.endsWith('.docx')) {
+            iconEl.className = 'bi bi-file-earmark-word-fill text-primary fs-5';
+          } else if (lower.endsWith('.pptx')) {
+            iconEl.className = 'bi bi-file-earmark-ppt-fill text-warning fs-5';
+          } else {
+            iconEl.className = 'bi bi-file-earmark-pdf-fill text-danger fs-5';
+          }
+        }
+
+        window.previewHeaderAgenda = function () {
+          window.previewAgendaFile(fileUrl, fileName, subject);
+        };
+
+        window.downloadHeaderAgenda = function () {
+          window.downloadFile(fileUrl, fileName);
+        };
+      }
+
+      // ======================================================================
       // REAL-TIME CROSS-TAB STORAGE SYNCHRONIZATION
-      // Automatically re-loads the table whenever FeedbackSubmission is submitted
+      // Automatically re-loads the table whenever Feedback or Schedule updates
       // ======================================================================
       window.addEventListener('storage', (e) => {
         if (e.key === 'mancom_feedback_submissions' ||
           e.key === 'mancom_documents_records' ||
-          e.key === 'mancom_latest_feedback_submitted') {
+          e.key === 'mancom_latest_feedback_submitted' ||
+          e.key === 'mancom_meetings_records' ||
+          e.key === 'mancom_uploaded_agenda_file') {
           renderDocumentsTable();
+          updateHeaderAgenda();
         }
       });
 
-      // Initial table render
+      // Initial table render & header agenda setup
       renderDocumentsTable();
+      updateHeaderAgenda();
     });
   </script>
 </body>

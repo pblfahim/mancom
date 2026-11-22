@@ -64,51 +64,6 @@
         </span>
       </button>
 
-      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
-      <div class="dropdown">
-        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
-          title="Switch User Role (HRD Secretariat / Division User)">
-          <i class="bi bi-person-gear"></i>
-          <span class="role-badge-text fw-semibold" id="navRoleBadge">Division User</span>
-          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
-          aria-labelledby="roleSwitcherBtn">
-          <li class="dropdown-header pb-1">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
-              Mode</small>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
-              onclick="window.switchRole('hrd', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
-                  User</span>
-                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
-                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
-                  Documents</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd" style="display: none;"></i>
-            </button>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division active-role"
-              onclick="window.switchRole('division', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
-                  Branch User</span>
-                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
-                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
-                  (Only)</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-primary ms-2 check-division"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,17 +86,6 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="dropdown-header">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
-          </li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
-                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
-                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -292,14 +236,9 @@
         <!-- Controls Header: Meaningful Title and Status Badge -->
         <div class="library-controls-header">
           <div class="library-title">
-            <h3><i class="bi bi-chat-square-quote me-2 text-success"></i>MANCOM Committee Feedback Submission</h3>
+            <h3 id="feedbackTitleSubject"><i class="bi bi-chat-square-quote me-2 text-success"></i><span
+                id="feedbackSubjectText">Meeting Subject</span></h3>
             <p>Submit divisional observations, remarks, and signed working papers for active committee meetings</p>
-          </div>
-          <div class="library-filter-tools">
-            <span
-              class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-medium">
-              <i class="bi bi-shield-check me-1"></i>Official Submission
-            </span>
           </div>
         </div>
 
@@ -1151,10 +1090,14 @@
           (latestSchedule && latestSchedule.subject);
 
         let agendaToDisplay = null;
+        const feedbackHeaderSubjectEl = document.getElementById('feedbackSubjectText');
 
         if (activeSubject && activeSubject.trim()) {
           const trimmed = activeSubject.trim();
           meetingSubjectInput.value = trimmed;
+          if (feedbackHeaderSubjectEl) {
+            feedbackHeaderSubjectEl.textContent = trimmed;
+          }
 
           // Find matching meeting record to get its uploaded agenda file
           const matched = scheduledRecords.find(m => m.subject.toLowerCase() === trimmed.toLowerCase());
@@ -1212,6 +1155,9 @@
 
       // Listen for manual meeting subject input change
       meetingSubjectInput.addEventListener('input', () => {
+        if (feedbackHeaderSubjectEl) {
+          feedbackHeaderSubjectEl.textContent = meetingSubjectInput.value.trim() || 'Meeting Subject';
+        }
         const val = meetingSubjectInput.value.trim().toLowerCase();
         let scheduledRecords = [];
         try {
@@ -1332,6 +1278,8 @@
             agendaWiseFileName: currentAgendaWiseFile.name,
             agendaWiseFileSize: formatSize(currentAgendaWiseFile.size),
             scheduledAgendaFileName: activeAgenda ? activeAgenda.fileName : null,
+            scheduledAgendaFileSize: activeAgenda ? (activeAgenda.fileSize || '3.8 MB') : null,
+            scheduledAgendaFileUrl: activeAgenda ? (activeAgenda.fileUrl || ('assets/documents/' + activeAgenda.fileName)) : null,
             submittedBy: profileName,
             submittedAt: formattedSubmitTime,
             status: 'Submitted'

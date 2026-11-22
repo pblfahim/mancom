@@ -524,257 +524,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // ROLE-BASED ACCESS CONTROL (RBAC) ENGINE
-    // User 1: HRD -> Allowed: Create Schedule (create-schedule.html) & Documents (documents.html)
-    // User 2: Division / Branch -> Allowed: Feedback Submission (FeedbackSubmission.html) ONLY
+    // USER PROFILE & NAVIGATION CONTROLLER
     // ==========================================================================
-    const ROLE_CONFIGS = {
-      hrd: {
-        id: 'hrd',
-        name: 'Md. Fahim',
-        badge: 'HRD',
-        navBadge: 'HRD User',
-        title: 'Senior Officer (Human Resources Division)',
-        sidebarRole: 'Senior Officer (HRD)',
-        division: 'Human Resources Division (HRD)',
-        homeUrl: 'create-schedule.html',
-        allowedPages: ['create-schedule.html', 'documents.html']
-      },
-      division: {
-        id: 'division',
-        name: 'Kazi Farhan',
-        badge: 'Division/Branch',
-        navBadge: 'Division/Branch User',
-        title: 'Senior Principal Officer (Division / Branch)',
-        sidebarRole: 'Senior Principal Officer',
-        division: 'Credit Division / Branch Operations',
-        homeUrl: 'FeedbackSubmission.html',
-        allowedPages: ['FeedbackSubmission.html']
-      }
+    const USER_CONFIG = {
+      name: 'Md. Fahim',
+      badge: 'HRD',
+      title: 'Senior Officer (Human Resources Division)',
+      sidebarRole: 'Senior Officer (HRD)',
+      division: 'Human Resources Division (HRD)'
     };
 
     /**
-     * Returns current active role ('hrd' or 'division')
+     * Updates all UI elements across navbar, sidebar, and subheaders
      */
-    function getCurrentRole() {
-      const stored = localStorage.getItem('mancom_user_role');
-      if (stored === 'hrd' || stored === 'division') {
-        return stored;
-      }
-      // Determine sensible default from current page
-      const page = (window.location.pathname.split('/').pop() || '').toLowerCase();
-      if (page.includes('feedbacksubmission')) {
-        return 'division';
-      }
-      return 'hrd';
-    }
-
-    /**
-     * Updates all UI elements across navbar, sidebar, and subheaders for current role
-     */
-    function updateRoleUI(role) {
-      const config = ROLE_CONFIGS[role] || ROLE_CONFIGS.hrd;
-      const isHRD = role === 'hrd';
-
-      // 1. Navbar Profile Text & Role Badge
-      document.querySelectorAll('.user-name').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.user-role').forEach(el => el.textContent = config.badge);
-      document.querySelectorAll('#navRoleBadge').forEach(el => {
-        el.textContent = config.navBadge;
-      });
+    function updateProfileUI() {
+      // 1. Navbar Profile Text
+      document.querySelectorAll('.user-name').forEach(el => el.textContent = USER_CONFIG.name);
+      document.querySelectorAll('.user-role').forEach(el => el.textContent = USER_CONFIG.badge);
 
       // 2. Dropdown Header
-      document.querySelectorAll('.dropdown-header h6').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.dropdown-header small').forEach(el => el.textContent = config.title);
+      document.querySelectorAll('.dropdown-header h6').forEach(el => el.textContent = USER_CONFIG.name);
+      document.querySelectorAll('.dropdown-header small').forEach(el => el.textContent = USER_CONFIG.title);
 
       // 3. Sidebar Profile Card
-      document.querySelectorAll('.sidebar-user-name').forEach(el => el.textContent = config.name);
-      document.querySelectorAll('.sidebar-user-role').forEach(el => el.textContent = config.sidebarRole);
+      document.querySelectorAll('.sidebar-user-name').forEach(el => el.textContent = USER_CONFIG.name);
+      document.querySelectorAll('.sidebar-user-role').forEach(el => el.textContent = USER_CONFIG.sidebarRole);
 
       // 4. Page Subheader Text
       document.querySelectorAll('.portal-subtitle').forEach(el => {
-        el.textContent = isHRD
-          ? 'Pubali Bank PLC · HRD Secretariat: Authorized for Create Schedule & Documents'
-          : 'Pubali Bank PLC · Division / Branch Portal: Authorized for Feedback Submission';
+        el.textContent = 'Pubali Bank PLC · Management Committee (MANCOM) Portal';
       });
 
-      // 5. Active checkmarks in role switcher dropdowns
-      document.querySelectorAll('.check-hrd').forEach(el => el.style.display = isHRD ? 'inline-block' : 'none');
-      document.querySelectorAll('.check-division').forEach(el => el.style.display = !isHRD ? 'inline-block' : 'none');
-      document.querySelectorAll('.role-btn-hrd').forEach(el => el.classList.toggle('active-role', isHRD));
-      document.querySelectorAll('.role-btn-division').forEach(el => el.classList.toggle('active-role', !isHRD));
-
-      // 6. Subnavigation breadcrumb row visibility
-      // For HRD: Show Create Schedule and Documents; Hide Feedback Submission
-      // For Division/Branch: Show Feedback Submission ONLY; Hide Create Schedule and Documents
+      // 5. Subnavigation breadcrumb row visibility - all links visible
       document.querySelectorAll('.breadcrumb-nav-row').forEach(row => {
-        const scheduleLinks = row.querySelectorAll('a[href*="create-schedule.html"]');
-        const docLinks = row.querySelectorAll('a[href*="documents.html"]');
-        const feedbackLinks = row.querySelectorAll('a[href*="FeedbackSubmission.html"]');
-
-        if (isHRD) {
-          scheduleLinks.forEach(link => link.style.setProperty('display', 'inline-flex', 'important'));
-          docLinks.forEach(link => link.style.setProperty('display', 'inline-flex', 'important'));
-          feedbackLinks.forEach(link => link.style.setProperty('display', 'none', 'important'));
-        } else {
-          scheduleLinks.forEach(link => link.style.setProperty('display', 'none', 'important'));
-          docLinks.forEach(link => link.style.setProperty('display', 'none', 'important'));
-          feedbackLinks.forEach(link => link.style.setProperty('display', 'inline-flex', 'important'));
-        }
+        row.querySelectorAll('a').forEach(link => {
+          link.style.setProperty('display', 'inline-flex', 'important');
+        });
       });
-
-      // 7. Sidebar MANCOM link routing based on active role
-      document.querySelectorAll('.sidebar-nav-link.active-mancom, a[href="index.html"].sidebar-nav-link').forEach(link => {
-        link.href = isHRD ? 'create-schedule.html' : 'FeedbackSubmission.html';
-      });
-
-      // 8. Dashboard index.html cards (if on dashboard)
-      const hrdModules = document.querySelectorAll('.dashboard-hrd-module');
-      const divisionModules = document.querySelectorAll('.dashboard-division-module');
-      hrdModules.forEach(el => el.style.display = isHRD ? 'block' : 'none');
-      divisionModules.forEach(el => el.style.display = isHRD ? 'none' : 'block');
     }
 
-    /**
-     * Enforces page access rules:
-     * - HRD user: create-schedule.html & documents.html allowed; FeedbackSubmission.html restricted
-     * - Division/Branch user: FeedbackSubmission.html allowed; create-schedule.html & documents.html restricted
-     */
-    function enforcePagePermissions(role) {
-      const page = (window.location.pathname.split('/').pop() || '').toLowerCase();
-      const isHRD = role === 'hrd';
+    // Safe fallback for window.switchRole
+    window.switchRole = function () {};
 
-      const isSchedulePage = page.includes('create-schedule');
-      const isDocsPage = page.includes('documents');
-      const isFeedbackPage = page.includes('feedbacksubmission');
-
-      // Remove existing restricted card if any
-      const existingRestricted = document.getElementById('roleRestrictedCard');
-      if (existingRestricted) {
-        existingRestricted.remove();
-      }
-
-      // Restore page content visibility by default
-      const contentElements = document.querySelectorAll('.schedule-card, .card-documents-library, .feedback-card, .content-card, #scheduledMeetingsSection');
-      contentElements.forEach(el => el.style.display = '');
-
-      if (!isHRD && (isSchedulePage || isDocsPage)) {
-        // Division/Branch user trying to view HRD pages (create-schedule or documents)
-        contentElements.forEach(el => el.style.display = 'none');
-
-        const pageName = isSchedulePage ? 'Create Meeting Schedule' : 'Document Repository';
-        const container = document.querySelector('.portal-main-content') || document.querySelector('.portal-content') || document.body;
-        const subnav = container.querySelector('.breadcrumb-nav-row');
-
-        const card = document.createElement('div');
-        card.id = 'roleRestrictedCard';
-        card.className = 'card border-0 shadow-sm p-4 p-md-5 text-center my-4';
-        card.style.backgroundColor = 'var(--bg-surface)';
-        card.style.borderRadius = '14px';
-        card.innerHTML = `
-        <div class="mb-3">
-          <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 76px; height: 76px; background-color: rgba(239, 68, 68, 0.12); color: #dc3545;">
-            <i class="bi bi-shield-lock-fill fs-1"></i>
-          </span>
-        </div>
-        <h3 class="fw-bold mb-2 text-dark">Access Restricted: HRD User Only</h3>
-        <p class="text-secondary mx-auto mb-4" style="max-width: 580px; font-size: 14px;">
-          This page (<strong>${pageName}</strong>) is accessible exclusively to <strong>Human Resources Division (HRD)</strong> users. As a <strong>Division / Branch User</strong>, your designated workspace is <strong>Feedback Submission</strong> only.
-        </p>
-        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-          <button type="button" class="btn btn-outline-success px-4 py-2 fw-semibold" onclick="window.switchRole('hrd', false)">
-            <i class="bi bi-shield-check me-1"></i>Switch to HRD User
-          </button>
-          <a href="FeedbackSubmission.html" class="btn btn-success px-4 py-2 fw-semibold" style="background-color: var(--pubali-green, #2a633a);">
-            <i class="bi bi-chat-square-quote me-1"></i>Go to Feedback Submission
-          </a>
-        </div>
-      `;
-        const targetSubheader = document.querySelector('.page-subheader');
-        if (subnav && subnav.nextElementSibling) {
-          subnav.parentNode.insertBefore(card, subnav.nextElementSibling);
-        } else if (targetSubheader && targetSubheader.nextElementSibling) {
-          targetSubheader.parentNode.insertBefore(card, targetSubheader.nextElementSibling);
-        } else {
-          container.appendChild(card);
-        }
-      } else if (isHRD && isFeedbackPage) {
-        // HRD user trying to view Division/Branch Feedback page
-        contentElements.forEach(el => el.style.display = 'none');
-
-        const container = document.querySelector('.portal-main-content') || document.querySelector('.portal-content') || document.body;
-        const subnav = container.querySelector('.breadcrumb-nav-row');
-
-        const card = document.createElement('div');
-        card.id = 'roleRestrictedCard';
-        card.className = 'card border-0 shadow-sm p-4 p-md-5 text-center my-4';
-        card.style.backgroundColor = 'var(--bg-surface)';
-        card.style.borderRadius = '14px';
-        card.innerHTML = `
-        <div class="mb-3">
-          <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 76px; height: 76px; background-color: rgba(13, 110, 253, 0.12); color: #0d6efd;">
-            <i class="bi bi-person-badge-fill fs-1"></i>
-          </span>
-        </div>
-        <h3 class="fw-bold mb-2 text-dark">Division / Branch Portal: Feedback Submission</h3>
-        <p class="text-secondary mx-auto mb-4" style="max-width: 580px; font-size: 14px;">
-          <strong>Feedback Submission</strong> is designated for <strong>Division / Branch Users</strong> to submit observations on MANCOM meeting agendas. You are currently signed in as <strong>HRD User (Md. Fahim)</strong>.
-        </p>
-        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-          <button type="button" class="btn btn-primary px-4 py-2 fw-semibold" onclick="window.switchRole('division', false)">
-            <i class="bi bi-person-check me-1"></i>Switch to Division/Branch User
-          </button>
-          <a href="create-schedule.html" class="btn btn-outline-success px-4 py-2 fw-semibold">
-            <i class="bi bi-calendar-plus me-1"></i>Go to Create Schedule
-          </a>
-          <a href="documents.html" class="btn btn-outline-secondary px-4 py-2 fw-semibold">
-            <i class="bi bi-file-earmark-text me-1"></i>Go to Documents
-          </a>
-        </div>
-      `;
-        const targetSubheader = document.querySelector('.page-subheader');
-        if (subnav && subnav.nextElementSibling) {
-          subnav.parentNode.insertBefore(card, subnav.nextElementSibling);
-        } else if (targetSubheader && targetSubheader.nextElementSibling) {
-          targetSubheader.parentNode.insertBefore(card, targetSubheader.nextElementSibling);
-        } else {
-          container.appendChild(card);
-        }
-      }
-    }
-
-    /**
-     * Global Switch Role function
-     */
-    window.switchRole = function (newRole, redirect = true) {
-      localStorage.setItem('mancom_user_role', newRole);
-      updateRoleUI(newRole);
-
-      const page = (window.location.pathname.split('/').pop() || '').toLowerCase();
-      const isHRD = newRole === 'hrd';
-
-      if (redirect) {
-        if (isHRD && page.includes('feedbacksubmission')) {
-          window.location.href = 'create-schedule.html';
-          return;
-        } else if (!isHRD && (page.includes('create-schedule') || page.includes('documents'))) {
-          window.location.href = 'FeedbackSubmission.html';
-          return;
-        }
-      }
-
-      enforcePagePermissions(newRole);
-
-      const roleName = isHRD ? 'HRD User (Md. Fahim)' : 'Division / Branch User (Kazi Farhan)';
-      if (typeof showToast === 'function') {
-        showToast(`Switched active role to: ${roleName}`, true);
-      }
-    };
-
-    // Run initial role enforcement
-    const initialRole = getCurrentRole();
-    updateRoleUI(initialRole);
-    enforcePagePermissions(initialRole);
+    // Run initial UI setup
+    updateProfileUI();
 
     // Initialize
     renderDocumentsTable();

@@ -65,51 +65,6 @@
         </span>
       </button>
 
-      <!-- Interactive Role Switcher Pill (HRD vs Division) -->
-      <div class="dropdown">
-        <button class="nav-icon-btn role-badge-btn" id="roleSwitcherBtn" data-bs-toggle="dropdown" aria-expanded="false"
-          title="Switch User Role (HRD Secretariat / Division User)">
-          <i class="bi bi-person-gear"></i>
-          <span class="role-badge-text fw-semibold" id="navRoleBadge">HRD User</span>
-          <i class="bi bi-chevron-down" style="font-size: 10px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0 role-dropdown-menu"
-          aria-labelledby="roleSwitcherBtn">
-          <li class="dropdown-header pb-1">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px; letter-spacing: 0.5px;">Active Role
-              Mode</small>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-hrd"
-              onclick="window.switchRole('hrd', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-shield-lock-fill me-2 text-success"></i>HRD
-                  User</span>
-                <small class="text-muted d-block">Md. Fahim · HRD Secretariat</small>
-                <small class="text-success d-block" style="font-size: 10.5px;">Access: Create Schedule &
-                  Documents</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-success ms-2 check-hrd"></i>
-            </button>
-          </li>
-          <li>
-            <button type="button"
-              class="dropdown-item d-flex align-items-center justify-content-between py-2 role-btn-division"
-              onclick="window.switchRole('division', true)">
-              <div>
-                <span class="fw-semibold text-dark d-block"><i class="bi bi-building me-2 text-primary"></i>Division /
-                  Branch User</span>
-                <small class="text-muted d-block">Kazi Farhan · Division / Branch</small>
-                <small class="text-primary d-block" style="font-size: 10.5px;">Access: Feedback Submission
-                  (Only)</small>
-              </div>
-              <i class="bi bi-check-circle-fill text-primary ms-2 check-division" style="display: none;"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-
       <!-- User Profile Dropdown Pill (Md. Fahim / HRD) -->
       <div class="dropdown">
         <a href="#" class="user-profile-pill" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -132,17 +87,6 @@
           <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check me-2 text-primary"></i> MANCOM
               Permissions</a></li>
           <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-secondary"></i> System Preferences</a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li class="dropdown-header">
-            <small class="text-uppercase text-muted fw-bold" style="font-size: 10px;">Switch User Role</small>
-          </li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('hrd', true)"><i
-                class="bi bi-shield-check me-2 text-success"></i> HRD User (Create Schedule & Documents)</a></li>
-          <li><a class="dropdown-item" href="#" onclick="window.switchRole('division', true)"><i
-                class="bi bi-person-badge me-2 text-primary"></i> Division / Branch User (Feedback Submission Only)</a>
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -313,7 +257,6 @@
                       <label for="meetingSubject" class="schedule-label mb-0">
                         Meeting Subject <span class="required-star">*</span>
                       </label>
-                      <span class="text-muted" style="font-size: 11px;">Session Title</span>
                     </div>
                     <div class="schedule-input-wrapper">
                       <input type="text" class="schedule-input" id="meetingSubject" name="meetingSubject" value=""
@@ -372,7 +315,6 @@
                       <label for="meetingLocation" class="schedule-label mb-0">
                         Location / Venue <span class="required-star">*</span>
                       </label>
-                      <span class="text-muted" style="font-size: 11px;">Select or type</span>
                     </div>
                     <div class="schedule-input-wrapper">
                       <input type="text" class="schedule-input" id="meetingLocation" name="meetingLocation" value=""
@@ -381,12 +323,6 @@
                         <i class="bi bi-geo-alt-fill text-danger"></i>
                       </span>
                     </div>
-                    <datalist id="locationSuggestions">
-                      <option value="Board Room, 14th Floor (Head Office)">
-                      <option value="Credit Conference Room (3rd Floor)">
-                      <option value="Executive Committee Hall">
-                      <option value="Virtual MS Teams / Zoom Conference">
-                    </datalist>
                   </div>
                 </div>
               </div>
@@ -713,8 +649,17 @@
       let currentFileBlobUrl = null;
 
       // Track active subject in localStorage for real-time synchronization with Feedback page
+      const headerSubjectEl = document.getElementById('scheduleSubjectText');
+      const initialSub = localStorage.getItem('mancom_active_meeting_subject') || localStorage.getItem('mancom_latest_meeting_subject');
+      if (initialSub && headerSubjectEl) {
+        headerSubjectEl.textContent = initialSub;
+      }
+
       subjectInput.addEventListener('input', () => {
         const val = subjectInput.value.trim();
+        if (headerSubjectEl) {
+          headerSubjectEl.textContent = val || 'Meeting Subject';
+        }
         if (val) {
           localStorage.setItem('mancom_active_meeting_subject', val);
           localStorage.setItem('mancom_latest_meeting_subject', val);
@@ -1595,11 +1540,6 @@
             <td>
               <div class="meeting-subject-cell">
                 <span class="meeting-subject-title text-dark">${escapeHtml(m.subject)}</span>
-                <div class="meeting-subject-sub">
-                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-0.5 rounded-pill" style="font-size: 11px;">
-                    <i class="bi bi-check-circle-fill me-1"></i>Scheduled
-                  </span>
-                </div>
               </div>
             </td>
             <td>
